@@ -1,0 +1,4 @@
+export const TENANT_FINDALL = "TENANT_FINDALL"
+export const TENANT_FILTER = "TENANT_FILTER"
+export const TENANT_SAVE = "TENANT_SAVE"
+export const TENANT_EDIT = "TENANT_EDIT"

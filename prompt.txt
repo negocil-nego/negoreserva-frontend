@@ -1,0 +1,17 @@
+Irás implementar em este método para alterar a senha do usuário, seguindo a lógica que esta
+podes se basear na construção do hook (useUserEdit \src\lib\feature\shared\user\data\hooks\use-user-edit.ts)
+Cria as interfaces e tipos necessários para a implementação deste método nos repositório, servico e contratos
+
+O hook é useUserResetPasswordCurrent cria em "src\lib\feature\shared\user"
+E este hook é para ser implementado em "src\lib\feature\org\organization\ui\tabs\security-profile-section.svelte"
+
+Grapql
+input UserResetPasswordCurrentRequest {
+    current: String
+    password: String
+    confirm: String
+}
+
+extend type Mutation {
+    userRestPassword(request: UserResetPasswordCurrentRequest): UserResponse
+}
