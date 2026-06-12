@@ -6,6 +6,8 @@ import { browser } from "$app/environment";
 import { redirectToLogin } from "$lib/data/utils";
 import { USER_AUTH_TOKEN_KEY } from "$lib/data/variables";
 
+const GRAPHQL_ENDPOINT = `${PUBLIC_APP_URL}/graphql`;
+
 const errorLink = new ErrorLink(({ error }) => {
   if (CombinedGraphQLErrors.is(error)) {
     for (const graphQLError of error.errors) {
@@ -33,7 +35,7 @@ const authLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const httpLink = new HttpLink({ uri: `${PUBLIC_APP_URL}/graphql` });
+const httpLink = new HttpLink({ uri: GRAPHQL_ENDPOINT });
 
 export const apolloClient = new ApolloClient({
   link: ApolloLink.from([errorLink, authLink, httpLink]),
