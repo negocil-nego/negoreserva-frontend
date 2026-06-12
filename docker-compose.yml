@@ -1,0 +1,11 @@
+services:
+  negoreserva:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: negoreserva-web
+    env_file:
+      - .env.local
+    ports:
+      - "5174:5173"
+    restart: always
