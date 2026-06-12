@@ -23,7 +23,7 @@
     } = $props();
 
     let selectedFile = $state<File | null>(null);
-    let preview = $state<string | null>(value ?? null);
+    let preview = $state<string | null>(null);
     let inputRef = $state<HTMLInputElement | null>(null);
 
     function handleFileSelect(e: Event) {

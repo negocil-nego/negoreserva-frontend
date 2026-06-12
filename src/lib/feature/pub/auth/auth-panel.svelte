@@ -19,9 +19,9 @@
     breadcrumb?: Snippet;
   }>();
 
-  let numbers = items?.length
+  let numbers = $derived(items?.length
     ? Array.from({ length: items.length }, (_, i) => i + 1)
-    : [];
+    : []);
 </script>
 
 <div class="grid lg:grid-cols-2">

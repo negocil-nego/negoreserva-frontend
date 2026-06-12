@@ -22,22 +22,27 @@
     {
       name: "Facebook",
       src: "https://img.icons8.com/ios-glyphs/30/9ca3af/facebook-new.png",
+      href: "https://www.facebook.com/",
     },
     {
       name: "Instagram",
       src: "https://img.icons8.com/ios-glyphs/30/9ca3af/instagram-new.png",
+      href: "https://www.instagram.com/",
     },
     {
       name: "X",
       src: "https://img.icons8.com/ios-glyphs/30/9ca3af/twitterx--v2.png",
+      href: "https://x.com/",
     },
     {
       name: "GitHub",
       src: "https://img.icons8.com/ios-glyphs/30/9ca3af/github.png",
+      href: "https://github.com/",
     },
     {
       name: "YouTube",
       src: "https://img.icons8.com/ios-glyphs/30/9ca3af/youtube-play.png",
+      href: "https://www.youtube.com/",
     },
   ];
 </script>
@@ -94,14 +99,13 @@
 
       <div class="flex gap-6">
         {#each socialIcons as icon (icon.name)}
-          <a
-            href="#"
-            rel="noopener noreferrer"
+          <span
+            role="img"
             aria-label={icon.name}
             class="opacity-80 hover:opacity-100 transition-opacity"
           >
             <img src={icon.src} alt={icon.name} class="w-6 h-6" />
-          </a>
+          </span>
         {/each}
       </div>
     </div>

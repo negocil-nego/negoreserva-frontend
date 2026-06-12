@@ -2,3 +2,5 @@ npm install svelte-apollo @apollo/client graphql
 
 npm install @apollo/client graphql rxjs
 npm install @apollo/client graphql
+
+docker build -t negoreserva-web .

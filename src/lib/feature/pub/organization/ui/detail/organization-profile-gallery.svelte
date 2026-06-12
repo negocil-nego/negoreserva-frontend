@@ -37,11 +37,12 @@
 
     {#if data.video}
       <div class="rounded-lg border border-border overflow-hidden">
+        <!-- svelte-ignore a11y_media_has_caption -->
         <video
           src={data.video}
           controls
           class="w-full h-48 object-cover"
-        />
+        ></video>
         <div class="p-2 text-xs text-muted-foreground bg-muted">Vídeo</div>
       </div>
     {/if}

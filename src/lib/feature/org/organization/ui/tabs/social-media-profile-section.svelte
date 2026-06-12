@@ -15,7 +15,7 @@
 
   const social = $derived(data.socialMedia);
 
-  const editSocialMedia = async (field: string, value: string) => {
+  const editSocialMedia = async (field: keyof OrganizationSocialMediaEditRequest, value: string) => {
     if (isLoading) return;
     const request: OrganizationSocialMediaEditRequest = {
       facebook: social?.facebook ?? undefined,

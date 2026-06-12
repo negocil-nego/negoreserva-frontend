@@ -90,7 +90,7 @@
     }
   };
 
-  const columns: ColumnDef<OrgPaymentResponse>[] = [
+  let columns = $derived<ColumnDef<OrgPaymentResponse>[]>([
     {
       id: "select",
       header: ({ table }) =>
@@ -160,7 +160,7 @@
           onDelete,
         }),
     }] as ColumnDef<OrgPaymentResponse>[]),
-  ];
+  ]);
 
   const tableState = $derived(
     createOrgPaymentTable({

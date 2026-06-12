@@ -16,22 +16,13 @@
   import TablePagination from "$lib/components/table/table-pagination.svelte";
   import TableData from "$lib/components/table/table-data.svelte";
   import TableText from "$lib/components/table/table-text.svelte";
-  import type {
-    ProductFormAction,
-    ProductFormItem,
-  } from "../../data/model/product.form";
+  import type { ProductFormAction } from "../../data/model/product.form";
   import { ORG_PRODUCT_FILTER } from "../../data/hooks/keys.ts";
   import { buttonVariants } from "$lib/components/ui/button/index.js";
+  import { resolve } from "$app/paths";
   import type { ColumnDef } from "@tanstack/table-core";
   import TableLabelCreate from "$lib/components/table/table-label-create.svelte";
   import ProductNameCell from "./product-name-cell.svelte";
-
-  const PRODUCT_TABLE_EMPTY: OrgProductResponse = {
-    uuid: "",
-    name: "",
-    description: "",
-    files: [],
-  };
 
   let filter = $state<ProductFilterQueryParamInput>({
     field: "ALL",
@@ -75,22 +66,14 @@
   let isLoading = $derived($baseQuery?.isLoading ?? false);
   let items = $derived($baseQuery?.data ?? { content: [] });
 
-  let item = $state<ProductFormItem>({
-    product: PRODUCT_TABLE_EMPTY,
-    action: "create",
-    open: false,
-  });
-
-  const onHandler = (
+  const onHandler: (
     product: OrgProductResponse,
     action: ProductFormAction,
-  ) => {
-    if (action === "delete") {
-      item = { product, action, open: true };
-    }
+  ) => void = () => {
+    // TODO: wire product deletion once the confirmation dialog is implemented.
   };
 
-  const columns: ColumnDef<OrgProductResponse>[] = [
+  let columns = $derived<ColumnDef<OrgProductResponse>[]>([
     {
       id: "select",
       header: ({ table }) =>
@@ -137,7 +120,7 @@
           onAction: onHandler,
         }),
     }] as ColumnDef<OrgProductResponse>[]),
-  ];
+  ]);
 
   const tableState = $derived(
     createOrgProductTable({
@@ -166,7 +149,7 @@
     {#snippet controls()}
       <div class="flex items-center gap-2">
         <a
-          href="/dashboard/organization/products/create"
+          href={resolve("/dashboard/organization/products/create")}
           class={buttonVariants({
             variant: "default",
             class: "bg-brand rounded-full cursor-pointer flex items-center gap-1.5 px-4 py-2 text-white hover:bg-brand/90 transition-colors",

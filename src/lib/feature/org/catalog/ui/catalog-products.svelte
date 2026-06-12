@@ -122,7 +122,7 @@
 
         {#if isLoadingIn}
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {#each Array(4) as _}
+            {#each Array.from({ length: 4 }, (_, i) => i) as i (i)}
               <div class="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden">
                 <div class="aspect-video bg-muted animate-pulse"></div>
                 <div class="p-4 space-y-2">
@@ -140,7 +140,7 @@
           </div>
         {:else}
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {#each productsIn as product}
+            {#each productsIn as product (product.uuid)}
               <button
                 onclick={() => catalogProductStore.remove.toggle(product.uuid)}
                 class="rounded-sm border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-shadow text-left cursor-pointer"
@@ -187,7 +187,7 @@
 
         {#if isLoadingNotIn}
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {#each Array(4) as _}
+            {#each Array.from({ length: 4 }, (_, i) => i) as i (i)}
               <div class="rounded-sm border bg-card text-card-foreground shadow-sm overflow-hidden">
                 <div class="aspect-video bg-muted animate-pulse"></div>
                 <div class="p-4 space-y-2">
@@ -205,7 +205,7 @@
           </div>
         {:else}
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {#each productsNotIn as product}
+            {#each productsNotIn as product (product.uuid)}
               <div
                 class="rounded-sm border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-shadow"
                 class:ring-2={isSelectedAdd(product.uuid)}
@@ -236,8 +236,9 @@
                 </button>
                 {#if isSelectedAdd(product.uuid)}
                   <div class="px-4 pb-4">
-                    <label class="text-xs text-muted-foreground block mb-1">Ordem</label>
+                    <label for={`catalog-order-${product.uuid}`} class="text-xs text-muted-foreground block mb-1">Ordem</label>
                     <input
+                      id={`catalog-order-${product.uuid}`}
                       type="number"
                       min="1"
                       value={addSelected.find((i) => i.productUuid === product.uuid)?.order ?? 1}

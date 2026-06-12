@@ -15,7 +15,7 @@
 
     const productQuery = useGetProductDetail({
         service: new ProductService(),
-        uuidOrSlug: slug,
+        uuidOrSlug: () => slug,
     });
 
     let data = $derived($productQuery?.data);

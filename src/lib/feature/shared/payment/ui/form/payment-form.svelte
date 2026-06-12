@@ -17,8 +17,13 @@
     isLoading?: boolean;
   } = $props();
 
-  let localMethod = $state<PaymentMethod>(selectedMethod);
-  let localTransactionUuid = $state(initialTransactionUuid ?? "");
+  let localMethod = $state<PaymentMethod>(PaymentMethod.RECEIPT);
+  let localTransactionUuid = $state("");
+
+  $effect(() => {
+    localMethod = selectedMethod;
+    localTransactionUuid = initialTransactionUuid ?? "";
+  });
 </script>
 
 <div class="space-y-6">

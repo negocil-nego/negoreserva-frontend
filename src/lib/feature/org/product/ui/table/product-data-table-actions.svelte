@@ -4,6 +4,7 @@
   import type { OrgProductResponse } from "../../data/model/product.model";
   import type { ProductFormAction } from "../../data/model/product.form";
   import TableActionsIcon from "$lib/components/table/table-actions-icon.svelte";
+  import { resolve } from "$app/paths";
 
   let {
     product,
@@ -31,7 +32,7 @@
   <DropdownMenu.Content>
     <DropdownMenu.Group>
       <DropdownMenu.Label>Acções</DropdownMenu.Label>
-      <a href={`/dashboard/organization/products/edit/${product.slug}`} class="w-full text-foreground hover:no-underline">
+      <a href={resolve(`/dashboard/organization/products/edit/${product.slug}`)} class="w-full text-foreground hover:no-underline">
         <DropdownMenu.Item class="cursor-pointer">
           Editar
         </DropdownMenu.Item>

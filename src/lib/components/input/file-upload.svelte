@@ -32,7 +32,7 @@
         file?: File | null;
     } = $props();
 
-    const inputId = `${id}-input`;
+    let inputId = $derived(`${id}-input`);
 
     function handleFileChange(e: Event) {
         e.preventDefault();

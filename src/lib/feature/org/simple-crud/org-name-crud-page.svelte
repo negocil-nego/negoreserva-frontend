@@ -50,7 +50,7 @@
   let selectedPermissions = $state<OrgPermissionSelectorItem[]>([]);
   let isLoading = $state(false);
 
-  const PAGINATE = gql`
+  let PAGINATE = $derived(gql`
     query orgPaginateNameCrud($paginateRequest: PaginateRequest) {
       orgPaginate${resource}(paginateRequest: $paginateRequest) {
         content {
@@ -66,29 +66,29 @@
         totalPages
       }
     }
-  `;
+  `);
 
-  const SAVE = gql`
+  let SAVE = $derived(gql`
     mutation orgSaveNameCrud($request: Org${resource}Request!) {
       orgSave${resource}(${requestName}: $request) {
         uuid
       }
     }
-  `;
+  `);
 
-  const UPDATE = gql`
+  let UPDATE = $derived(gql`
     mutation orgUpdateNameCrud($uuid: ID!, $request: Org${resource}Request!) {
       orgUpdate${resource}(uuid: $uuid, ${requestName}: $request) {
         uuid
       }
     }
-  `;
+  `);
 
-  const DELETE = gql`
+  let DELETE = $derived(gql`
     mutation orgDeleteNameCrud($uuid: ID!) {
       orgDeleteByUuid${resource}(uuid: $uuid)
     }
-  `;
+  `);
 
   const filteredItems = $derived(
     filter.search

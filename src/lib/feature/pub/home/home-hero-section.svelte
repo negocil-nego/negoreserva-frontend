@@ -1,7 +1,7 @@
 <script>
     import HeroGallery from "./hero-gallery.svelte";
 
-    let expanded = false;
+    let expanded = $state(false);
 </script>
 
 <section class="relative flex w-full items-center justify-between gap-10 overflow-hidden max-md:flex-col">
