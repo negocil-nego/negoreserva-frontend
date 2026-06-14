@@ -60,12 +60,12 @@
 
 <Drawer.Root direction="top">
     {#if isLabel }
-        <Drawer.Trigger class={buttonVariants({ variant: "outline", class: "bg-brand cursor-pointer", })}>
+        <Drawer.Trigger class={buttonVariants({ variant: "outline", class: "cursor-pointer bg-white text-black", })}>
             <HugeiconsIcon icon={UserEdit01Icon} color="currentColor"/>
             <span>Criar conta</span>
         </Drawer.Trigger>
     {:else }
-        <Drawer.Trigger class={buttonVariants({ variant: "outline", size: "icon", class: "bg-background border-gray-900 cursor-pointer"})}>
+        <Drawer.Trigger class={buttonVariants({ variant: "outline", size: "icon", class: "cursor-pointer bg-white text-black"})}>
             <HugeiconsIcon icon={UserEdit01Icon} color="currentColor"/>
         </Drawer.Trigger>
     {/if}

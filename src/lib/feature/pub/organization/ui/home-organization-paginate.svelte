@@ -66,25 +66,14 @@
     const translateX = $derived(`translateX(-${currentIndex * (CARD_WIDTH + GAP)}px)`);
 </script>
 
-<div class="flex md:flex-row flex-col mx-3 md:mx-0 md:justify-between md:items-center py-3">
-    <div>
+<div class="flex md:flex-row flex-col mx-3 md:mx-0 md:justify-between md:items-center py-3 mt-10">
+    <div class="my-5">
         <div class="text-xl font-extrabold">Conheças os melhores, lugares</div>
         <div class="text-[12px] text-gray-700 dark:text-gray-200 max-w-75 md:max-w-125 text-wrap">
             Se procuras hoteis, hospedaria, restaurantes, ou qualquer outros lugar para fazer uma reserva,
             faça aqui de forma simples e rápida! Nas empresas que temos para você.
         </div>
     </div>
-    <button onclick={() => {
-      goto("/search/organization");
-    }} class="text-[12px] text-green-900 hover:cursor-pointer font-extrabold flex gap-1 items-center md:-mt-2 mt-2">
-        Ver mais
-        <HugeiconsIcon
-                icon={ArrowRight02Icon}
-                size={16}
-                color="currentColor"
-                strokeWidth={1}
-        />
-    </button>
 </div>
 {#if isLoading}
     <p>Loading...</p>
@@ -95,20 +84,6 @@
          role="region"
          aria-label="Organizations carousel"
     >
-
-        <div class="absolute md:top-18 top-32 right-3 md:right-10 z-20 flex gap-2 h-min">
-            <button onclick={prev}
-                    aria-label="Previous"
-                    class="cursor-pointer bg-green-800 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-700 transition-colors">
-                ‹
-            </button>
-            <button onclick={next}
-                    aria-label="Next"
-                    class="cursor-pointer bg-green-800 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-700 transition-colors">
-                ›
-            </button>
-        </div>
-
 
         <div class="overflow-hidden w-full">
             <div bind:this={trackEl}

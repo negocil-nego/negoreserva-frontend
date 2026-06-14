@@ -22,6 +22,6 @@
         onclick={goBack}
         class="text-lg flex items-center font-extrabold focus:outline-none focus:ring-2 focus:ring-green-500 rounded cursor-pointer"
 >
-  <span class="text-green-500 font-bold">NEGO</span>
-  <span class="text-green-800">RESERVA</span>
+  <span class="font-bold">NEGO</span>
+  <span class="text-gray-300">RESERVA</span>
 </button>

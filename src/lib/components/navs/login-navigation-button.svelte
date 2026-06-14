@@ -17,7 +17,7 @@
 
 {#if isLabel }
   <Button
-          class="cursor-pointer rounded-full bg-brand"
+          class="cursor-pointer bg-white text-black"
           onclick={navigateToLogin}
   >
     <HugeiconsIcon
@@ -30,7 +30,7 @@
   </Button>
 {:else }
     <Button
-            class="cursor-pointer rounded-full border-gray-400 dark:border-transparent"
+            class="cursor-pointer bg-white text-black"
             variant="outline"
             size="icon"
             onclick={navigateToLogin}
