@@ -8,7 +8,6 @@
 
     type Props = { item: GetOrganizationResponse }
     let {item}: Props = $props();
-
 </script>
 
 <div class="relative w-full">
@@ -20,15 +19,15 @@
             />
         </div>
         <div class="ml-13 -mt-5 md:ml-0 md:mt-0">
-            <div class="text-sm mt-2 md:mt-0">{item.organization.name}</div>
+            <div class="text-sm mt-2 md:mt-0 font-extrabold">{item.organization.name}</div>
             <div class="flex justify-between items-center">
-                <div class="flex items-center gap-1 text-[10px]  my-1">
+                <div class="flex items-center gap-1 text-[10px] ">
                     <HugeiconsIcon icon={Location01FreeIcons} size={15} color="currentColor"/>
                     <div class="text-truncate block md:hidden ">
                         {item.organization.address}
                     </div>
-                    <div class="hidden md:block">
-                        <TruncatedText text={item.organization.address ?? ""} maxChars={30}/>
+                    <div class="hidden md:block font-bold">
+                        <TruncatedText text={item.organization.address ?? ""}/>
                     </div>
                 </div>
             </div>

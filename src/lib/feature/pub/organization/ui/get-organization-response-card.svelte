@@ -16,6 +16,7 @@
   <div
     class="absolute p-2 flex flex-col-reverse md:flex-row justify-between z-5 w-full"
   >
+    <div class="absolute inset-0 bg-linear-to-b from-black/70 to-transparent rounded-md min-h-40"></div>
     <HeaderCardOrganization {item} />
   </div>
   <div class="relative">

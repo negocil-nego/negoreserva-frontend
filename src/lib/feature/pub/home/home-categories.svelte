@@ -57,7 +57,7 @@
 </script>
 
 {#if isLoading}
-    <div class="w-full flex gap-3 overflow-x-auto">
+    <div class="w-full flex gap-3 overflow-x-auto container">
         {#each Array.from({ length: 8 }, (_, i) => i) as i (i)}
             <Skeleton class="h-5 w-16 rounded-xl" />
         {/each}
@@ -65,7 +65,7 @@
 {:else if categories.length === 0}
     <p>Não há categorias</p>
 {:else}
-    <div class="w-full py-3 md:py-5 relative md:mt-5">
+    <div class="py-3 md:py-5 relative mt-8 md:my-5 container">
         <Carousel.Root class="w-full relative flex items-center">
             <Carousel.Content class="flex-1 w-screen">
                 <Carousel.Item class="basis-auto cursor-pointer">

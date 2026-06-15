@@ -12,17 +12,18 @@
   @apply bg-linear-to-tl p-3 from-[#71dd4a] to-[#15803d] dark:from-[#21550e] dark:to-[#133d04] text-white dark:text-white cursor-pointer; 
 }
 
-@utility bg-panel { 
-  @apply bg-white dark:bg-[#1B211A] rounded-2xl ; 
-}
-
 @utility menu-active { 
   @apply bg-green-100 text-green-950 font-extrabold border-l-4 border-l-green-950 dark:bg-[#1B211A] dark:text-white;
 }
 
-@utility container { 
-  @apply px-5 md:px-16; 
+@utility bg-panel { 
+  @apply bg-white dark:bg-[#1B211A] rounded-md ; 
 }
+
+@utility container {
+  @apply w-11/12 m-auto;
+}
+
 
 body {
   font-family: "Nunito", sans-serif;

@@ -48,7 +48,7 @@
 </script>
 
 <footer
-  class=" text-gray-400 py-16 px-6 font-sans border-t border-slate-200 dark:border-slate-700 mt-10"
+  class=" text-gray-400 py-16 px-6 font-sans border-t border-slate-200 dark:border-slate-700 mt-3 container"
 >
   <div class="max-w-7xl mx-auto">
     <!-- Grid Principal -->
