@@ -55,11 +55,11 @@
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-12">
       {#each sections as section (section.title)}
         <div>
-          <h3 class="text-white font-semibold mb-4">{section.title}</h3>
+          <h3 class="font-semibold mb-4">{section.title}</h3>
           <ul class="space-y-3">
             {#each section.links as link (link)}
               <li>
-                <div class="hover:text-white transition-colors">{link}</div>
+                <div class="transition-colors">{link}</div>
               </li>
             {/each}
           </ul>

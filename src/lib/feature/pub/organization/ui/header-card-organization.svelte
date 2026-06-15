@@ -12,7 +12,7 @@
 </script>
 
 <div class="relative w-full">
-    <div class="flex items-center gap-2 my-2 md:my-0">
+    <div class="flex items-center gap-2 my-2 md:my-0 text-white">
         <div class="w-10 h-10 rounded-full border border-gray-100 dark:border-gray-600 overflow-hidden absolute top-0 md:relative">
             <img src={item.organization.logo}
                  alt={item.organization.name}
@@ -22,9 +22,9 @@
         <div class="ml-13 -mt-5 md:ml-0 md:mt-0">
             <div class="text-sm mt-2 md:mt-0">{item.organization.name}</div>
             <div class="flex justify-between items-center">
-                <div class="flex items-center gap-1 text-[10px] text-gray-800 dark:text-white my-1">
+                <div class="flex items-center gap-1 text-[10px]  my-1">
                     <HugeiconsIcon icon={Location01FreeIcons} size={15} color="currentColor"/>
-                    <div class="text-truncate block md:hidden">
+                    <div class="text-truncate block md:hidden ">
                         {item.organization.address}
                     </div>
                     <div class="hidden md:block">

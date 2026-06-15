@@ -8,16 +8,20 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-@utility bg-brand {
-  @apply bg-linear-to-tl p-3 from-[#71dd4a] to-[#15803d] dark:from-[#21550e] dark:to-[#133d04] text-white dark:text-white cursor-pointer;
+@utility bg-brand { 
+  @apply bg-linear-to-tl p-3 from-[#71dd4a] to-[#15803d] dark:from-[#21550e] dark:to-[#133d04] text-white dark:text-white cursor-pointer; 
 }
 
-@utility bg-panel {
-  @apply bg-white dark:bg-[#1B211A] rounded-2xl ;
+@utility bg-panel { 
+  @apply bg-white dark:bg-[#1B211A] rounded-2xl ; 
 }
 
-@utility menu-active {
+@utility menu-active { 
   @apply bg-green-100 text-green-950 font-extrabold border-l-4 border-l-green-950 dark:bg-[#1B211A] dark:text-white;
+}
+
+@utility container { 
+  @apply px-5 md:px-16; 
 }
 
 body {
@@ -28,7 +32,7 @@ body {
 }
 
 :root {
-  --background: oklch(0.958 0 0);
+  --background: oklch(0.98 0.0011 17.18);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
