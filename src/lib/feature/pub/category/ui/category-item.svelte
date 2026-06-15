@@ -19,7 +19,7 @@
 >
   <button disabled={isLoading}
           onclick={() => { onChange(category) }}
-          class="{isSelected ? 'font-extrabold bg-black/50 px-2 rounded-full' : ''} flex flex-row items-center gap-2"
+          class="{isSelected ? 'font-extrabold bg-black/50 px-2 rounded-full' : ''} flex flex-row items-center gap-2 md:text-[15px]"
   >
     <i class="{category.icon ?? 'hgi-a-access'} "></i>
     <div>{category.name}</div>

@@ -13,9 +13,8 @@
   variant="ghost"
   {size}
   class={buttonVariants({
-    variant: "outline",
     size: size,
-    class: "bg-white text-green-800 dark:bg-slate-900",
+    class: "bg-black/10 backdrop-blur-2xl text-white font-extrabold hover:bg-red-200 cursor-pointer",
   })}
 >
   <HugeiconsIcon icon={HeartAddFreeIcons} color="currentColor" />

@@ -14,7 +14,7 @@
   class="rounded-md border border-gray-50 dark:border-gray-800 dark:bg-slate-950/30 relative"
 >
   <div
-    class="absolute my-2 px-1 flex flex-col-reverse md:flex-row justify-between z-5 w-full"
+    class="absolute p-2 flex flex-col-reverse md:flex-row justify-between z-5 w-full"
   >
     <HeaderCardOrganization {item} />
   </div>
@@ -28,7 +28,7 @@
       <img
         src={item.organization.image}
         alt={item.organization.name}
-        class="w-full h-50 lg:min-h-56 object-fill group-hover:scale-105 transition-transform duration-500 cursor-pointer img-responsive rounded-md "
+        class="w-full h-50 lg:min-h-56 xl:min-h-72 object-fill group-hover:scale-105 transition-transform duration-500 cursor-pointer img-responsive rounded-md"
       />
     </button>
     <div class="absolute bottom-4 left-1  px-1">

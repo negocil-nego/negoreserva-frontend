@@ -12,11 +12,12 @@
   <div class="w-full">
     <Carousel.Root class="w-full relative">
       <Carousel.Content>
-        {#each categories as { uuid, name } (uuid)}
+        {#each categories as { uuid, icon, name } (uuid)}
           <Carousel.Item class="basis-auto">
             <div
-              class="p-1 border text-center rounded-3xl min-w-20.5 text-[11px] bg-white dark:bg-background"
+              class="p-1 border text-center rounded-3xl min-w-20.5 text-[11px] text-white font-extrabold bg-black/20 backdrop-blur-2xl flex items-center justify-center gap-1"
             >
+              <i class="{icon ?? 'hgi-a-access'} "></i>
               {name}
             </div>
           </Carousel.Item>

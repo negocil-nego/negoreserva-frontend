@@ -3,7 +3,7 @@
     import MenuLinks from "$lib/components/navs/menu-links.svelte";
 </script>
 
-<nav class="flex items-center justify-between px-2">
+<nav class="flex items-center justify-between">
   <div>
     <Logo />
   </div>

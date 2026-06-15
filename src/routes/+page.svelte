@@ -6,17 +6,17 @@
     import HomeSearch from "$lib/feature/pub/home/home-search.svelte";
 </script>
 
-<header class="bg-brand container relative">
+<header class="bg-brand  relative px-5 md:px-16">
     <HomeNavbar/>
     <HomeCategories/>
     <HomeSearch/>
 </header>
 
-<div class="flex flex-col justify-start container relative ">
+<div class="flex flex-col justify-start relative px-5 md:px-16">
     <HomeOrganizationPaginate/>
 </div>
 
-<div class="container">
+<div class="px-5 md:px-16">
     <HomeFooter/>
 </div>
 
