@@ -9,6 +9,8 @@ export interface OrganizationResponse {
     description?: string | null;
     phone: string;
     address?: string | null;
+    province: string;
+    municipality: string;
     rating?: number | null;
     logo?: string | null;
     image?: string | null;
@@ -19,7 +21,7 @@ export interface OrganizationResponse {
 export interface OrganizationSocialMediaDetailResponse {
     uuid: string;
     facebook?: string | null;
-    instagram?: string | null ;
+    instagram?: string | null;
     youtube?: string | null;
     tiKtok?: string | null;
     linkedin?: string | null;
@@ -124,7 +126,9 @@ export const EMPTY_ORGANIZATION: OrganizationResponse = {
     email: "",
     description: "",
     phone: "",
-    address: ""
+    address: "",
+    province: "",
+    municipality: ""
 };
 
 export const EMPTY_ORGANIZATION_PAGINATE: OrganizationPaginate = {

@@ -163,6 +163,8 @@ export const PUB_SEARCH_ORGANIZATION_FILTER = gql`
         description
         phone
         address
+        province
+        municipality        
         rating
         image
         logo
