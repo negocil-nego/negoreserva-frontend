@@ -160,7 +160,6 @@ export const PUB_SEARCH_ORGANIZATION_FILTER = gql`
         name
         slug
         email
-        description
         phone
         address
         province
@@ -169,7 +168,11 @@ export const PUB_SEARCH_ORGANIZATION_FILTER = gql`
         image
         logo
         video
-        isHighlight
+        categories {
+          uuid
+          name
+          icon
+        }
       }
       empty
       first

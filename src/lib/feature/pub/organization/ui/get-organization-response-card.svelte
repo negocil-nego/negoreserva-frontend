@@ -1,10 +1,11 @@
 <script lang="ts">
+  import * as Carousel from "$lib/components/ui/carousel/index.js";
   import type { OrganizationResponse } from "$lib/feature/pub/organization";
   import HeaderCardOrganization from "./header-card-organization.svelte";
+  import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
+  import { HugeiconsIcon } from "@hugeicons/svelte";
   import { goto } from "$app/navigation";
   import { resolve } from "$app/paths";
-  import { HugeiconsIcon } from "@hugeicons/svelte";
-  import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
 
   let { item } = $props<{ item: OrganizationResponse }>();
 </script>
@@ -27,19 +28,39 @@
       />
     </button>
 
-    <button
-      class="absolute bottom-1 right-1 md:bottom-2 md:right-2 md:px-5 bg-black/40 backdrop-blur-lg rounded-full min-w-20 p-1 flex gap-2 items-center justify-center cursor-pointer text-white"
-      onclick={() => {
-        goto(resolve(`/organization/${item.slug}`));
-      }}
+    <div
+      class="absolute bottom-1 md:bottom-2 w-full flex gap-2 items-center justify-between px-2"
     >
-      Perfil
-      <HugeiconsIcon
-        icon={ArrowRight01Icon}
-        size={16}
-        color="#ffffff"
-        strokeWidth={1}
-      />
-    </button>
+      <Carousel.Root class="w-2/3 relative group" opts={{ dragFree: true }}>
+        <Carousel.Content class="-ml-2">
+          {#each item.categories as category (category.uuid)}
+            <Carousel.Item class="pl-2 basis-auto">
+              <div
+                class="bg-black/60 rounded-full text-white px-4 py-1 flex gap-2 items-center cursor-pointer hover:bg-black/75 transition-colors"
+              >
+                <i class={category.icon ?? "hgi-a-access"}></i>
+                <span class="whitespace-nowrap text-sm font-medium"
+                  >{category.name}</span
+                >
+              </div>
+            </Carousel.Item>
+          {/each}
+        </Carousel.Content>
+      </Carousel.Root>
+      <button
+        class="bg-black/40 backdrop-blur-lg rounded-full p-1 flex w-1/3 gap-2 items-center justify-between cursor-pointer text-white px-2"
+        onclick={() => {
+          goto(resolve(`/organization/${item.slug}`));
+        }}
+      >
+        Perfil
+        <HugeiconsIcon
+          icon={ArrowRight01Icon}
+          size={16}
+          color="#ffffff"
+          strokeWidth={1}
+        />
+      </button>
+    </div>
   </div>
 </aside>

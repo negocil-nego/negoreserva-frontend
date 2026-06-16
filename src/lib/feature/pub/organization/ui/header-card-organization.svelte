@@ -27,8 +27,9 @@
           >{item.name}</span
         >
         <div class="flex items-center gap-1">
-          {#each Array.from({ length: item.rating ?? 0 }) as _, i (i)}
+          {#each Array.from({ length: item.rating ?? 0 }) as n, i (i)}
             <span class="text-yellow-400 text-[10px] drop-shadow-xs">★</span>
+            <span class="hidden">{n}</span>
           {/each}
         </div>
       </div>
@@ -54,7 +55,7 @@
       </div>
     </div>
   </aside>
-  <aside class="absolute top-0 right-1 flex gap-2">
+  <aside class="absolute top-0 right-1 flex gap-2 z-30 bg-black/30 backdrop-blur-md rounded-2xl">
     <Tooltip.Provider>
       <Tooltip.Root>
         <Tooltip.Trigger

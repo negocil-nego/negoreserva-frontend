@@ -83,7 +83,7 @@
                     {#each numbers as num (num)}
                       <div
                         class={`h-3 w-3 rounded-full ${
-                          num === i ? "bg-brand w-5 md:w-15 lg:w-20" : "bg-white"
+                          num === i ? "bg-brand p-0" : "bg-white"
                         }`}
                       ></div>
                     {/each}

@@ -16,6 +16,7 @@ export interface OrganizationResponse {
     image?: string | null;
     video?: string | null;
     isHighlight?: boolean | null;
+    categories?: CategoryResponse[]
 }
 
 export interface OrganizationSocialMediaDetailResponse {

@@ -47,7 +47,7 @@
 
 <div class="relative my-5 container">
     <div
-        class="relative w-full border-b bg-panel p-2 md:p-4 shadow-sm overflow-hidden flex flex-col-reverse gap-3"
+        class="relative w-full border-b bg-panel p-2 md:p-4 overflow-hidden flex flex-col-reverse gap-3"
     >
         {@render indicator()}
 

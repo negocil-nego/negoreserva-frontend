@@ -49,7 +49,7 @@
     const isEmpty = $derived($query.isFetched && items.length === 0);
 </script>
 
-<div class="container p-2 md:p-4 shadow-sm border rounded-md bg-panel">
+<div class="container p-2 md:p-4 rounded-md bg-panel">
     <div
         class="flex md:flex-row flex-col mx-3 md:mx-0 md:justify-between md:items-center mb-5"
     >

@@ -45,7 +45,7 @@
     });
 </script>
 
-<div class="relative container p-2 md:p-4 shadow-sm border rounded-md bg-panel">
+<div class="relative container p-2 md:p-4 rounded-md bg-panel">
     <div
         class="flex flex-col mx-3 md:mx-0 md:justify-between md:items-center mb-2"
     >
