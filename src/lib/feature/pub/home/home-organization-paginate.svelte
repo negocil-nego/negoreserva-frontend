@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { usePubGetOrganizationPaginate } from "../organization/data/hooks/use-get-paginate";
     import { useSearchOrganizationFilter } from "../organization/data/hooks/use-search-organization-filter";
     import { OrganizationManage } from "../organization/data/service/organization.service";
     import type { PaginateRequest } from "$lib/feature/pub/organization";
@@ -7,7 +6,6 @@
     import GetOrganizationResponseCard from "../organization/ui/get-organization-response-card.svelte";
     import Skeleton from "$lib/components/ui/skeleton/skeleton.svelte";
     import EmptyNotFound from "$lib/components/empty-not-found.svelte";
-    import { goto } from "$app/navigation";
 
     const service = new OrganizationManage();
     const request = $state<PaginateRequest>({ pageNumber: 0, pageSize: 10 });
@@ -18,45 +16,55 @@
         storeValues = { ...$searchFilterStore };
     });
 
-    let normalQuery = $state(usePubGetOrganizationPaginate({ service, request }));
-    let filteredQuery = $state<ReturnType<typeof useSearchOrganizationFilter> | null>(null);
+    let query = $state(
+        useSearchOrganizationFilter({
+            service,
+            q: null,
+            categoriesUuid: [],
+            request,
+            isHighlight: null,
+            province: null,
+            municipality: null,
+            enabled: true,
+        }),
+    );
 
     $effect(() => {
-        const { isSearching: s, q, province, municipality, isHighlight: h } = storeValues;
-        if (s) {
-            filteredQuery = useSearchOrganizationFilter({
-                service,
-                q: q || null,
-                categoriesUuid: [],
-                request,
-                isHighlight: h || null,
-                province: province || null,
-                municipality: municipality || null,
-                enabled: true,
-            });
-        } else {
-            filteredQuery = null;
-        }
+        const { isSearching, q, province, municipality, isHighlight } =
+            storeValues;
+        query = useSearchOrganizationFilter({
+            service,
+            q: isSearching ? q || null : null,
+            categoriesUuid: [],
+            request,
+            isHighlight: isSearching ? isHighlight || null : null,
+            province: isSearching ? province || null : null,
+            municipality: isSearching ? municipality || null : null,
+            enabled: true,
+        });
     });
 
-    const isLoading = $derived(
-        storeValues.isSearching ? ($filteredQuery?.isLoading ?? false) : $normalQuery.isLoading
-    );
-
-    const items = $derived(
-        storeValues.isSearching
-            ? ($filteredQuery?.data?.content ?? [])
-            : ($normalQuery.data?.content ?? [])
-    );
-
-    const isEmpty = $derived(
-        storeValues.isSearching
-            ? ($filteredQuery?.isFetched && items.length === 0)
-            : (items.length === 0)
-    );
+    const isLoading = $derived($query.isLoading);
+    const items = $derived($query.data?.content ?? []);
+    const isEmpty = $derived($query.isFetched && items.length === 0);
 </script>
 
-<div class="container p-2 md:p-4 bg-panel">
+<div class="container p-2 md:p-4 shadow-sm border rounded-md bg-panel">
+    <div
+        class="flex md:flex-row flex-col mx-3 md:mx-0 md:justify-between md:items-center mb-5"
+    >
+        <div class="space-y-2">
+            <div class="text-xl font-extrabold">
+                Descubra os melhores lugares
+            </div>
+            <div
+                class="text-[13px] text-gray-700 dark:text-gray-200 max-w-75 md:max-w-125 lg:max-w-80 text-wrap"
+            >
+                Encontre as melhores opções de hospedagem, restaurantes e pontos
+                turísticos para explorar Angola.
+            </div>
+        </div>
+    </div>
     {#if isLoading}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 container mb-2">
             {#each Array.from({ length: 3 }, (_, i) => i) as i (i)}
@@ -71,38 +79,13 @@
         </div>
     {:else if isEmpty}
         <EmptyNotFound />
-    {:else if storeValues.isSearching}
-        <div
-            class="w-full grid grid-cols-1 md:grid-cols-3 gap-3 container px-4 md:px-0"
-            role="region"
-            aria-label="Search results"
-        >
-            {#each items as item (item.uuid)}
-                <button
-                    onclick={() => goto(`/organization/${item.slug}`)}
-                    class="w-full text-left rounded-md border border-gray-50 dark:border-gray-800 dark:bg-slate-950/30 overflow-hidden cursor-pointer"
-                >
-                    <img
-                        src={item.image}
-                        alt={item.name}
-                        class="w-full h-50 lg:min-h-56 xl:min-h-72 object-fill"
-                    />
-                    <div class="p-3">
-                        <h3 class="font-bold text-sm truncate">{item.name}</h3>
-                        {#if item.description}
-                            <p class="text-[12px] text-gray-600 dark:text-gray-400 truncate mt-1">{item.description}</p>
-                        {/if}
-                    </div>
-                </button>
-            {/each}
-        </div>
     {:else}
         <div
             class="w-full grid grid-cols-1 md:grid-cols-3 gap-3 container px-4 md:px-0"
             role="region"
             aria-label="Organizations"
         >
-            {#each items as item (item.organization.uuid)}
+            {#each items as item (item.uuid)}
                 <GetOrganizationResponseCard {item} />
             {/each}
         </div>

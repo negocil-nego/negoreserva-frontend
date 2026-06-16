@@ -4,15 +4,15 @@ import { LOCATION_MUNICIPALITIES } from "./keys";
 
 interface UseMunicipalitiesByProvinceProps {
   service: ILocationManage;
-  provinceValue: string;
+  provinceUuid: string;
 }
 
-export const useGetMunicipalitiesByProvince = ({ service, provinceValue }: UseMunicipalitiesByProvinceProps) => {
+export const useGetMunicipalitiesByProvince = ({ service, provinceUuid }: UseMunicipalitiesByProvinceProps) => {
   return useQuery(
-    [LOCATION_MUNICIPALITIES, provinceValue],
-    () => service.listMunicipalitiesByProvince(provinceValue),
+    [LOCATION_MUNICIPALITIES, provinceUuid],
+    () => service.listMunicipalitiesByProvince(provinceUuid),
     {
-      enabled: !!provinceValue,
+      enabled: !!provinceUuid,
       staleTime: 5 * 60 * 1000,
       refetchOnWindowFocus: false,
     }

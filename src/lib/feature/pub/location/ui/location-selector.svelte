@@ -9,6 +9,7 @@
   const provincesQuery = useGetProvinces({ service });
 
   let provinces = $derived($provincesQuery.data ?? []);
+  let isProvincesLoading = $derived($provincesQuery.isLoading);
 
   let {
     provinceValue = $bindable(""),
@@ -20,70 +21,66 @@
     varient?: "filter" | "register";
   } = $props();
 
+  let provinceUuid = $derived(
+    provinces.find((p) => p.value === provinceValue)?.uuid ?? "",
+  );
+
   const municipalitiesQuery = $derived(
-    useGetMunicipalitiesByProvince({ service, provinceValue }),
+    useGetMunicipalitiesByProvince({ service, provinceUuid }),
   );
 
   let municipalities = $derived(
     provinceValue ? ($municipalitiesQuery.data ?? []) : [],
   );
+  let isMunicipalitiesLoading = $derived($municipalitiesQuery.isLoading);
 
   $effect(() => {
     if (provinceValue) municipalityValue = "";
   });
 </script>
 
+{#snippet triggerContent(label: string, isLoading: boolean, placeholder: string)}
+  {#if isLoading}
+    <div class="flex items-center gap-2 text-muted-foreground">
+       <span class="animate-spin">◌</span> 
+      Carregando...
+    </div>
+  {:else}
+    {label || placeholder}
+  {/if}
+{/snippet}
+
 {#if varient == "register"}
   <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-    <div class="grid gap-2">
-      <Select.Root
-        type="single"
-        value={provinceValue}
-        onValueChange={(v) => (provinceValue = v)}
-      >
-        <Select.Trigger class="w-full">
-          {provinces.find((p) => p.value === provinceValue)?.label ||
-            "Província..."}
-        </Select.Trigger>
-        <Select.Content>
-          {#each provinces as p (p.value)}
-            <Select.Item value={p.value} label={p.label}>{p.label}</Select.Item>
-          {/each}
-        </Select.Content>
-      </Select.Root>
-    </div>
+    <Select.Root type="single" value={provinceValue} onValueChange={(v) => (provinceValue = v)}>
+      <Select.Trigger class="w-full">
+        {@render triggerContent(provinces.find((p) => p.value === provinceValue)?.label ?? "", isProvincesLoading, "Província...")}
+      </Select.Trigger>
+      <Select.Content>
+        {#each provinces as p (p.value)}
+          <Select.Item value={p.value} label={p.label}>{p.label}</Select.Item>
+        {/each}
+      </Select.Content>
+    </Select.Root>
 
-    <div class="grid gap-2">
-      <Select.Root
-        type="single"
-        value={municipalityValue}
-        onValueChange={(v) => (municipalityValue = v)}
-        disabled={!provinceValue}
-      >
-        <Select.Trigger class="w-full">
-          {municipalities.find((m) => m.value === municipalityValue)?.label ||
-            "Município..."}
-        </Select.Trigger>
-        <Select.Content>
-          {#each municipalities as m (m.value)}
-            <Select.Item value={m.value} label={m.label}>{m.label}</Select.Item>
-          {/each}
-        </Select.Content>
-      </Select.Root>
-    </div>
+    <Select.Root type="single" value={municipalityValue} onValueChange={(v) => (municipalityValue = v)} disabled={!provinceValue || isMunicipalitiesLoading}>
+      <Select.Trigger class="w-full">
+        {@render triggerContent(municipalities.find((m) => m.value === municipalityValue)?.label ?? "", isMunicipalitiesLoading, "Município...")}
+      </Select.Trigger>
+      <Select.Content>
+        {#each municipalities as m (m.value)}
+          <Select.Item value={m.value} label={m.label}>{m.label}</Select.Item>
+        {/each}
+      </Select.Content>
+    </Select.Root>
   </div>
 {:else if varient == "filter"}
-  <div class="grid gap-2">
+  <div class="grid gap-2 w-full">
     <div class="grid grid-cols-3 items-center gap-4">
       <Label for="province">Província</Label>
-      <Select.Root
-        type="single"
-        value={provinceValue}
-        onValueChange={(v) => (provinceValue = v)}
-      >
-        <Select.Trigger class="w-full" id="province">
-          {provinces.find((p) => p.value === provinceValue)?.label ||
-            "Província..."}
+      <Select.Root type="single" value={provinceValue} onValueChange={(v) => (provinceValue = v)}>
+        <Select.Trigger class="w-full col-span-2" id="province">
+          {@render triggerContent(provinces.find((p) => p.value === provinceValue)?.label ?? "", isProvincesLoading, "Província...")}
         </Select.Trigger>
         <Select.Content>
           {#each provinces as p (p.value)}
@@ -94,15 +91,9 @@
     </div>
     <div class="grid grid-cols-3 items-center gap-4">
       <Label for="municipality">Município</Label>
-      <Select.Root
-        type="single"
-        value={municipalityValue}
-        onValueChange={(v) => (municipalityValue = v)}
-        disabled={!provinceValue}
-      >
-        <Select.Trigger class="w-full" id="municipality">
-          {municipalities.find((m) => m.value === municipalityValue)?.label ||
-            "Município..."}
+      <Select.Root type="single" value={municipalityValue} onValueChange={(v) => (municipalityValue = v)} disabled={!provinceValue || isMunicipalitiesLoading}>
+        <Select.Trigger class="w-full col-span-2" id="municipality">
+          {@render triggerContent(municipalities.find((m) => m.value === municipalityValue)?.label ?? "", isMunicipalitiesLoading, "Município...")}
         </Select.Trigger>
         <Select.Content>
           {#each municipalities as m (m.value)}

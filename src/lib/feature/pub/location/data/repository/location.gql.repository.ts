@@ -14,10 +14,10 @@ export class LocationGqlRepository implements ILocationRepository {
     return data?.pubListProvince ?? [];
   }
 
-  async listMunicipalitiesByProvince(provinceValue: string): Promise<LocationItem[]> {
+  async listMunicipalitiesByProvince(provinceUuid: string): Promise<LocationItem[]> {
     const { data } = await apolloClient.query<{ pubListMunicipalityByProvince: LocationItem[] }>({
       query: PUB_LIST_MUNICIPALITY_BY_PROVINCE,
-      variables: { provinceValue },
+      variables: { provinceUuid },
       fetchPolicy: "cache-first",
     });
     return data?.pubListMunicipalityByProvince ?? [];

@@ -22,16 +22,16 @@
     <HomeSearch />
 </header>
 
-{#if isSearching}
-    <HomeOrganizationFilter />
-{:else}
-    <div class="w-full mt-13">
+<div class="w-full mt-13">
+    {#if isSearching}
+        <HomeOrganizationFilter />
+    {:else}
         <HomeCarouselInfo />
-    </div>
-    <HomeOrganizationHighlight />
-{/if}
+        <HomeOrganizationHighlight />
+    {/if}
+</div>
 
-<div class="w-full mt-6">
+<div class="w-full mt-5">
     <HomeOrganizationPaginate />
 </div>
 

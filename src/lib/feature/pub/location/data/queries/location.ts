@@ -11,8 +11,8 @@ export const PUB_LIST_PROVINCE = gql`
 `;
 
 export const PUB_LIST_MUNICIPALITY_BY_PROVINCE = gql`
-  query pubListMunicipalityByProvince($provinceValue: String!) {
-    pubListMunicipalityByProvince(provinceValue: $provinceValue) {
+  query pubListMunicipalityByProvince($provinceUuid: ID!) {
+    pubListMunicipalityByProvince(provinceUuid: $provinceUuid) {
       uuid
       value
       label

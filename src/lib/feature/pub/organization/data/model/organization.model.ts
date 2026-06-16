@@ -1,48 +1,6 @@
 import type { CategoryResponse } from "$lib/feature/shared/category/model/category.model";
 import type { ProductDetailResponse } from "$lib/feature/pub/product/data/model/product.model";
 
-// Types matching organization.graphqls exactly
-export interface ProductFileGetOrgResponse {
-    uuid: string;
-    title?: string | null;
-    description?: string | null;
-    url?: string | null;
-    type?: string | null;
-    isPrimary?: boolean;
-}
-
-export interface ProductPriceGetOrgResponse {
-    uuid: string;
-    type: string;
-    value: number;
-    order: number;
-    isPrimary: boolean;
-}
-
-export interface ProductGetOrganizationResponse {
-    uuid: string;
-    name: string;
-    slug: string;
-    price?: number | null;
-    description?: string | null;
-    type?: string | null;
-    image?: string | null;
-}
-
-export interface ProductTagInfoGetOrgResponse {
-    uuid: string;
-    icon: string;
-    title: string;
-    value: string;
-}
-
-export interface GetOrganizationProductResponse {
-    product: ProductGetOrganizationResponse;
-    files: ProductFileGetOrgResponse[];
-    tags: ProductTagInfoGetOrgResponse[];
-    prices: ProductPriceGetOrgResponse[];
-}
-
 export interface OrganizationResponse {
     uuid: string;
     name: string;
@@ -56,24 +14,6 @@ export interface OrganizationResponse {
     image?: string | null;
     video?: string | null;
     isHighlight?: boolean | null;
-}
-
-export interface GetOrganizationResponse {
-    organization: OrganizationResponse;
-    categories: CategoryResponse[];
-    products: GetOrganizationProductResponse[];
-}
-
-export interface GetOrganizationPaginate {
-    content: GetOrganizationResponse[];
-    empty: boolean;
-    first: boolean;
-    last: boolean;
-    number: number;
-    numberOfElements: number;
-    size: number;
-    totalElements: number;
-    totalPages: number;
 }
 
 export interface OrganizationSocialMediaDetailResponse {
@@ -109,6 +49,30 @@ export interface CatalogResponse {
     slug: string;
 }
 
+export interface ProductFileGetOrgResponse {
+    uuid: string;
+    title?: string | null;
+    description?: string | null;
+    url?: string | null;
+    type?: string | null;
+    isPrimary?: boolean | null;
+}
+
+export interface ProductPriceGetOrgResponse {
+    uuid: string;
+    type?: string | null;
+    value?: number | null;
+    order?: number | null;
+    isPrimary?: boolean | null;
+}
+
+export interface ProductTagInfoGetOrgResponse {
+    uuid: string;
+    icon?: string | null;
+    title?: string | null;
+    value?: string | null;
+}
+
 export interface OrganizationDetailResponse {
     uuid: string;
     name: string;
@@ -141,7 +105,7 @@ export interface OrganizationSearchFilterParamInput {
     isHighlight?: boolean | null;
 }
 
-export interface SearchOrganizationPaginate {
+export interface OrganizationPaginate {
     content: OrganizationResponse[];
     empty: boolean;
     first: boolean;
@@ -153,7 +117,6 @@ export interface SearchOrganizationPaginate {
     totalPages: number;
 }
 
-// Constants
 export const EMPTY_ORGANIZATION: OrganizationResponse = {
     uuid: "",
     name: "",
@@ -164,13 +127,7 @@ export const EMPTY_ORGANIZATION: OrganizationResponse = {
     address: ""
 };
 
-export const EMPTY_GET_ORGANIZATION_RESPONSE: GetOrganizationResponse = {
-    organization: EMPTY_ORGANIZATION,
-    categories: [],
-    products: []
-};
-
-export const EMPTY_GET_ORGANIZATION_PAGINATE: GetOrganizationPaginate = {
+export const EMPTY_ORGANIZATION_PAGINATE: OrganizationPaginate = {
     content: [],
     empty: true,
     first: true,

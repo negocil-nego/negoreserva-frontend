@@ -10,11 +10,11 @@
   const user = $derived(userAuthStore.getUserAuthResponse());
 </script>
 
-<div class="flex gap-2">
+<div class="flex">
   <div class="flex md:hidden">
     <MenuDrawer />
   </div>
-  <div class="items-center gap-1 hidden md:flex">
+  <div class="items-center gap-1 hidden md:flex md:gap-2">
     <DropdownTheme />
     {#if !isAuthenticated}
       <LoginNavigationButton isLabel/>

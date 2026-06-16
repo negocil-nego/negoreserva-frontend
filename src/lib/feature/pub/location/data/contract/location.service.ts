@@ -11,7 +11,7 @@ export abstract class ILocationManage {
     return this.repo.listProvinces();
   }
 
-  async listMunicipalitiesByProvince(provinceValue: string): Promise<LocationItem[]> {
-    return this.repo.listMunicipalitiesByProvince(provinceValue);
+  async listMunicipalitiesByProvince(provinceUuid: string): Promise<LocationItem[]> {
+    return this.repo.listMunicipalitiesByProvince(provinceUuid);
   }
 }

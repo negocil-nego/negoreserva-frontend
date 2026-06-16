@@ -6,11 +6,7 @@
     import { goto } from "$app/navigation";
 
     const service = new OrganizationManage();
-
-    const request = $state<PaginateRequest>({
-        pageNumber: 0,
-        pageSize: 10,
-    });
+    const request = $state<PaginateRequest>({ pageNumber: 0, pageSize: 10 });
 
     const query = useSearchOrganizationFilter({
         service,
@@ -20,141 +16,102 @@
         isHighlight: true,
     });
 
-    const isLoading = $derived($query.isLoading);
-    const organizations = $derived($query.data?.content ?? []);
-
-    let trackEl = $state<HTMLElement | null>(null);
-    let currentIndex = $state(0);
-    let autoplayInterval: ReturnType<typeof setInterval> | null = null;
+    let carousel = $state<HTMLElement | null>(null);
     let isHovered = $state(false);
 
-    const CARD_WIDTH = 350;
-    const GAP = 16;
-
-    function getVisibleCount(): number {
-        if (!trackEl) return 1;
-        return Math.max(
-            1,
-            Math.floor(trackEl.parentElement!.offsetWidth / (CARD_WIDTH + GAP)),
-        );
-    }
-
-    function maxIndex(): number {
-        return Math.max(0, organizations.length - getVisibleCount());
-    }
-
-    function prev() {
-        currentIndex = currentIndex <= 0 ? maxIndex() : currentIndex - 1;
-    }
-
-    function next() {
-        currentIndex = currentIndex >= maxIndex() ? 0 : currentIndex + 1;
-    }
-
-    function startAutoplay() {
-        if (autoplayInterval) return;
-        autoplayInterval = setInterval(() => {
-            if (!isHovered) next();
-        }, 2000);
-    }
-
-    function stopAutoplay() {
-        if (autoplayInterval) {
-            clearInterval(autoplayInterval);
-            autoplayInterval = null;
-        }
-    }
+    const scroll = (direction: "next" | "prev") => {
+        if (!carousel) return;
+        const scrollAmount = 366;
+        carousel.scrollBy({
+            left: direction === "next" ? scrollAmount : -scrollAmount,
+            behavior: "smooth",
+        });
+    };
 
     $effect(() => {
-        if (organizations.length > 0) startAutoplay();
-        return () => stopAutoplay();
+        const interval = setInterval(() => {
+            if (!isHovered && carousel) {
+                if (
+                    carousel.scrollLeft + carousel.clientWidth >=
+                    carousel.scrollWidth - 10
+                ) {
+                    carousel.scrollTo({ left: 0, behavior: "smooth" });
+                } else {
+                    scroll("next");
+                }
+            }
+        }, 2000);
+        return () => clearInterval(interval);
     });
-
-    const translateX = $derived(
-        `translateX(-${currentIndex * (CARD_WIDTH + GAP)}px)`,
-    );
 </script>
 
-<div class="container p-2 md:p-4 shadow-sm border rounded-md bg-panel">
+<div class="relative container p-2 md:p-4 shadow-sm border rounded-md bg-panel">
     <div
-        class="flex md:flex-row flex-col mx-3 md:mx-0 md:justify-between md:items-center"
+        class="flex flex-col mx-3 md:mx-0 md:justify-between md:items-center mb-2"
     >
-        <div>
+        <div class="space-y-1 w-full">
             <div class="text-xl font-extrabold">Empresas em Destaque</div>
-            <div
-                class="text-[12px] text-gray-700 dark:text-gray-200 max-w-75 md:max-w-125 text-wrap"
-            >
+            <div class="text-[13px] text-gray-700 dark:text-gray-200 max-w-125">
                 Conheça as empresas que se destacam no mercado.
             </div>
         </div>
     </div>
 
-    {#if isLoading}
-        <div class="flex justify-center py-8">
-            <p class="text-gray-500">Loading...</p>
-        </div>
-    {:else if organizations.length === 0}
-        <div class="flex justify-center py-8">
-            <p class="text-gray-500">Nenhuma empresa em destaque no momento.</p>
+    {#if $query.isLoading}
+        <div class="flex justify-center py-8 text-gray-500">Loading...</div>
+    {:else if !$query.data?.content.length}
+        <div class="flex justify-center py-8 text-gray-500">
+            Nenhuma empresa em destaque.
         </div>
     {:else}
         <div
-            class="w-full overflow-hidden"
-            onmouseenter={() => {
-                isHovered = true;
-            }}
-            onmouseleave={() => {
-                isHovered = false;
-            }}
+            class="absolute right-1 top-5 -translate-y-1/2 z-20 flex gap-2 md:right-2 md:top-6"
+        >
+            <button
+                onclick={() => scroll("prev")}
+                aria-label="Anterior"
+                class="cursor-pointer bg-green-800 text-white rounded-full w-6 h-6 md:w-8 md:h-8 flex items-center justify-center hover:bg-gray-700 transition-colors"
+                >‹</button
+            >
+            <button
+                onclick={() => scroll("next")}
+                aria-label="Próximo"
+                class="cursor-pointer bg-green-800 text-white rounded-full w-6 h-6 md:w-8 md:h-8 flex items-center justify-center hover:bg-gray-700 transition-colors"
+                >›</button
+            >
+        </div>
+        <div
+            class="relative"
             role="region"
-            aria-label="Highlighted organizations carousel"
+            aria-label="Carrossel de empresas"
+            onmouseenter={() => (isHovered = true)}
+            onmouseleave={() => (isHovered = false)}
         >
             <div
-                class="relative flex justify-end md:top-0 top-0 right-3 md:right-10 z-20 gap-2 h-min"
+                bind:this={carousel}
+                class="flex gap-4 overflow-x-auto scroll-smooth py-2 scrollbar-hide"
             >
-                <button
-                    onclick={prev}
-                    aria-label="Previous"
-                    class="cursor-pointer bg-green-800 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-700 transition-colors"
-                >
-                    ‹
-                </button>
-                <button
-                    onclick={next}
-                    aria-label="Next"
-                    class="cursor-pointer bg-green-800 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-700 transition-colors"
-                >
-                    ›
-                </button>
-            </div>
-
-            <div class="overflow-hidden w-full relative">
-                <div
-                    bind:this={trackEl}
-                    class="flex transition-transform duration-300 ease-in-out gap-10"
-                    style="transform: {translateX};"
-                >
-                    {#each organizations as item (item.uuid)}
-                        <div class="w-50">
-                            <button
-                                onclick={() =>
-                                    goto(resolve(`/organization/${item.slug}`))}
-                                class="w-full text-left rounded-md border border-ray-50 dark:border-gray-800 dark:bg-slate-950/30 overflow-hidden cursor-pointer"
+                {#each $query.data.content as item (item.uuid)}
+                    <button
+                        onclick={() =>
+                            goto(resolve(`/organization/${item.slug}`))}
+                        class="w-50 h-30 relative shrink-0 rounded-md border border-gray-50 dark:border-gray-800 overflow-hidden cursor-pointer"
+                    >
+                        <img
+                            src={item.image}
+                            alt={item.name}
+                            class="w-full h-full object-cover"
+                        />
+                        <div
+                            class="absolute inset-0 bg-linear-to-b from-black/60 to-transparent p-2"
+                        >
+                            <span
+                                class="font-bold text-sm text-white leading-tight block wrap-break-word"
+                                >{item.name}</span
                             >
-                                <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    class="w-full h-30 object-fill"
-                                />
-                                <div class="p-3 absolute bottom-1">
-                                    <div class="font-bold text-sm truncate">
-                                        {item.name}
-                                    </div>
-                                </div>
-                            </button>
                         </div>
-                    {/each}
-                </div>
+                    </button>
+                {/each}
             </div>
         </div>
     {/if}

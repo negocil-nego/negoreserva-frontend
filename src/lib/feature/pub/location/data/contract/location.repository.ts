@@ -6,5 +6,5 @@ export interface LocationItem {
 
 export interface ILocationRepository {
   listProvinces(): Promise<LocationItem[]>;
-  listMunicipalitiesByProvince(provinceValue: string): Promise<LocationItem[]>;
+  listMunicipalitiesByProvince(provinceUuid: string): Promise<LocationItem[]>;
 }

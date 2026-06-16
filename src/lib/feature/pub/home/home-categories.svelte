@@ -4,7 +4,7 @@
         CategoryResponse,
     } from "$lib/feature/shared/category/model/category.model";
     import * as Carousel from "$lib/components/ui/carousel/index.js";
-    import { categorySelectedStore } from "$lib/stores/category.store";
+    import { searchFilterStore } from "$lib/stores/search-filter.store";
     import { ROUTE_SEARCH_ORGANIZATION } from "$lib/data/route";
     import { goto } from "$app/navigation";
     import { CategoryManage } from "$lib/feature/pub/category/data/service/category.service";
@@ -29,7 +29,7 @@
 
     const isLoading = $derived($query.isLoading);
     const categories = $derived($query.data?.content ?? []);
-    const selects = $derived($categorySelectedStore);
+    const selects = $derived($searchFilterStore);
 
     const ALL = $derived({
         icon: "hgi hgi-stroke hgi-rounded hgi-dashboard-square-01",
@@ -38,14 +38,14 @@
     } as CategoryResponse);
 
     const isSelected = (category: CategoryResponse): boolean => {
-        return selects.find((it) => it.name == category.name) != null;
+        return selects.categoryUuids.find((it) => it == category.uuid) != null;
     };
 
     const onChange = (category: CategoryResponse) => {
         if (category.name === ALL.name) {
-            categorySelectedStore.clear();
+            searchFilterStore.clearCategory();
         } else {
-            categorySelectedStore.toggle(category);
+            searchFilterStore.toggleCategory(category.uuid);
         }
         if (isRedirect) goToSearch();
     };
@@ -71,7 +71,7 @@
                         <CategoryItem
                             category={ALL}
                             {onChange}
-                            isSelected={selects.length == 0}
+                            isSelected={selects.categoryUuids.length == 0}
                         />
                     </Carousel.Item>
                     {#each categories as category (category.uuid)}

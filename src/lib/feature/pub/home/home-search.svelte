@@ -23,9 +23,9 @@
     }
 </script>
 
-<div class="container relative mt-10">
+<div class="container relative mt-5">
     <div
-        class="absolute -top-5 left-0 right-0 mx-auto w-full z-10 shadow border bg-white dark:border-gray-800 dark:bg-slate-950/30 rounded-md m-auto"
+        class="absolute -top-5 left-0 right-0 mx-auto w-full z-10 shadow border bg-panel dark:border-gray-800  rounded-md m-auto"
     >
         <div
             class="flex items-center gap-2 dark:bg-slate-950/30 py-1 px-2 w-full md:min-h-15"
@@ -50,7 +50,7 @@
                 <Separator class="bg-gray-800 w-full" orientation="vertical" />
                 <Button
                     onclick={handleSearch}
-                    class="flex justify-center items-center cursor-pointer bg-brand rounded-full"
+                    class="flex justify-center items-center cursor-pointer bg-brand rounded-full hover:text-white"
                     variant="outline"
                 >
                     <HugeiconsIcon

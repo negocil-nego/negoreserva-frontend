@@ -8,6 +8,7 @@ export interface SearchFilterState {
     municipality: string;
     isHighlight: boolean;
     isSearching: boolean;
+    categoryUuids: string[];
 }
 
 const STORAGE_KEY = "search-filter-data";
@@ -20,6 +21,7 @@ function createSearchFilterStore() {
         municipality: "",
         isHighlight: false,
         isSearching: false,
+        categoryUuids: []
     };
 
     let initial: SearchFilterState = { ...defaults };
@@ -40,12 +42,26 @@ function createSearchFilterStore() {
     if (browser) {
         store.subscribe((value) => {
             const { isSearching, ...persistable } = value;
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(persistable));
+            if (!isSearching) localStorage.setItem(STORAGE_KEY, JSON.stringify(persistable));
         });
     }
 
     function setFilter(partial: Partial<SearchFilterState>) {
         store.update((state) => ({ ...state, ...partial }));
+    }
+
+    function clearCategory() {
+        store.update((state) => ({ ...state, categoryUuids: [] }));
+    }
+
+    function toggleCategory(categoryUuid: string) {
+        store.update((state) => {
+            const isPresent = state.categoryUuids.includes(categoryUuid);
+            return { 
+                ...state, 
+                categoryUuids: isPresent ? state.categoryUuids.filter((i) => i !== categoryUuid) : [...state.categoryUuids, categoryUuid] 
+            };
+        });
     }
 
     function search() {
@@ -74,6 +90,8 @@ function createSearchFilterStore() {
         search,
         clear,
         clearFilters,
+        toggleCategory,
+        clearCategory,
         getState: () => get(store),
     };
 }

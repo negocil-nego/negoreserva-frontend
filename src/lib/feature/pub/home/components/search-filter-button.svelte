@@ -38,7 +38,7 @@
 </script>
 
 <Popover.Root>
-    <Popover.Trigger class={buttonVariants({ variant: "outline", class: "flex items-center gap-2 bg-brand rounded-full" })}>
+    <Popover.Trigger class={buttonVariants({ variant: "outline", class: "flex items-center gap-2 bg-brand rounded-full hover:text-white" })}>
         <HugeiconsIcon icon={FilterHorizontalIcon} size={16} />
         <span class="hidden md:block">Filtro</span>
     </Popover.Trigger>
@@ -69,13 +69,14 @@
                 bind:municipalityValue
             />
 
-            <div class="flex items-center gap-2">
+            <div class="grid grid-cols-3 items-center gap-4">
+                <Label for="destaque" class="cursor-pointer">Em Destaque</Label>
                 <Checkbox.Root
                     id="destaque"
                     checked={isHighlight}
                     onCheckedChange={handleHighlightChange}
+                    class="col-span-2 border-white align-bottom"
                 />
-                <Label for="destaque" class="cursor-pointer">Em Destaque</Label>
             </div>
         </div>
     </Popover.Content>
