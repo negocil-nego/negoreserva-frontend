@@ -56,35 +56,35 @@
     };
 </script>
 
-{#if isLoading}
-    <div class="w-full flex gap-3 overflow-x-auto container">
-        {#each Array.from({ length: 8 }, (_, i) => i) as i (i)}
-            <Skeleton class="h-5 w-16 rounded-xl" />
-        {/each}
-    </div>
-{:else if categories.length === 0}
-    <p>Não há categorias</p>
-{:else}
-    <div class="py-3 md:py-5 relative mt-8 md:my-5 container">
-        <Carousel.Root class="w-full relative flex items-center">
-            <Carousel.Content class="flex-1 w-screen">
-                <Carousel.Item class="basis-auto cursor-pointer">
-                    <CategoryItem
-                        category={ALL}
-                        {onChange}
-                        isSelected={selects.length == 0}
-                    />
-                </Carousel.Item>
-                {#each categories as category (category.uuid)}
+<div class="container">
+    {#if isLoading}
+        <div class="w-full flex justify-center gap-3 overflow-x-auto mt-3">
+            {#each Array.from({ length: 8 }, (_, i) => i) as i (i)}
+                <Skeleton class="h-5 w-16 rounded-xl" />
+            {/each}
+        </div>
+    {:else if categories.length > 0}
+        <div class="py-3 md:py-5 relative md:my-5">
+            <Carousel.Root class="w-full relative flex items-center">
+                <Carousel.Content class="flex-1 w-screen">
                     <Carousel.Item class="basis-auto cursor-pointer">
                         <CategoryItem
-                            isSelected={isSelected(category)}
-                            {category}
+                            category={ALL}
                             {onChange}
+                            isSelected={selects.length == 0}
                         />
                     </Carousel.Item>
-                {/each}
-            </Carousel.Content>
-        </Carousel.Root>
-    </div>
-{/if}
+                    {#each categories as category (category.uuid)}
+                        <Carousel.Item class="basis-auto cursor-pointer">
+                            <CategoryItem
+                                isSelected={isSelected(category)}
+                                {category}
+                                {onChange}
+                            />
+                        </Carousel.Item>
+                    {/each}
+                </Carousel.Content>
+            </Carousel.Root>
+        </div>
+    {/if}
+</div>

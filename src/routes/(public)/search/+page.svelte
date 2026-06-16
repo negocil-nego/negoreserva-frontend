@@ -6,7 +6,7 @@
     import Button from "$lib/components/ui/button/button.svelte";
     import {
         OrganizationService,
-        useSearchOrganization,
+        useSearchOrganizationFilter,
     } from "$lib/feature/pub/organization";
     import {
         ProductService,
@@ -34,10 +34,12 @@
     const orgService = new OrganizationService();
     const productService = new ProductService();
 
-    const orgQuery = useSearchOrganization({
+    const orgQuery = useSearchOrganizationFilter({
         service: orgService,
         get q() { return q },
+        categoriesUuid: [],
         get request() { return paginateRequest },
+        get enabled() { return q.trim().length > 0 },
     });
 
     const productQuery = useSearchProduct({

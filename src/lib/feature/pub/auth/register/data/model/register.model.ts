@@ -36,6 +36,8 @@ export interface CreateAccountOrganizationInput {
     password: string;
     confirm: string;
     categories: string[];
+    province?: string | null;
+    municipality?: string | null;
 }
 
 export interface ConfirmUserOtpVerificationInput {

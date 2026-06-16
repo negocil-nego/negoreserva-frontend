@@ -69,6 +69,8 @@ export const ORGANIZATION_DETAIL = gql`
         number
         zipCode
         complement
+        province
+        municipality
         latitude
         longitude
       }
@@ -136,6 +138,7 @@ export const PUB_SEARCH_ORGANIZATION = gql`
         image
         logo
         video
+        isHighlight
       }
       empty
       first
@@ -164,6 +167,7 @@ export const PUB_SEARCH_ORGANIZATION_FILTER = gql`
         image
         logo
         video
+        isHighlight
       }
       empty
       first

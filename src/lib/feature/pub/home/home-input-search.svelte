@@ -5,12 +5,11 @@
     } from "@hugeicons/core-free-icons";
 
     import Button from "$lib/components/ui/button/button.svelte";
-    import {OrganizationService, useSearchOrganization} from "$lib/feature/pub/organization";
+    import {OrganizationService, useSearchOrganizationFilter} from "$lib/feature/pub/organization";
     import {ProductService, useSearchProduct} from "$lib/feature/pub/product";
-    import {ORGANIZATION_SEARCH_PUB} from "$lib/feature/pub/organization/data/hooks/keys";
-    import {PRODUCT_SEARCH_PUB} from "$lib/feature/pub/product/data/hooks/keys";
 
     let query = $state("");
+    let debouncedQuery = $state("");
     let isFocused = $state(false);
     let inputEl: HTMLInputElement | undefined = $state();
     const request = {pageNumber: 0, pageSize: 10};
@@ -18,24 +17,18 @@
     const orgService = new OrganizationService();
     const productService = new ProductService();
 
-    const orgQuery = useSearchOrganization({
+    const orgQuery = useSearchOrganizationFilter({
         service: orgService,
-        get q() {
-            return query
-        },
-        get request() {
-            return request
-        },
+        get q() { return debouncedQuery },
+        categoriesUuid: [],
+        get request() { return request },
+        get enabled() { return debouncedQuery.length > 0 },
     });
 
     const productQuery = useSearchProduct({
         service: productService,
-        get q() {
-            return query
-        },
-        get request() {
-            return request
-        },
+        get q() { return debouncedQuery },
+        get request() { return request },
     });
 
     const orgData = $derived($orgQuery?.data);
@@ -45,33 +38,15 @@
 
     let debounceTimer: ReturnType<typeof setTimeout>;
 
-    function triggerSearch(q: string) {
-        if (q.length > 0) {
-            orgQuery.setOptions(
-                [ORGANIZATION_SEARCH_PUB, q],
-                () => orgService.search(q, request),
-                {enabled: true, keepPreviousData: true}
-            );
-            productQuery.setOptions(
-                [PRODUCT_SEARCH_PUB, q],
-                () => productService.search(q, request),
-                {enabled: true, keepPreviousData: true}
-            );
-        } else {
-            orgQuery.updateOptions({enabled: false});
-            productQuery.updateOptions({enabled: false});
-        }
-    }
-
     function handleInput() {
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => triggerSearch(query.trim()), 400);
+        debounceTimer = setTimeout(() => { debouncedQuery = query.trim(); }, 400);
     }
 
     function handleKeydown(e: KeyboardEvent) {
         if (e.key === "Enter") {
             clearTimeout(debounceTimer);
-            triggerSearch(query.trim());
+            debouncedQuery = query.trim();
         }
     }
 </script>
@@ -101,7 +76,7 @@
                         placeholder="Pesquisa Hotel, hospedaria, restaurantes, etc..."
                 />
 
-                    <Button onclick={() => { clearTimeout(debounceTimer); triggerSearch(query.trim()); }}
+                    <Button onclick={() => { clearTimeout(debounceTimer); debouncedQuery = query.trim(); }}
                             class="flex justify-center items-center cursor-pointer bg-brand rounded-full"
                             variant="outline">
                         <HugeiconsIcon icon={Search01Icon} size={16} color="currentColor" strokeWidth={2}/>

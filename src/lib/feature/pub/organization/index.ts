@@ -28,5 +28,4 @@ export { OrganizationManage as OrganizationService } from "./data/service/organi
 // Hook exports
 export { useGetOrganizationDetail } from "./data/hooks/use-get-organization-detail";
 export { useGetCatalogProducts } from "./data/hooks/use-get-catalog-products";
-export { useSearchOrganization } from "./data/hooks/use-search-organization";
 export { useSearchOrganizationFilter } from "./data/hooks/use-search-organization-filter";

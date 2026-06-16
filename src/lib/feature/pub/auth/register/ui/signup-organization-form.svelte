@@ -15,6 +15,7 @@
   import { useCreateAccountOrganization } from "$lib/feature/pub/auth/register/data/hooks/use-create-account-organization";
   import CategorySelectorPopover from "./category-selector-popover.svelte";
   import { registerCategoryStore } from "$lib/stores/register.store";
+  import LocationSelector from "$lib/feature/pub/location/ui/location-selector.svelte";
 
   const service = new RegisterService();
   const saveMutation = useCreateAccountOrganization({ service });
@@ -31,6 +32,8 @@
       .string()
       .min(1, "Confirmação da senha é obrigatória")
       .min(6),
+    province: z.string().optional(),
+    municipality: z.string().optional(),
   });
 
   const ORGANIZATION_EMPTY = {
@@ -39,6 +42,8 @@
     phone: "",
     password: "",
     repeatPassword: "",
+    province: "",
+    municipality: "",
   };
 
   const form = superForm(ORGANIZATION_EMPTY, {
@@ -50,6 +55,9 @@
 
   const selectedCategories = $derived($registerCategoryStore);
   const hasCategorySelected = $derived(selectedCategories.length > 0);
+
+  let selectedProvince = $state("");
+  let selectedMunicipality = $state("");
 
   const isValid = $derived(
     $formData.name !== "" &&
@@ -76,6 +84,8 @@
       password: $formData.password,
       confirm: $formData.repeatPassword,
       categories: [],
+      province: selectedProvince || null,
+      municipality: selectedMunicipality || null,
     });
   }
 </script>
@@ -166,6 +176,11 @@
   {#if !hasCategorySelected}
     <p class="text-destructive text-xs -mt-3">Seleccione pelo menos uma categoria</p>
   {/if}
+
+  <div>
+    <p class="text-sm font-medium mb-2">Localização</p>
+    <LocationSelector bind:provinceValue={selectedProvince} bind:municipalityValue={selectedMunicipality} />
+  </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
     <Form.Field {form} name="password">

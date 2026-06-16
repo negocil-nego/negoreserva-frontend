@@ -55,6 +55,7 @@ export interface OrganizationResponse {
     logo?: string | null;
     image?: string | null;
     video?: string | null;
+    isHighlight?: boolean | null;
 }
 
 export interface GetOrganizationResponse {
@@ -86,14 +87,16 @@ export interface OrganizationSocialMediaDetailResponse {
 
 export interface AddressResponse {
     uuid: string;
-    country: string;
-    state: string;
-    city: string;
+    country?: string | null;
+    state?: string | null;
+    city?: string | null;
     neighborhood?: string | null;
-    street: string;
+    street?: string | null;
     number?: string | null;
     zipCode?: string | null;
     complement?: string | null;
+    province?: string | null;
+    municipality?: string | null;
     latitude?: number | null;
     longitude?: number | null;
 }
@@ -133,6 +136,9 @@ export interface PaginateRequest {
 export interface OrganizationSearchFilterParamInput {
     q?: string | null;
     categoriesUuid?: string[] | null;
+    province?: string | null;
+    municipality?: string | null;
+    isHighlight?: boolean | null;
 }
 
 export interface SearchOrganizationPaginate {

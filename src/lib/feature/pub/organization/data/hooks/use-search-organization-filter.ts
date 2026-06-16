@@ -8,14 +8,19 @@ interface UseSearchOrganizationFilterProps {
     q: string | null;
     categoriesUuid: string[];
     request: PaginateRequest;
+    enabled?: boolean;
+    isHighlight?: boolean | null;
+    province?: string | null;
+    municipality?: string | null;
 }
 
 export const useSearchOrganizationFilter = (props: UseSearchOrganizationFilterProps) => {
-    const { service, q, categoriesUuid, request } = props;
+    const { service, q, categoriesUuid, request, enabled = true, isHighlight, province, municipality } = props;
     return useQuery(
-        [ORGANIZATION_SEARCH_PUB, q, categoriesUuid, request],
-        () => service.searchFilter({ q, categoriesUuid }, request),
+        [ORGANIZATION_SEARCH_PUB, q, categoriesUuid, isHighlight, province, municipality, request],
+        () => service.searchFilter({ q, categoriesUuid, isHighlight, province, municipality }, request),
         {
+            enabled,
             keepPreviousData: true,
             onError: (error) => {
                 console.error('Failed to search organizations with filter:', error);

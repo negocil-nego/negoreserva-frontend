@@ -26,13 +26,27 @@
       {#each data.addresses as address (address.uuid)}
         <div class="rounded-lg border border-border p-4 space-y-2">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-            <InfoRow label="País" icon={GlobeIcon} value={address.country} />
-            <InfoRow label="Estado" icon={MapPinpoint01Icon} value={address.state} />
-            <InfoRow label="Cidade" icon={City02Icon} value={address.city} />
+            {#if address.country}
+              <InfoRow label="País" icon={GlobeIcon} value={address.country} />
+            {/if}
+            {#if address.province}
+              <InfoRow label="Província" icon={MapPinpoint01Icon} value={address.province} />
+            {/if}
+            {#if address.municipality}
+              <InfoRow label="Município" icon={City02Icon} value={address.municipality} />
+            {/if}
+            {#if address.state}
+              <InfoRow label="Estado" icon={MapPinpoint01Icon} value={address.state} />
+            {/if}
+            {#if address.city}
+              <InfoRow label="Cidade" icon={City02Icon} value={address.city} />
+            {/if}
             {#if address.neighborhood}
               <InfoRow label="Bairro" icon={Location01Icon} value={address.neighborhood} />
             {/if}
-            <InfoRow label="Rua" icon={Location01Icon} value={address.street} />
+            {#if address.street}
+              <InfoRow label="Rua" icon={Location01Icon} value={address.street} />
+            {/if}
             {#if address.number}
               <InfoRow label="Nº" icon={Location01Icon} value={address.number} />
             {/if}

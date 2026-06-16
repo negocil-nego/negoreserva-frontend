@@ -27,14 +27,16 @@ export interface UpdateDataResponse {
 
 export interface AddressResponse {
     uuid: string
-    country: string
-    state: string
-    city: string
+    country?: string | null
+    state?: string | null
+    city?: string | null
     neighborhood?: string | null
-    street: string
+    street?: string | null
     number?: string | null
     zipCode?: string | null
     complement?: string | null
+    province?: string | null
+    municipality?: string | null
     latitude?: number | null
     longitude?: number | null
 }
