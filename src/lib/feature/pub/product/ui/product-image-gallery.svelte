@@ -14,7 +14,7 @@
       <img
         src={primary.url}
         alt={primary.title ?? ""}
-        class="h-[200px] w-[200px] md:h-[300px] md:w-[300px] object-cover rounded-2xl"
+        class="h-[200px] w-[200px] object-cover rounded-2xl"
       />
     {:else}
       <div
