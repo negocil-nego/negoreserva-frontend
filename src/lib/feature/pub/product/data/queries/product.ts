@@ -9,6 +9,7 @@ export const PUB_SEARCH_PRODUCT = gql`
         slug
         description
         image
+        price
         organization {
           uuid
           name
@@ -44,6 +45,7 @@ export const PUB_SEARCH_PRODUCT_FILTER = gql`
         slug
         description
         image
+        price
         organization {
           uuid
           name

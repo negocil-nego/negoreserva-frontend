@@ -30,6 +30,7 @@ export interface ProductResponse {
     slug: string;
     description: string;
     image?: string | null;
+    price: number;
     organization: OrganizationResponse;
 }
 

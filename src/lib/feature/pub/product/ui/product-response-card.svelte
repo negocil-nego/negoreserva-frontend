@@ -35,7 +35,10 @@
         {/if}
     </div>
 
-    <div class="absolute inset-x-0 bottom-1 p-2">
-        <div class="font-semibold text-lg text-white truncate">{product.name}</div>
+    <div class="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between gap-2 bg-linear-to-t from-black/95 via-black/40 to-transparent pt-8 rounded-b-md">
+        <div class="font-semibold text-base text-white truncate" title={product.name}>{product.name}</div>
+        <span class="text-xs font-bold text-emerald-400 bg-black/50 px-2 py-0.5 rounded-sm shrink-0">
+            {new Intl.NumberFormat("pt-AO", { style: "currency", currency: "AOA" }).format(product.price ?? 0)}
+        </span>
     </div>
 </div>
