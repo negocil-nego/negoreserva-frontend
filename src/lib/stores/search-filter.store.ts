@@ -8,6 +8,8 @@ export interface SearchFilterState {
     municipality: string;
     isHighlight: boolean;
     isSearching: boolean;
+    priceMin: number | null;
+    priceMax: number | null;
     categoryUuids: string[];
 }
 
@@ -21,6 +23,8 @@ function createSearchFilterStore() {
         municipality: "",
         isHighlight: false,
         isSearching: false,
+        priceMin: null,
+        priceMax: null,
         categoryUuids: []
     };
 

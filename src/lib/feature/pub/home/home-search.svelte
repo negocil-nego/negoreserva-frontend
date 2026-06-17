@@ -23,7 +23,7 @@
     }
 </script>
 
-<div class="container relative mt-5">
+<div class="container relative mt-10">
     <div
         class="absolute -top-5 left-0 right-0 mx-auto w-full z-10 shadow border bg-panel dark:border-gray-800  rounded-md m-auto"
     >

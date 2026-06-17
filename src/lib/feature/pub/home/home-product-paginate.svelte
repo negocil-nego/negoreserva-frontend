@@ -1,14 +1,14 @@
 <script lang="ts">
-    import { OrganizationManage } from "../organization/data/service/organization.service";
-    import { useSearchOrganizationFilter } from "$lib/feature/pub/organization";
+    import {ProductManage} from "$lib/feature/pub/product/data/service/product.service";
     import type { PaginateRequest } from "$lib/feature/pub/organization";
     import { searchFilterStore } from "$lib/stores/search-filter.store";
-    import GetOrganizationResponseCard from "../organization/ui/get-organization-response-card.svelte";
     import Skeleton from "$lib/components/ui/skeleton/skeleton.svelte";
     import EmptyNotFound from "$lib/components/empty-not-found.svelte";
+    import {useSearchProductFilter} from "$lib/feature/pub/product";
+    import ProductResponseCard from "../product/ui/product-response-card.svelte";
 
-    const service = new OrganizationManage();
-    const request = $state<PaginateRequest>({ pageNumber: 0, pageSize: 9 });
+    const service = new ProductManage();
+    const request = $state<PaginateRequest>({ pageNumber: 0, pageSize: 12 });
 
     let storeValues = $state({ ...$searchFilterStore });
 
@@ -17,29 +17,23 @@
     });
 
     let query = $state(
-        useSearchOrganizationFilter({
+        useSearchProductFilter({
             service,
-            q: null,
-            categoriesUuid: [],
             request,
-            isHighlight: null,
-            province: null,
-            municipality: null,
-            enabled: true,
+            q: null,
+            priceMax: null,
+            priceMin: null,
         }),
     );
 
     $effect(() => {
-        const { isSearching, q, categoryUuids, province, municipality, isHighlight } = storeValues;
-        query = useSearchOrganizationFilter({
+        const { isSearching, q, priceMin, priceMax } = storeValues;
+        query = useSearchProductFilter({
             service,
             request,
             q: isSearching ? q || null : null,
-            categoriesUuid: isSearching ? categoryUuids : [],
-            municipality: isSearching ? municipality || null : null,
-            isHighlight: isSearching ? isHighlight || null : null,
-            province: isSearching ? province || null : null,
-            enabled: true,
+            priceMax: isSearching ? priceMax || null : null,
+            priceMin: isSearching ? priceMin || null : null,
         });
     });
 
@@ -54,13 +48,12 @@
     >
         <div class="space-y-2">
             <div class="text-xl font-extrabold">
-                Descubra os melhores lugares
+                Encontra os melhores, produtos e serviços das empresa
             </div>
             <div
                 class="text-[13px] text-gray-700 dark:text-gray-200 max-w-75 md:max-w-125 lg:max-w-80 text-wrap"
             >
-                Encontre as melhores opções de hospedagem, restaurantes e pontos
-                turísticos para explorar Angola.
+                Pesquisa os produtos que procura seja para melhor hospedagem, ou melhor comidas para exprementar
             </div>
         </div>
     </div>
@@ -80,12 +73,12 @@
         <EmptyNotFound />
     {:else}
         <div
-            class="w-full grid grid-cols-1 md:grid-cols-3 gap-3 container px-4 md:px-0"
+            class="w-full grid grid-cols-1 md:grid-cols-4 gap-3 container px-4 md:px-0"
             role="region"
-            aria-label="Organizations"
+            aria-label="Products"
         >
             {#each items as item (item.uuid)}
-                <GetOrganizationResponseCard {item} />
+                <ProductResponseCard product={item} />
             {/each}
         </div>
     {/if}

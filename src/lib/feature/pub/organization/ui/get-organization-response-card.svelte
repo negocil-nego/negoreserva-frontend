@@ -14,9 +14,7 @@
   <div
     class="absolute p-2 flex flex-col-reverse items-center md:flex-row justify-between z-5 w-full"
   >
-    <div
-      class="absolute inset-0 bg-linear-to-b from-black/80 to-transparent rounded-md min-h-40 md:min-h-52"
-    ></div>
+    <div class="absolute inset-0 bg-linear-to-b from-black/80 to-transparent rounded-md min-h-40 md:min-h-52"></div>
     <HeaderCardOrganization {item} />
   </div>
   <div class="relative h-50 lg:min-h-56 xl:min-h-72">
