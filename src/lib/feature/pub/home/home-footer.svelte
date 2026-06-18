@@ -24,9 +24,9 @@
       icon: Briefcase01Icon,
       links: [
         { name: "Blog", href: "/" },
+        { name: "Sobre nós", href: "/" },
         { name: "Trabalhe Connosco", href: "/" },
         { name: "Treinamento", href: "/" },
-        { name: "Documentação", href: "/" },
       ],
     },
   ];
@@ -38,9 +38,9 @@
       class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2"
     >
       <div class="max-w-xl lg:max-w-lg">
-        <h2 class="text-4xl font-semibold tracking-tight">
+        <div class="text-4xl font-semibold tracking-tight">
           {title}
-        </h2>
+        </div>
         <p class="mt-4 text-lg">{description}</p>
         <form class="mt-6 flex max-w-md gap-x-4">
           <input
@@ -69,16 +69,15 @@
                 strokeWidth={1.5}
               />
             </div>
-            <h3 class="mt-4 text-base font-semibold">
+            <div class="mt-4 text-base font-semibold">
               {section.title}
-            </h3>
+            </div>
             <ul class="mt-2 space-y-2">
               {#each section.links as link (link.name)}
                 <li>
                   <a
-                    href={resolve(link.href)}
-                    target="_blank"
-                    class="text-base text-gray-400 hover:text-white transition-colors"
+                    href={resolve(link.href as any)}
+                    class="text-base text-gray-400 hover:text-gray-700  transition-colors"
                   >
                     {link.name}
                   </a>

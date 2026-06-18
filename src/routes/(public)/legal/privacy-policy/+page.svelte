@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { resolve } from "$app/paths";
   import LegalCallout from "$lib/components/panel/legal-callout.svelte";
+  import LegalFooterActions from "$lib/components/panel/legal-footer-actions.svelte";
+  import LegalList from "$lib/components/panel/legal-list.svelte";
   import LegalPageLayout from "$lib/components/panel/legal-page-layout.svelte";
+  import LegalParagraph from "$lib/components/panel/legal-paragraph.svelte";
   import LegalSection from "$lib/components/panel/legal-section.svelte";
 </script>
 
@@ -11,18 +13,10 @@
   updatedAt="18 de Junho de 2026"
 >
   {#snippet footerActions()}
-    <a
-      href={resolve("/legal/terms-of-use")}
-      class="inline-flex items-center rounded-lg border-[1.5px] border-green-700 px-5 py-2.5 text-sm font-semibold text-green-700 transition hover:bg-green-50"
-    >
-      Termos de Uso
-    </a>
-    <a
-      href={resolve("/legal/terms-of-use")}
-      class="inline-flex items-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-green-800"
-    >
-      Falar com Suporte
-    </a>
+    <LegalFooterActions
+      relatedHref="/legal/terms-of-use"
+      relatedLabel="Termos de Uso"
+    />
   {/snippet}
 
   <LegalSection number="01" title="O Nosso Compromisso">
@@ -32,21 +26,19 @@
       explícito — seja através de cookies, integrações com serviços externos ou qualquer
       outro mecanismo.
     </LegalCallout>
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    <LegalParagraph>
       Esta Política de Privacidade descreve como a Negoreserva recolhe, utiliza
       e protege os seus dados pessoais no âmbito da utilização da plataforma. O
       utilizador tem controlo total sobre as suas informações.
-    </p>
+    </LegalParagraph>
   </LegalSection>
 
   <LegalSection number="02" title="Dados que Recolhemos">
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    <LegalParagraph>
       Recolhemos apenas os dados estritamente necessários para a prestação dos
       serviços:
-    </p>
-    <ul
-      class="mb-3 ml-5 list-disc space-y-1.5 text-[0.9375rem] leading-7 text-gray-50"
-    >
+    </LegalParagraph>
+    <LegalList>
       <li>
         Dados de identificação: nome completo, número de BI/passaporte,
         contacto;
@@ -64,7 +56,7 @@
         Dados técnicos: endereço IP, tipo de dispositivo e preferências de
         idioma.
       </li>
-    </ul>
+    </LegalList>
     <LegalCallout type="info">
       Nunca recolhemos dados que não sejam necessários para o funcionamento da
       plataforma. Não há formulários ocultos, rastreadores de terceiros ou
@@ -73,14 +65,12 @@
   </LegalSection>
 
   <LegalSection number="03" title="Cookies e Rastreadores">
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    <LegalParagraph>
       Utilizamos cookies exclusivamente para garantir o funcionamento correto da
       plataforma. Não utilizamos cookies de rastreamento publicitário nem
       partilhamos dados de navegação com plataformas de anúncios.
-    </p>
-    <ul
-      class="mb-3 ml-5 list-disc space-y-1.5 text-[0.9375rem] leading-7 text-gray-50"
-    >
+    </LegalParagraph>
+    <LegalList>
       <li>
         <strong class="font-semibold text-green-500">Cookies essenciais:</strong
         > necessários para login e segurança — ativos por padrão;
@@ -94,22 +84,20 @@
         <strong class="font-semibold text-green-500">Cookies analíticos:</strong
         > métricas de uso anónimas — pode desativar.
       </li>
-    </ul>
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    </LegalList>
+    <LegalParagraph>
       Pode gerir as suas preferências de cookies a qualquer momento nas
       <strong class="font-semibold text-green-500"
         >Definições da Conta → Privacidade</strong
       >.
-    </p>
+    </LegalParagraph>
   </LegalSection>
 
   <LegalSection number="04" title="Como Utilizamos os Seus Dados">
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    <LegalParagraph>
       Os seus dados são utilizados exclusivamente para:
-    </p>
-    <ul
-      class="mb-3 ml-5 list-disc space-y-1.5 text-[0.9375rem] leading-7 text-gray-50"
-    >
+    </LegalParagraph>
+    <LegalList>
       <li>Processar e confirmar reservas realizadas na plataforma;</li>
       <li>
         Enviar notificações relacionadas com as suas reservas (confirmações,
@@ -118,7 +106,7 @@
       <li>Prestar suporte técnico e resolver problemas reportados;</li>
       <li>Melhorar a plataforma com base em padrões de uso anónimos;</li>
       <li>Cumprir obrigações legais vigentes em Angola.</li>
-    </ul>
+    </LegalList>
     <LegalCallout type="warning">
       <strong>Nunca fazemos:</strong> marketing não solicitado, partilha de dados
       com anunciantes, venda de perfis de utilizador ou integração com redes sociais
@@ -127,13 +115,11 @@
   </LegalSection>
 
   <LegalSection number="05" title="Os Seus Direitos">
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    <LegalParagraph>
       O utilizador tem direito a controlo total sobre os seus dados pessoais na
       plataforma Negoreserva:
-    </p>
-    <ul
-      class="mb-3 ml-5 list-disc space-y-2 text-[0.9375rem] leading-7 text-gray-50"
-    >
+    </LegalParagraph>
+    <LegalList spacing="relaxed">
       <li>
         <strong class="font-semibold text-green-500"
           >Acesso ao histórico completo:</strong
@@ -165,7 +151,7 @@
         > pode opor-se ao tratamento de dados para fins analíticos ou de melhoria
         do serviço.
       </li>
-    </ul>
+    </LegalList>
     <LegalCallout type="success">
       Para exercer qualquer um destes direitos, aceda a <strong
         >Conta → Privacidade e Dados</strong
@@ -181,12 +167,10 @@
   </LegalSection>
 
   <LegalSection number="06" title="Segurança dos Dados">
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    <LegalParagraph>
       Aplicamos medidas técnicas e organizacionais para proteger os seus dados:
-    </p>
-    <ul
-      class="mb-3 ml-5 list-disc space-y-1.5 text-[0.9375rem] leading-7 text-gray-50"
-    >
+    </LegalParagraph>
+    <LegalList>
       <li>Encriptação em trânsito via HTTPS/TLS em todas as comunicações;</li>
       <li>
         Palavras-passe armazenadas com hash seguro (nunca em texto claro);
@@ -196,22 +180,20 @@
         comprovada;
       </li>
       <li>Registos de auditoria para detetar acessos não autorizados.</li>
-    </ul>
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    </LegalList>
+    <LegalParagraph>
       Em caso de violação de dados que afete os seus dados pessoais, será
       notificado no prazo de 72 horas após a deteção do incidente.
-    </p>
+    </LegalParagraph>
   </LegalSection>
 
   <LegalSection number="07" title="Partilha com Terceiros">
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    <LegalParagraph>
       Os seus dados pessoais <strong class="font-semibold text-green-500"
         >nunca são partilhados com terceiros</strong
       > sem o seu consentimento explícito, com as seguintes exceções restritas:
-    </p>
-    <ul
-      class="mb-3 ml-5 list-disc space-y-2 text-[0.9375rem] leading-7 text-gray-50"
-    >
+    </LegalParagraph>
+    <LegalList spacing="relaxed">
       <li>
         <strong class="font-semibold text-green-500"
           >Prestadores de serviço reservados:</strong
@@ -229,21 +211,19 @@
         exigido por autoridades competentes angolanas mediante ordem judicial ou
         legal válida.
       </li>
-    </ul>
+    </LegalList>
   </LegalSection>
 
   <LegalSection number="08" title="Alterações a Esta Política">
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    <LegalParagraph>
       Qualquer alteração significativa a esta Política de Privacidade será
       comunicada ao utilizador por email e/ou notificação na plataforma com um
       mínimo de 15 dias de antecedência antes de entrar em vigor.
-    </p>
-    <p class="mb-3 text-[0.9375rem] leading-7 text-gray-50">
+    </LegalParagraph>
+    <LegalParagraph>
       O utilizador pode consultar o histórico de versões desta política na
       secção
-      <strong class="font-semibold text-green-500"
-        >Central de Ajuda → Documentos Legais</strong
-      >.
-    </p>
+      <strong class="font-semibold text-green-500">Central de Ajuda → Documentos Legais</strong>
+    </LegalParagraph>
   </LegalSection>
 </LegalPageLayout>

@@ -7,7 +7,7 @@
   <div>
     <ul class="flex gap-5 items-center justify-center">
       <li
-        class="cursor-pointer hover:text-foreground transition-colors hidden md:block"
+        class="cursor-pointer hover:font-extrabold transition-colors hidden md:block"
       >
         <a href={resolve("/")}>Início</a>
       </li>
