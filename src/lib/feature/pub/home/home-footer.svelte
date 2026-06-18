@@ -23,8 +23,8 @@
       title: "Empresa",
       icon: Briefcase01Icon,
       links: [
-        { name: "Blog", href: "/" },
-        { name: "Sobre nós", href: "/" },
+        { name: "Blog", href: "/site" },
+        { name: "Aplicativo", href: "/site/app" },
         { name: "Trabalhe Connosco", href: "/" },
         { name: "Treinamento", href: "/" },
       ],
