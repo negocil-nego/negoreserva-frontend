@@ -1,113 +1,93 @@
 <script lang="ts">
-  const sections = [
-    {
-      title: "Menu",
-      links: ["Início", "Serviços"],
-    },
-    {
-      title: "Suporte",
-      links: ["Treinamento", "Documentação", "Guias"],
-    },
-    {
-      title: "A Empresa",
-      links: ["Sobre", "Blog", "Trabalhe Connosco", "Imprensa"],
-    },
+  import { HugeiconsIcon } from "@hugeicons/svelte";
+  import { Briefcase01Icon, ShieldCheck } from "@hugeicons/core-free-icons";
+  import { resolve } from "$app/paths";
+
+  let {
+    title = "Assine nossa newsletter",
+    description = "Receba semanalmente em seu e-mail as principais tendências, artigos exclusivos e atualizações sobre nossas soluções de tecnologia.",
+    placeholder = "Seu melhor e-mail",
+    buttonText = "Inscrever-se",
+  } = $props();
+
+  const navigation = [
     {
       title: "Legal",
-      links: ["Termos de Serviço", "Política de Privacidade"],
-    },
-  ];
-
-  const socialIcons = [
-    {
-      name: "Facebook",
-      src: "https://img.icons8.com/ios-glyphs/30/9ca3af/facebook-new.png",
-      href: "https://www.facebook.com/",
+      icon: ShieldCheck,
+      links: [
+        { name: "Termos de Serviço", href: "/legal/terms-of-use" },
+        { name: "Política de Privacidade", href: "/legal/privacy-policy" },
+      ],
     },
     {
-      name: "Instagram",
-      src: "https://img.icons8.com/ios-glyphs/30/9ca3af/instagram-new.png",
-      href: "https://www.instagram.com/",
-    },
-    {
-      name: "X",
-      src: "https://img.icons8.com/ios-glyphs/30/9ca3af/twitterx--v2.png",
-      href: "https://x.com/",
-    },
-    {
-      name: "GitHub",
-      src: "https://img.icons8.com/ios-glyphs/30/9ca3af/github.png",
-      href: "https://github.com/",
-    },
-    {
-      name: "YouTube",
-      src: "https://img.icons8.com/ios-glyphs/30/9ca3af/youtube-play.png",
-      href: "https://www.youtube.com/",
+      title: "Empresa",
+      icon: Briefcase01Icon,
+      links: [
+        { name: "Blog", href: "/" },
+        { name: "Trabalhe Connosco", href: "/" },
+        { name: "Treinamento", href: "/" },
+        { name: "Documentação", href: "/" },
+      ],
     },
   ];
 </script>
 
-<footer
-  class=" text-gray-400 py-16 px-6 font-sans border-t border-slate-200 dark:border-slate-700 mt-3 container"
->
-  <div class="max-w-7xl mx-auto">
-    <!-- Grid Principal -->
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-12">
-      {#each sections as section (section.title)}
-        <div>
-          <h3 class="font-semibold mb-4">{section.title}</h3>
-          <ul class="space-y-3">
-            {#each section.links as link (link)}
-              <li>
-                <div class="transition-colors">{link}</div>
-              </li>
-            {/each}
-          </ul>
-        </div>
-      {/each}
-
-      <!-- Newsletter Section -->
-      <div class="col-span-2 lg:col-span-2">
-        <h3 class="text-white font-semibold mb-4">
-          Subscreva a nossa newsletter
-        </h3>
-        <p class="mb-4 text-sm leading-6">
-          Os últimos artigos, novidades e recursos, enviados para a sua caixa de
-          entrada semanalmente.
-        </p>
-        <form class="flex flex-col sm:flex-row gap-3">
+<div class="relative isolate overflow-hidden py-16 bg-panel rounded-0">
+  <div class="mx-auto max-w-7xl px-6 lg:lg:px-8">
+    <div
+      class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2"
+    >
+      <div class="max-w-xl lg:max-w-lg">
+        <h2 class="text-4xl font-semibold tracking-tight">
+          {title}
+        </h2>
+        <p class="mt-4 text-lg">{description}</p>
+        <form class="mt-6 flex max-w-md gap-x-4">
           <input
             type="email"
-            placeholder="Enter your email"
-            class="bg-gray-400/5 border border-gray-400/10 rounded-md px-4 py-2 text-white w-full focus:outline-hidden focus:ring-2 focus:ring-green-500 transition-all"
+            required
+            {placeholder}
+            class="min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base outline -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
           />
           <button
             type="submit"
-            class="bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-2 rounded-md transition-colors"
+            class="flex-none rounded-md bg-brand px-3.5 py-2.5 text-sm font-semibold"
           >
-            Subscrever
+            {buttonText}
           </button>
         </form>
       </div>
-    </div>
 
-    <!-- Linha Inferior -->
-    <div
-      class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6"
-    >
-      <p class="text-sm">© 2024 Your Company, Inc. All rights reserved.</p>
-
-      <div class="flex gap-6">
-        {#each socialIcons as icon (icon.name)}
-          <span
-            role="img"
-            aria-label={icon.name}
-            class="opacity-80 hover:opacity-100 transition-opacity"
-          >
-            <img src={icon.src} alt={icon.name} class="w-6 h-6" />
-          </span>
+      <div class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
+        {#each navigation as section (section.title)}
+          <div class="flex flex-col items-start">
+            <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+              <HugeiconsIcon
+                icon={section.icon}
+                size={24}
+                color="#ffffff"
+                strokeWidth={1.5}
+              />
+            </div>
+            <h3 class="mt-4 text-base font-semibold">
+              {section.title}
+            </h3>
+            <ul class="mt-2 space-y-2">
+              {#each section.links as link (link.name)}
+                <li>
+                  <a
+                    href={resolve(link.href)}
+                    target="_blank"
+                    class="text-base text-gray-400 hover:text-white transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              {/each}
+            </ul>
+          </div>
         {/each}
       </div>
     </div>
   </div>
-</footer>
+</div>

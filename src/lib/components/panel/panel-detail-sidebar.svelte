@@ -2,7 +2,7 @@
     import ControlButtons from "$lib/components/navs/control-buttons.svelte";
     import * as Sidebar from "$lib/components/ui/sidebar/index.js";
     import type {Snippet} from "svelte";
-    import Logo from "./logo.svelte";
+    import Logo from "../logo.svelte";
 
     type Props = {
         isLoading: boolean;

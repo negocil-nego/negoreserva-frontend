@@ -1,6 +1,6 @@
 <script lang="ts">
   import InfoRow from "$lib/components/info-row.svelte";
-  import PanelInfoRow from "$lib/components/panel-info-row.svelte";
+  import PanelInfoRow from "$lib/components/panel/panel-info-row.svelte";
   import { HugeiconsIcon } from "@hugeicons/svelte";
   import {
     Building03Icon,

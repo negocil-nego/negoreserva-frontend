@@ -39,6 +39,7 @@ export default defineConfig(
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
       "no-navigation-without-resolve": "off",
+      "svelte/no-navigation-without-resolve": "off",
       "svelte/no-navigation-without-resolve": [
         "error",
         {

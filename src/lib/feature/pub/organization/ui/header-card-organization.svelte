@@ -10,6 +10,7 @@
 
   import * as Tooltip from "$lib/components/ui/tooltip/index";
   import { buttonVariants } from "$lib/components/ui/button";
+  import RatingGenerator from "$lib/components/rating-generator.svelte";
 
   let { item }: { item: OrganizationResponse } = $props();
 </script>
@@ -26,15 +27,12 @@
         <span class="text-white text-sm font-bold drop-shadow-xs"
           >{item.name}</span
         >
-        <div class="flex items-center gap-1">
-          {#each Array.from({ length: item.rating ?? 0 }) as n, i (i)}
-            <span class="text-yellow-400 text-[10px] drop-shadow-xs">★</span>
-            <span class="hidden">{n}</span>
-          {/each}
-        </div>
+        <RatingGenerator rating={item.rating} />
       </div>
     </div>
-    <div class="flex text-white text-sm gap-3 overflow-x-auto my-1 md:my-2 md:justify-between">
+    <div
+      class="flex text-white text-sm gap-3 overflow-x-auto my-1 md:my-2 md:justify-between"
+    >
       <div class="flex gap-1 items-center">
         <HugeiconsIcon
           icon={MapsGlobal01Icon}
@@ -55,7 +53,9 @@
       </div>
     </div>
   </aside>
-  <aside class="absolute top-0 right-1 flex gap-2 z-30 bg-black/30 backdrop-blur-md rounded-2xl">
+  <aside
+    class="absolute top-0 right-1 flex gap-2 z-30 bg-black/30 backdrop-blur-md rounded-2xl"
+  >
     <Tooltip.Provider>
       <Tooltip.Root>
         <Tooltip.Trigger

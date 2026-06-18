@@ -6,10 +6,12 @@
   let { data }: { data: ProductDetailResponse } = $props();
 
   let primaryPrice = $derived(
-    data.prices?.find((p) => p.isPrimary) ?? data.prices?.[0]
+    data.prices?.find((p) => p.isPrimary) ?? data.prices?.[0],
   );
   let priceText = $derived(
-    primaryPrice ? `${primaryPrice.value.toLocaleString('pt-MZ')} kz` : "Sob Consulta"
+    primaryPrice != null && primaryPrice.value
+      ? `${primaryPrice.value.toLocaleString("pt-MZ")} kz`
+      : "Sob Consulta",
   );
 </script>
 

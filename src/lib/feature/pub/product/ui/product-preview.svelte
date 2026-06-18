@@ -29,7 +29,7 @@
       variant: "ghost",
       size: "sm",
       class:
-        "cursor-pointer flex items-center hover:text-white bg-brand p-0 py-0 m-0 px-1",
+        "cursor-pointer flex items-center hover:text-white bg-brand p-0 py-0 m-0 px-1 rounded-md",
     })}
   >
     Solicitar
@@ -40,16 +40,22 @@
       strokeWidth={1}
     />
   </Dialog.Trigger>
-  <Dialog.Content class="sm:max-w-4xl h-[85vh] max-h-[85vh] flex flex-col p-0 overflow-hidden bg-background rounded-xl">
+  <Dialog.Content
+    class="sm:max-w-4xl h-[85vh] max-h-[85vh] flex flex-col p-0 overflow-hidden bg-background rounded-xl"
+  >
     <div class="p-6 pb-4 border-b border-muted/20">
-      <Dialog.Title class="text-xl font-bold tracking-tight">Detalhes do Produto</Dialog.Title>
+      <Dialog.Title class="text-xl font-bold tracking-tight"
+        >Detalhes do Produto</Dialog.Title
+      >
       <Dialog.Description class="text-xs text-muted-foreground">
         Visualize as informações do produto e confirme a sua solicitação.
       </Dialog.Description>
     </div>
 
     {#if isLoading}
-      <div class="flex-1 p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div
+        class="flex-1 p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
         <div class="space-y-4">
           <Skeleton class="aspect-square w-full rounded-2xl" />
         </div>
@@ -68,17 +74,29 @@
         <ProductPreviewDetail {data} />
       </div>
 
-      <div class="absolute bottom-0 inset-x-0 p-4 bg-background border-t border-muted/30 flex items-center justify-between z-10 rounded-b-xl">
+      <div
+        class="absolute bottom-0 inset-x-0 p-4 bg-background border-t border-muted/30 flex items-center justify-between z-10 rounded-b-xl"
+      >
         <div class="flex flex-col">
-          <span class="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Preço Base</span>
+          <span
+            class="text-[10px] text-muted-foreground uppercase font-bold tracking-wider"
+            >Preço Base</span
+          >
           {#if data.prices && data.prices.length > 0}
             <span class="text-lg font-black text-emerald-500">
-              {new Intl.NumberFormat("pt-AO", { style: "currency", currency: "AOA" }).format(
-                data.prices.find(p => p.isPrimary)?.value ?? data.prices[0].value ?? 0
+              {new Intl.NumberFormat("pt-AO", {
+                style: "currency",
+                currency: "AOA",
+              }).format(
+                data.prices.find((p) => p.isPrimary)?.value ??
+                  data.prices[0].value ??
+                  0,
               )}
             </span>
           {:else}
-            <span class="text-sm font-semibold text-muted-foreground">Sob Consulta</span>
+            <span class="text-sm font-semibold text-muted-foreground"
+              >Sob Consulta</span
+            >
           {/if}
         </div>
         <div class="w-48">

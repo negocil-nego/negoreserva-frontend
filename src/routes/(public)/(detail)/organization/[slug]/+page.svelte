@@ -14,7 +14,7 @@
         from "$lib/feature/pub/organization/ui/detail/organization-profile-products.svelte";
     import OrganizationProfileCatalogs
         from "$lib/feature/pub/organization/ui/detail/organization-profile-catalogs.svelte";
-    import PanelDetailSidebar from "$lib/components/panel-detail-sidebar.svelte";
+    import PanelDetailSidebar from "$lib/components/panel/panel-detail-sidebar.svelte";
     import {
         Folder01Icon,
         Image01Icon,

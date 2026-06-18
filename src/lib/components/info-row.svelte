@@ -1,6 +1,6 @@
 <script lang="ts">
-    import PanelInfoRow from "./panel-info-row.svelte";
-    import type {PanelInfoProps} from "$lib/components/panel-info-row.svelte";
+    import PanelInfoRow from "./panel/panel-info-row.svelte";
+    import type {PanelInfoProps} from "$lib/components/panel/panel-info-row.svelte";
     import {HugeiconsIcon} from "@hugeicons/svelte";
     import {Copy01Icon, LinkSquare01Icon, Tick01Icon} from "@hugeicons/core-free-icons";
 

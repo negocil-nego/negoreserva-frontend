@@ -3,7 +3,7 @@
   import ProductImageGallery from "$lib/feature/pub/product/ui/product-image-gallery.svelte";
   import type { ProductDetailResponse } from "$lib/feature/pub/product";
   import { InformationSquareIcon } from "@hugeicons/core-free-icons";
-  import PanelInfoRow from "$lib/components/panel-info-row.svelte";
+  import PanelInfoRow from "$lib/components/panel/panel-info-row.svelte";
 
   let { data }: { data: ProductDetailResponse } = $props();
 

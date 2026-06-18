@@ -1,4 +1,5 @@
 <script lang="ts">
+  import RatingGenerator from "$lib/components/rating-generator.svelte";
   import type { ProductResponse } from "$lib/feature/pub/product";
   import ProductPreview from "./product-preview.svelte";
 
@@ -25,9 +26,7 @@
     </div>
   {/if}
 
-  <div
-    class="absolute inset-x-0 top-0 flex items-center justify-between gap-1.5 px-3 py-2"
-  >
+  <div class="absolute inset-x-0 top-0 flex items-center gap-1.5 p-1">
     {#if product.organization.logo}
       <img
         src={product.organization.logo}
@@ -48,19 +47,13 @@
         {product.organization.name}
       </span>
       {#if product.organization.rating}
-        <span class="flex items-center gap-0.5 ml-auto text-amber-500 shrink-0">
-          <span class="text-[11px] font-bold text-amber-500">★</span>
-          <span class="text-white text-[11px] font-bold"
-            >{product.organization.rating}</span
-          >
-        </span>
+        <RatingGenerator rating={product.organization.rating} />
       {/if}
     </div>
-    <ProductPreview slug={product.slug} />
   </div>
 
   <div
-    class="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between gap-2 bg-linear-to-t from-black/95 via-black/40 to-transparent pt-8 rounded-b-md"
+    class="absolute inset-x-0 bottom-0 p-3 gap-2 bg-linear-to-t from-black/10 via-black/10 to-transparent pt-8 rounded-b-md flex flex-col justify-end"
   >
     <div
       class="font-semibold text-base text-white truncate"
@@ -68,13 +61,17 @@
     >
       {product.name}
     </div>
-    <span
-      class="text-xs font-bold text-emerald-400 bg-black/50 px-2 py-0.5 rounded-sm shrink-0"
-    >
-      {new Intl.NumberFormat("pt-AO", {
-        style: "currency",
-        currency: "AOA",
-      }).format(product.price ?? 0)}
-    </span>
+    <div class="w-full flex items-center justify-between">
+      <ProductPreview slug={product.slug} />
+
+      <span
+        class="text-xl font-bold text-emerald-400 bg-black/50 px-2 py-0.5 rounded-sm shrink-0"
+      >
+        {new Intl.NumberFormat("pt-AO", {
+          style: "currency",
+          currency: "AOA",
+        }).format(product.price ?? 0)}
+      </span>
+    </div>
   </div>
 </div>

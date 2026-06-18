@@ -11,7 +11,7 @@
   import GetOrganizationCategoryCarousel from "../get-organization-category-carousel.svelte";
   import type {OrganizationDetailResponse} from "$lib/feature/pub/organization";
   import InfoRow from "$lib/components/info-row.svelte";
-  import PanelInfoRow from "$lib/components/panel-info-row.svelte";
+  import PanelInfoRow from "$lib/components/panel/panel-info-row.svelte";
 
   let { data }: { data: OrganizationDetailResponse } = $props();
 </script>
