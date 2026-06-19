@@ -29,7 +29,7 @@
       variant: "ghost",
       size: "sm",
       class:
-        "cursor-pointer flex items-center hover:text-white bg-brand p-0 py-0 m-0 px-1 rounded-md",
+        "cursor-pointer flex items-center text-white bg-black/40 backdrop-blur-lg p-0 py-0 m-0 px-1 rounded-md border border-gray-50/50",
     })}
   >
     Solicitar

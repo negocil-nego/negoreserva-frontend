@@ -82,7 +82,7 @@ export interface OrganizationDetailResponse {
     slug: string;
     description: string;
     address: string;
-    rating: string;
+    rating: number;
     logo: string;
     image: string;
     video: string;

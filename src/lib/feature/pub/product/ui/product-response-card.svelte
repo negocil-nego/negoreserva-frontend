@@ -2,6 +2,7 @@
   import RatingGenerator from "$lib/components/rating-generator.svelte";
   import type { ProductResponse } from "$lib/feature/pub/product";
   import ProductPreview from "./product-preview.svelte";
+  import {goto} from "$app/navigation";
 
   type Props = { product: ProductResponse };
 
@@ -26,7 +27,9 @@
     </div>
   {/if}
 
-  <div class="absolute inset-x-0 top-0 flex items-center gap-1.5 p-1">
+  <button class="absolute inset-x-0 top-0 flex items-center gap-1.5 p-1 z-50 cursor-pointer"
+       onclick={() => goto(`/detail/organization/${product.organization.slug}`)}
+  >
     {#if product.organization.logo}
       <img
         src={product.organization.logo}
@@ -50,7 +53,7 @@
         <RatingGenerator rating={product.organization.rating} />
       {/if}
     </div>
-  </div>
+  </button>
 
   <div
     class="absolute inset-x-0 bottom-0 p-3 gap-2 bg-linear-to-t from-black/10 via-black/10 to-transparent pt-8 rounded-b-md flex flex-col justify-end"

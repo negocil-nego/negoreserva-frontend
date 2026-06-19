@@ -94,7 +94,7 @@
                 {#each $query.data.content as item (item.uuid)}
                     <button
                         onclick={() =>
-                            goto(resolve(`/organization/${item.slug}`))}
+                            goto(resolve(`/detail/organization/${item.slug}` as any))}
                         class="w-50 h-30 relative shrink-0 rounded-md border border-gray-50 dark:border-gray-800 overflow-hidden cursor-pointer"
                     >
                         <img

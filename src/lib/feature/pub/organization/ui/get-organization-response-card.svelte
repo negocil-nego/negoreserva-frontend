@@ -27,7 +27,7 @@
     </button>
 
     <div
-      class="absolute bottom-1 md:bottom-2 w-full flex gap-2 items-center justify-between px-2"
+      class="absolute bottom-1 md:bottom-2 w-full flex items-center justify-between px-2"
     >
       <Carousel.Root class="w-2/3 relative group" opts={{ dragFree: true }}>
         <Carousel.Content class="-ml-2">
@@ -46,9 +46,9 @@
         </Carousel.Content>
       </Carousel.Root>
       <button
-        class="bg-black/40 backdrop-blur-lg rounded-full p-1 flex w-1/3 gap-2 items-center justify-between cursor-pointer text-white px-2"
+        class="bg-black/40 backdrop-blur-lg rounded-full p-1 flex px-2 gap-2 items-center justify-between cursor-pointer text-white border border-gray-50/50"
         onclick={() => {
-          goto(resolve(`/organization/${item.slug}`));
+          goto(resolve(`/detail/organization/${item.slug}`));
         }}
       >
         Perfil

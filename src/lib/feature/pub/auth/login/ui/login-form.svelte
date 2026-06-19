@@ -10,9 +10,24 @@
   import { LoginService } from "$lib/feature/pub/auth/login/data/service/login.service";
   import { useLogin } from "$lib/feature/pub/auth/login/data/hooks/use-login";
   import Button from "$lib/components/ui/button/button.svelte";
+  import AccountSituationDialog from "$lib/feature/pub/auth/me/ui/account-situation-dialog.svelte";
+  import { MeService } from "$lib/feature/pub/auth/me/data/service/me.service";
+  import type { AccountSituationResponse } from "$lib/feature/pub/auth/me/data/model/account-situation.model";
+  import { goto } from "$app/navigation";
+  import { resolve } from "$app/paths";
 
   const service = new LoginService();
-  const loginMutation = useLogin({ service });
+  const meService = new MeService();
+  let accountSituations = $state<AccountSituationResponse[]>([]);
+  let showAccountSituationDialog = $state(false);
+  const loginMutation = useLogin({
+    service,
+    loadAccountSituations: () => meService.accountSituations(),
+    onAccountSituations: (situations) => {
+      accountSituations = situations;
+      showAccountSituationDialog = true;
+    },
+  });
 
   const loginSchema = z.object({
     username: z.string().min(1, "Email é obrigatório").email("Email inválido"),
@@ -50,6 +65,10 @@
       username: $formData.username,
       password: $formData.password,
     });
+  }
+
+  function continueToOrganizationDashboard() {
+    goto(resolve("/dashboard/organization"), { replaceState: true });
   }
 </script>
 
@@ -113,3 +132,9 @@
     {isLoading ? "Entrando..." : "Entrar"}
   </Form.Button>
 </form>
+
+<AccountSituationDialog
+  bind:open={showAccountSituationDialog}
+  situations={accountSituations}
+  onClose={continueToOrganizationDashboard}
+/>

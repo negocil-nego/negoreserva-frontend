@@ -3,10 +3,6 @@
   import { HugeiconsIcon } from "@hugeicons/svelte";
   import {
     Building03Icon,
-    Mail01Icon,
-    Call02Icon,
-    Location01Icon,
-    StarIcon,
     ShareIcon,
     Copy01Icon,
     BlockedIcon,

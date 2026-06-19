@@ -8,18 +8,23 @@ import { resolve } from "$app/paths";
 import { UserType } from "../../../register/data/model/register.model";
 import { userAuthStore } from "$lib/stores/user-auth.store";
 import { cartStore } from "$lib/stores/cart.store";
+import type { AccountSituationResponse } from "../../../me/data/model/account-situation.model";
 
 interface LoginProps {
     service: ILoginService;
+    loadAccountSituations?: () => Promise<AccountSituationResponse[]>;
+    onAccountSituations?: (situations: AccountSituationResponse[]) => void;
 }
 
 export const useLogin = ({
     service,
+    loadAccountSituations,
+    onAccountSituations,
 }: LoginProps) => {
     return useMutation(
         (request: LoginRequest) => service.login(request),
         {
-            onSuccess: (data) => {
+            onSuccess: async (data) => {
                 userAuthStore.setUserAuthResponse(data);
                 toastSuccess("Login realizado com sucesso");
 
@@ -35,6 +40,13 @@ export const useLogin = ({
                         goto(resolve("/dashboard/client"), { replaceState: true });
                         break;
                     case UserType.ORGANIZATION:
+                        if (loadAccountSituations) {
+                            const situations = await loadAccountSituations();
+                            if (situations.length > 0) {
+                                onAccountSituations?.(situations);
+                                return;
+                            }
+                        }
                         goto(resolve("/dashboard/organization"), { replaceState: true });
                         break;
                     case UserType.ADMIN:
