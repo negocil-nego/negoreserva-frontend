@@ -6,8 +6,8 @@
     import {usePubGetCategoryFilterPaginate} from "$lib/feature/pub/category/data/hooks/use-get-filter-paginate";
     import {CategoryManage} from "$lib/feature/pub/category/data/service/category.service";
     import {registerCategoryStore} from "$lib/stores/register.store";
-    import {Popover} from "$lib/components/ui/popover";
     import * as Tabs from "$lib/components/ui/tabs/index.js";
+    import * as Popover from "$lib/components/ui/popover/index.js";
     import {Badge} from "$lib/components/ui/badge";
     import {Button} from "$lib/components/ui/button";
     import {HugeiconsIcon} from '@hugeicons/svelte';

@@ -18,8 +18,9 @@
 
   const service = new LoginService();
   const meService = new MeService();
-  let accountSituations = $state<AccountSituationResponse[]>([]);
   let showAccountSituationDialog = $state(false);
+  let accountSituations = $state<AccountSituationResponse[]>([]);
+
   const loginMutation = useLogin({
     service,
     loadAccountSituations: () => meService.accountSituations(),
@@ -30,7 +31,10 @@
   });
 
   const loginSchema = z.object({
-    username: z.string().min(1, "Email é obrigatório").email("Email inválido"),
+    username: z
+      .string()
+      .min(1, "Nome de usuário ou Email é obrigatório")
+      .max(255, "Nome de usuário ou Email deve ter menos de 255 caracteres"),
     password: z
       .string()
       .min(1, "Senha é obrigatória")
@@ -72,7 +76,11 @@
   }
 </script>
 
-<form use:enhance class="w-10/12 md:w-full mx-auto space-y-4 lg:w-10/12" onsubmit={onSubmit}>
+<form
+  use:enhance
+  class="w-10/12 md:w-full mx-auto space-y-4 lg:w-10/12"
+  onsubmit={onSubmit}
+>
   <div class="text-center space-y-1">
     <div class="text-lg font-bold">Autenticação</div>
     <div class="text-muted-foreground text-sm">
@@ -87,7 +95,7 @@
         <InputIcon
           {...props}
           bind:value={$formData.username}
-          type="email"
+          type="text"
           placeholder="adao.silva#negocio ou adao.silva@email.com"
           class="md:p-5 text-sm"
         >

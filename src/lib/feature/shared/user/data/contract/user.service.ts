@@ -19,4 +19,8 @@ export class IUserService {
     async userResetPasswordCurrent(request: UserResetPasswordCurrentRequest): Promise<UserResponse> {
         return await this.repo.userResetPasswordCurrent(request);
     }
+
+    async profileUser(): Promise<UserResponse> {
+        return await this.repo.profileUser();
+    }
 }

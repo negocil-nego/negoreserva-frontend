@@ -1,80 +1,88 @@
 <script lang="ts">
     import {page} from "$app/state";
     import {OrganizationService, useGetOrganizationDetail} from "$lib/feature/pub/organization";
+    import OrganizationProfileProducts from "$lib/feature/pub/organization/ui/detail/organization-profile-products.svelte";
+    import OrganizationProfileCatalogs from "$lib/feature/pub/organization/ui/detail/organization-profile-catalogs.svelte";
+    import OrganizationProfileAddress from "$lib/feature/pub/organization/ui/detail/organization-profile-address.svelte";
     import OrganizationSectionInfo from "$lib/feature/pub/organization/ui/detail/organization-section-info.svelte";
-    import NavLinkMenus from "$lib/components/navs/nav-link-menus.svelte";
-    import OrganizationProfileAddress
-        from "$lib/feature/pub/organization/ui/detail/organization-profile-address.svelte";
-    import OrganizationProfileGallery
-        from "$lib/feature/pub/organization/ui/detail/organization-profile-gallery.svelte";
-    import OrganizationProfileProducts
-        from "$lib/feature/pub/organization/ui/detail/organization-profile-products.svelte";
-    import OrganizationProfileCatalogs
-        from "$lib/feature/pub/organization/ui/detail/organization-profile-catalogs.svelte";
-    import PanelDetailSidebar from "$lib/components/panel/panel-detail-sidebar.svelte";
-    import {
-        Folder01Icon,
-        Image01Icon,
-        InformationSquareIcon,
-        MapsGlobal01Icon,
-        ProductLoadingIcon
-    } from "@hugeicons/core-free-icons";
+    import ControlButtons from "$lib/components/navs/control-buttons.svelte";
+    import ShopCartBadge from "$lib/components/shop-cart-badge.svelte";
+    import HomeFooter from "$lib/feature/pub/home/home-footer.svelte";
+    import Logo from "$lib/components/logo.svelte";
+    import { Skeleton } from "$lib/components/ui/skeleton/index.js";
+    import * as Tabs from "$lib/components/ui/tabs/index";
 
     const slug = page.params.slug ?? "";
     const catalogUrl = `/organization/${slug}/catalog`;
+    const productUrl = `/organization/${slug}/product`;
 
     const organizationQuery = useGetOrganizationDetail({
         service: new OrganizationService(),
-        get uuidOrSlug() {return slug},
+        get uuidOrSlug() {
+            return slug
+        },
     });
 
     let data = $derived($organizationQuery?.data);
     let isLoading = $derived($organizationQuery.isFetching);
-    let activeSection = $state("organization-section-info");
-
-    const sections = [
-        "organization-section-info",
-        "organization-section-products",
-        "organization-section-catalogs",
-        "organization-section-gallery",
-        "organization-section-social-media",
-        "organization-section-address",
-    ];
-
-    function handleScroll() {
-        for (const id of sections) {
-            const el = document.getElementById(id);
-            if (el && el.getBoundingClientRect().top <= 150) {
-                activeSection = id;
-            }
-        }
-    }
-
-    $effect(() => {
-        document.addEventListener("scroll", handleScroll, {passive: true});
-        return () => document.removeEventListener("scroll", handleScroll);
-    });
 </script>
 
-<PanelDetailSidebar {isLoading}>
-    {#snippet left()}
-        <NavLinkMenus bind:activeId={activeSection} items={[
-            { name: "Sobre",         icon: InformationSquareIcon, url: "organization-section-info"         },
-            { name: "Produtos",      icon: ProductLoadingIcon,    url: "organization-section-products"     },
-            { name: "Catálogos",     icon: Folder01Icon,          url: "organization-section-catalogs"     },
-            { name: "Galeria",       icon: Image01Icon,           url: "organization-section-gallery"      },
-            { name: "Localização",   icon: MapsGlobal01Icon,      url: "organization-section-address"      },
-        ]}/>
-    {/snippet}
-    {#snippet right()}
-        <section class="px-5 pb-5 lg:pb-10">
+<nav class="flex items-center justify-between h-15 p-2 border-b fixed top-0 z-50 w-full bg-white dark:bg-slate-950">
+    <div class="container relative">
+        <div class="flex items-center justify-between w-full h-full absolute z-40">
+            <div class="flex items-center gap-2 z-10">
+                <Logo varient="contract"/>
+            </div>
+            <div class="mr-3 flex items-center gap-2 z-10">
+                <ShopCartBadge/>
+                <div class="cursor-pointer hover:text-foreground transition-colors hidden md:block ">
+                    <a href="/">Início</a>
+                </div>
+                <ControlButtons/>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="container mt-20">
+    {#if isLoading}
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                {#each Array.from({ length: 4 }) as _}
+                    <div class="flex flex-col space-y-3">
+                        <Skeleton class="h-31.25 w-62.5 rounded-xl" />
+                        <div class="space-y-2">
+                            <Skeleton class="h-4 w-62.5" />
+                            <Skeleton class="h-4 w-50" />
+                        </div>
+                    </div>
+                {/each}
+            </div>
+    {:else}
+        <section class="px-5 pb-5">
             {#if data}
                 <OrganizationSectionInfo {data}/>
-                <OrganizationProfileProducts {data}/>
-                <OrganizationProfileCatalogs {data} url={catalogUrl}/>
-                <OrganizationProfileGallery {data}/>
-                <OrganizationProfileAddress {data}/>
+                <Tabs.Root value="product" class="mt-5">
+                    <Tabs.List class="bg-white">
+                        <Tabs.Trigger value="product">Produtos</Tabs.Trigger>
+                        <Tabs.Trigger value="catalog">Catalogos</Tabs.Trigger>
+                        <Tabs.Trigger value="address">Endereços</Tabs.Trigger>
+                    </Tabs.List>
+                    <Tabs.Content value="product">
+                        <OrganizationProfileProducts {data} url={productUrl}/>
+                    </Tabs.Content>
+                    <Tabs.Content value="catalog">
+                        <OrganizationProfileCatalogs {data} url={catalogUrl}/>
+                    </Tabs.Content>
+                    <Tabs.Content value="address">
+                        <OrganizationProfileAddress {data}/>
+                    </Tabs.Content>
+                </Tabs.Root>
             {/if}
         </section>
-    {/snippet}
-</PanelDetailSidebar>
+
+    {/if}
+</section>
+
+<div class="w-full mt-10">
+    <HomeFooter />
+</div>

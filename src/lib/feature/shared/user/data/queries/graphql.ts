@@ -21,3 +21,14 @@ export const USER_RESET_PASSWORD_CURRENT = gql`
     }
   }
 `;
+
+export const PROFILE_USER = gql`
+  query {
+    profileUser {
+      uuid
+      name
+      email
+      phone
+    }
+  }
+`;

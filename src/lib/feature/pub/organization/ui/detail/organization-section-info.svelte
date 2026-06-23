@@ -50,11 +50,11 @@
         </aside>
 
         <section class="z-20 left-5 bottom-5 flex justify-center md:justify-between flex-col md:flex-row w-full items-end p-2">
-            <aside class="flex flex-col md:flex-row justify-center md:justify-start items-center md:items-start gap-1 w-full">
+            <aside class="flex flex-col md:flex-row justify-center md:justify-start items-center md:items-start gap-1 w-full lg:h-37.5 lg:gap-5">
                 {#if data.logo}
-                    <div class="bg-white rounded-2xl w-25 lg:w-37.5">
+                    <div class="bg-white rounded-2xl w-25 lg:w-37.5 h-full">
                         <img src={data.logo} alt={data.name}
-                             class="size-24 md:size-28 lg:size-32 m-auto rounded-2xl object-cover"/>
+                             class="size-24 md:size-28 lg:h-full m-auto rounded-2xl object-cover"/>
                     </div>
                 {:else}
                     <Avatar.Root class="size-24 rounded-2xl border-4 border-background bg-muted">
@@ -63,18 +63,24 @@
                         </Avatar.Fallback>
                     </Avatar.Root>
                 {/if}
-                <div class="bg-black/10 p-1 rounded-md flex flex-col items-center md:items-start">
+                <div class="bg-black/5 p-1 rounded-md flex flex-col items-center md:items-start md:h-full">
                     <div class="text-white font-bold text-xl">{data.name}</div>
                     {#if data.rating}
                         <RatingGenerator rating={data.rating} className="text-[20px] md:text-xl"/>
                     {/if}
-                    <div class="text-white text-center md:text-left md:w-100 lg:w-150">
+                    <div class="text-white text-center md:text-left md:w-100 lg:w-150 lg:my-2">
                         {#if size > 90}
                             {data.description.substring(0, 90)} ...
                         {:else}
                             {data.description}
                         {/if}
                     </div>
+                    {#if data.address}
+                        <div class="text-gray-300 lg:flex lg:flex-row lg:gap-2">
+                            <div class="text-sm font-semibold mb-1">Endereço Principal:</div>
+                            <p class="text-sm">{data.address}</p>
+                        </div>
+                    {/if}
                 </div>
             </aside>
 

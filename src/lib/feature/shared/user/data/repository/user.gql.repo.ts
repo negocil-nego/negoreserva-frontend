@@ -1,7 +1,7 @@
 import { apolloClient } from "$lib/providers/graphql.provider";
 import type { IUserRepo } from "../contract/user.repo";
 import type { UserEditProfileRequest, UserResetPasswordCurrentRequest, UserResponse } from "$lib/feature/shared/user/data/model/user.model";
-import { UPDATE_USER, USER_RESET_PASSWORD_CURRENT } from "../queries/graphql";
+import { UPDATE_USER, USER_RESET_PASSWORD_CURRENT, PROFILE_USER } from "../queries/graphql";
 import { useUpdateLogoUser } from "../usecase/useUpdateLogoUser";
 
 export class UserGqlRepo implements IUserRepo {
@@ -23,5 +23,13 @@ export class UserGqlRepo implements IUserRepo {
             variables: { request }
         });
         return data!.userRestPassword;
+    }
+
+    async profileUser(): Promise<UserResponse> {
+        const { data } = await apolloClient.query<{ profileUser: UserResponse }>({
+            query: PROFILE_USER,
+            fetchPolicy: "network-only"
+        });
+        return data!.profileUser;
     }
 }

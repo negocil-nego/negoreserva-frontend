@@ -19,4 +19,8 @@ export class UserRestRepo implements IUserRepo {
         const { data } = await axiosClient.post<UserResponse>(UserRouteNamed.RESET_PASSWORD_CURRENT, request);
         return data;
     }
+
+    async profileUser(): Promise<UserResponse> {
+        throw new Error("Method not implemented for REST repository");
+    }
 }

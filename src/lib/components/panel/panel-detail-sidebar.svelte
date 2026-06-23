@@ -23,8 +23,8 @@
 
 <Sidebar.Provider style="--sidebar-width: 8rem; --sidebar-width-mobile: 8rem;">
     <main class="w-full">
-        <nav class="flex items-center justify-between h-15 p-2 border-b fixed z-20 w-full bg-white dark:bg-slate-950">
-            <div class="flex items-center justify-between w-full absolute z-50">
+        <nav class="flex items-center justify-between h-15 p-2 border-b fixed z-50 w-full bg-white dark:bg-slate-950">
+            <div class="flex items-center justify-between w-full absolute z-40">
                 <div class="flex items-center gap-2 z-10">
                     <button type="button"  onclick={() => isOpen = !isOpen}>
                         <Sidebar.Trigger />

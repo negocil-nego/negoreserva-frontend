@@ -1,32 +1,21 @@
 <script lang="ts">
-  import * as Carousel from "$lib/components/ui/carousel/index.js";
-  import { HugeiconsIcon } from "@hugeicons/svelte";
-  import { ProductLoadingIcon } from "@hugeicons/core-free-icons";
-    import OrganizationProductProfile from "../organization-product-profile.svelte";
-  import type {OrganizationDetailResponse} from "$lib/feature/pub/organization";
+    import EmptyNotFound from "$lib/components/empty-not-found.svelte";
+  import type { OrganizationDetailResponse } from "$lib/feature/pub/organization";
+  import ProductResponseDetailCard from "$lib/feature/pub/product/ui/product-response-detail-card.svelte";
 
-  let { data }: { data: OrganizationDetailResponse } = $props();
+  let { data }: { data: OrganizationDetailResponse; url?: string } = $props();
+
+  const products = $derived(data.products ?? []);
 </script>
 
-<section id="organization-section-products" class="mt-10 bg-panel p-6 border">
-  <div class="flex items-center gap-2 mb-6">
-    <HugeiconsIcon icon={ProductLoadingIcon} size={24} color="currentColor" strokeWidth={1} />
-    <h2 class="text-xl font-bold">Produtos Disponíveis</h2>
-  </div>
-
-  {#if data.products && data.products.length > 0}
-    <Carousel.Root class="w-full relative md:px-10">
-      <Carousel.Content class="w-full">
-        {#each data.products as product (product.uuid)}
-          <Carousel.Item class="basis-auto">
-            <OrganizationProductProfile data={product} />
-          </Carousel.Item>
-        {/each}
-      </Carousel.Content>
-      <Carousel.Previous class="ml-0 inset-s-0"/>
-      <Carousel.Next class="mr-0 inset-e-0"/>
-    </Carousel.Root>
+<section id="organization-section-products" class="bg-panel p-6 border relative w-full">
+  {#if products.length > 0}
+    <div class="w-full grid grid-cols-1 md:grid-cols-4 gap-3" role="region" aria-label="Products">
+      {#each products as product (product.uuid)}
+        <ProductResponseDetailCard detail={product} />
+      {/each}
+    </div>
   {:else}
-    <p class="text-sm text-muted-foreground">Nenhum produto disponível.</p>
+    <EmptyNotFound />
   {/if}
 </section>

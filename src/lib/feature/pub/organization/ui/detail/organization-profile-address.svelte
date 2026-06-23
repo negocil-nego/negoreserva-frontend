@@ -7,18 +7,11 @@
   let { data }: { data: OrganizationDetailResponse } = $props();
 </script>
 
-<section id="organization-section-address" class="mt-10 bg-panel p-6 border">
+<section id="organization-section-address" class="bg-panel p-6 border relative w-full">
   <div class="flex items-center gap-2 mb-6">
     <HugeiconsIcon icon={Location01Icon} size={24} color="currentColor" strokeWidth={1} />
     <h2 class="text-xl font-bold">Endereço</h2>
   </div>
-
-  {#if data.address}
-    <div class="mb-4">
-      <h3 class="text-sm font-semibold text-muted-foreground mb-1">Endereço Principal</h3>
-      <p class="text-sm">{data.address}</p>
-    </div>
-  {/if}
 
   {#if data.addresses && data.addresses.length > 0}
     <div class="space-y-4">

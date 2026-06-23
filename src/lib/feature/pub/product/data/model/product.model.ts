@@ -9,6 +9,7 @@ import type {
 export interface ProductDetailResponse {
     uuid: string;
     name: string;
+    slug: string;
     description: string;
     image?: string | null;
     organization: OrganizationResponse;
