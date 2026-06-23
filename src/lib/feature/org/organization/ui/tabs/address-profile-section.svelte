@@ -44,39 +44,14 @@
         {#each data.addresses as address}
           <div class="divide-y divide-border">
             <ProfileInfoRow
-              label="País"
+              label="Província"
               icon={GlobeIcon}
-              value={address.country}
+              value={address.province?.label}
             />
             <ProfileInfoRow
-              label="Estado"
+              label="Município"
               icon={MapPinpoint01Icon}
-              value={address.state}
-            />
-            <ProfileInfoRow
-              label="Cidade"
-              icon={MapPinpoint01Icon}
-              value={address.city}
-            />
-            <ProfileInfoRow
-              label="Bairro"
-              icon={Location03Icon}
-              value={address.neighborhood}
-            />
-            <ProfileInfoRow
-              label="Rua"
-              icon={Location03Icon}
-              value={address.street}
-            />
-            <ProfileInfoRow
-              label="Número"
-              icon={Location03Icon}
-              value={address.number}
-            />
-            <ProfileInfoRow
-              label="Código Postal"
-              icon={Location03Icon}
-              value={address.zipCode}
+              value={address.municipality?.label}
             />
             <ProfileInfoRow
               label="Complemento"

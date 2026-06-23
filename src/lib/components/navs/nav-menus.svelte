@@ -1,10 +1,10 @@
 <script lang="ts">
   import * as Collapsible from "$lib/components/ui/collapsible/index.js";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-  import {HugeiconsIcon, type IconSvgElement} from "@hugeicons/svelte";
+  import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/svelte";
   import { goto } from "$app/navigation";
   import { resolve } from "$app/paths";
-  import { page } from '$app/state';
+  import { page } from "$app/state";
 
   let {
     items,
@@ -17,7 +17,6 @@
   } = $props();
 
   const isActive = (url: string) => page.url.pathname == url;
-
 </script>
 
 <Sidebar.Group>
@@ -31,18 +30,22 @@
             <Collapsible.Trigger>
               {#snippet child({ props })}
                 <Sidebar.MenuButton
-                        {...props}
-                        tooltipContent={item.name}
-                        onclick={() => goto(resolve(item.url as any))}
-                        class="cursor-pointer rounded-none {active ? 'menu-active' : ''}"
+                  {...props}
+                  tooltipContent={item.name}
+                  onclick={() => goto(resolve(item.url as any))}
+                  class="cursor-pointer rounded-none {active
+                    ? 'menu-active'
+                    : ''}"
                 >
                   {#if item.icon}
                     <HugeiconsIcon
-                            icon={item.icon}
-                            size={24}
-                            color="currentColor"
-                            strokeWidth={1}
-                            class={active ? "text-green-950 dark:text-white font-bold" : ""}
+                      icon={item.icon}
+                      size={24}
+                      color="currentColor"
+                      strokeWidth={1}
+                      class={active
+                        ? "text-green-950 dark:text-white font-bold"
+                        : ""}
                     />
                   {/if}
                   <span>{item.name}</span>

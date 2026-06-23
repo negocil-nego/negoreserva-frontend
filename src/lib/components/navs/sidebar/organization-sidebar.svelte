@@ -9,13 +9,13 @@
     MoneyBag01Icon,
     User02Icon,
     ProductLoadingIcon,
-    AddTeamIcon, Briefcase01Icon
+    AddTeamIcon,
+    Briefcase01Icon,
   } from "@hugeicons/core-free-icons";
   import * as Sidebar from "$lib/components/ui/sidebar/index";
   import type { ComponentProps } from "svelte";
   import NavMenus from "../nav-menus.svelte";
   import NavUser from "../nav-user.svelte";
-  import {page} from "$app/state";
 
   let {
     ref = $bindable(null),

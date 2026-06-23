@@ -30,14 +30,17 @@ query {
     }
     addresses {
       uuid
-      country
-      state
-      city
-      neighborhood
-      street
-      number
-      zipCode
       complement
+      province {
+        uuid
+        value
+        label
+      }
+      municipality {
+        uuid
+        value
+        label
+      }
       latitude
       longitude
     }

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@import "./app.css";
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn-svelte/tailwind.css";
@@ -8,16 +9,16 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-@utility bg-brand { 
-  @apply bg-linear-to-tl p-3 from-[#71dd4a] to-[#15803d] dark:from-[#21550e] dark:to-[#133d04] text-white dark:text-white cursor-pointer; 
+@utility bg-brand {
+  @apply bg-linear-to-tl p-3 from-[#71dd4a] to-[#15803d] dark:from-[#21550e] dark:to-[#133d04] text-white dark:text-white cursor-pointer;
 }
 
-@utility menu-active { 
+@utility menu-active {
   @apply bg-green-100 text-green-950 font-extrabold border-l-4 border-l-green-950 dark:bg-[#1B211A] dark:text-white;
 }
 
-@utility bg-panel { 
-  @apply bg-white dark:bg-[#1B211A] rounded-md ; 
+@utility bg-panel {
+  @apply bg-white dark:bg-[#1B211A] rounded-md;
 }
 
 @utility container {
@@ -25,10 +26,11 @@
 }
 
 @utility no-scrollbar {
-  overflow-x: auto; 
-  scrollbar-width: none; 
+  overflow-x: auto;
+  scrollbar-width: none;
+
   &::-webkit-scrollbar {
-    display: none; 
+    display: none;
   }
 }
 
@@ -64,7 +66,7 @@ body {
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
+  --sidebar: oklch(100% 0.00011 271.152);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -75,6 +77,10 @@ body {
 
   --warning: oklch(0.84 0.16 84);
   --warning-foreground: oklch(0.28 0.07 46);
+
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(58.342% 0.19684 142.766);
 }
 
 .dark {
@@ -112,6 +118,10 @@ body {
 
   --warning: oklch(0.84 0.16 84);
   --warning-foreground: oklch(0.28 0.07 46);
+
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(58.342% 0.19684 142.766);
 }
 
 @theme inline {
@@ -163,9 +173,11 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }

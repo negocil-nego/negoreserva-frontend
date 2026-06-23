@@ -1,4 +1,5 @@
 import type { OrganizationResponse } from "$lib/feature/pub/organization";
+import type { ProvinceResponse, MunicipalityResponse } from "$lib/feature/shared/location/model/location.model";
 
 export enum UpdateDataFielEnum {
     EMAIL = "EMAIL",
@@ -27,16 +28,9 @@ export interface UpdateDataResponse {
 
 export interface AddressResponse {
     uuid: string
-    country?: string | null
-    state?: string | null
-    city?: string | null
-    neighborhood?: string | null
-    street?: string | null
-    number?: string | null
-    zipCode?: string | null
     complement?: string | null
-    province?: string | null
-    municipality?: string | null
+    province?: ProvinceResponse | null
+    municipality?: MunicipalityResponse | null
     latitude?: number | null
     longitude?: number | null
 }

@@ -11,7 +11,7 @@ const GRAPHQL_ENDPOINT = `${PUBLIC_APP_URL}/graphql`;
 const errorLink = new ErrorLink(({ error }) => {
   if (CombinedGraphQLErrors.is(error)) {
     for (const graphQLError of error.errors) {
-      if (graphQLError.extensions?.code === "UNAUTHENTICATED") {
+      if (graphQLError.extensions?.code === "UNAUTHENTICATED" || graphQLError.extensions?.code === "UNAUTHORIZED") {
         redirectToLogin();
         return;
       }

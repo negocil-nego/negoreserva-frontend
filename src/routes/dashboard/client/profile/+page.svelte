@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from "$app/environment";
   import { useProfileUser } from "$lib/feature/shared/user/data/hooks/use-profile-user";
   import { UserService } from "$lib/feature/shared/user/data/service/user.service";
   import { useUserUpdateLogo } from "$lib/feature/shared/user/data/hooks/use-user-update-logo";
@@ -12,9 +13,12 @@
   import { HugeiconsIcon } from "@hugeicons/svelte";
 
   const userService = new UserService();
+
+  let isAuthenticated = $derived(userAuthStore.isAuthenticated());
   
   const profileQuery = useProfileUser({
-    service: userService
+    service: userService,
+    enabled: browser && isAuthenticated
   });
 
   const updateLogoMutation = useUserUpdateLogo({

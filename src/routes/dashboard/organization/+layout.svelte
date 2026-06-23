@@ -4,7 +4,6 @@
   import SettingsDrawer from "$lib/components/drawer/settings-drawer.svelte";
   import DropdownTheme from "$lib/components/theme/dropdown-theme.svelte";
   import AuthExpiryCountdown from "$lib/feature/pub/auth/otp/auth-expiry-countdown.svelte";
-  import * as Breadcrumb from "$lib/components/ui/breadcrumb/index.js";
   import { Separator } from "$lib/components/ui/separator/index.js";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   import LinkHome from "$lib/components/navs/link-home.svelte";
