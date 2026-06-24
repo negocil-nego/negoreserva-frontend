@@ -7,6 +7,7 @@ import {
   DASHBOARD_RECENT_PAYMENTS,
   DASHBOARD_RECENT_PRODUCTS,
   DASHBOARD_RECENT_CATALOGS,
+  DASHBOARD_PAYMENTS_MONTHLY,
 } from "../queries/dashboard";
 
 export interface DashboardTotals {
@@ -32,6 +33,21 @@ export interface DashboardCatalogWithProductCount {
   imgUrl?: string | null;
   slug: string;
   productCount: number;
+}
+
+export interface DashboardPaymentMonthly {
+  january: number;
+  february: number;
+  march: number;
+  april: number;
+  may: number;
+  june: number;
+  july: number;
+  august: number;
+  september: number;
+  october: number;
+  november: number;
+  december: number;
 }
 
 export class DashboardService {
@@ -85,5 +101,13 @@ export class DashboardService {
       query: DASHBOARD_PAYMENTS_BY_METHOD,
     });
     return data!.orgDashboardPaymentsByMethod;
+  }
+
+  async getPaymentsMonthly(year?: number, type = "QUANTIDADE"): Promise<DashboardPaymentMonthly> {
+    const { data } = await apolloClient.query<{ orgDashboardPaymentsMonthly: DashboardPaymentMonthly }>({
+      query: DASHBOARD_PAYMENTS_MONTHLY,
+      variables: { filter: { year, type } },
+    });
+    return data!.orgDashboardPaymentsMonthly;
   }
 }

@@ -77,10 +77,6 @@ body {
 
   --warning: oklch(0.84 0.16 84);
   --warning-foreground: oklch(0.28 0.07 46);
-
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(58.342% 0.19684 142.766);
 }
 
 .dark {
@@ -118,10 +114,6 @@ body {
 
   --warning: oklch(0.84 0.16 84);
   --warning-foreground: oklch(0.28 0.07 46);
-
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(58.342% 0.19684 142.766);
 }
 
 @theme inline {

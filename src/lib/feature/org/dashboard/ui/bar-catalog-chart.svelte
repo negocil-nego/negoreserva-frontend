@@ -14,10 +14,14 @@
   } satisfies Chart.ChartConfig;
 
   const chartData = $derived(
-    items.map((item) => ({
-      name: item.name,
-      productCount: item.productCount,
-    })),
+    items.map((item, index) => {
+      const chartNumber = (index % 20) + 1;
+      return {
+        name: item.name,
+        productCount: item.productCount,
+        color: `var(--chart-${chartNumber})`,
+      };
+    }),
   );
 
   let totalProducts = $derived(
@@ -33,7 +37,7 @@
     >
   </Card.Header>
   <Card.Content>
-    <Chart.Container config={chartConfig}>
+    <Chart.Container config={chartConfig} class="h-[170px] w-full">
       <BarChart
         labels={{ offset: 12 }}
         data={chartData}

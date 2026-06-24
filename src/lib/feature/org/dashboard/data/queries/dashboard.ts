@@ -97,3 +97,22 @@ export const DASHBOARD_PAYMENTS_BY_METHOD = gql`
     }
   }
 `;
+
+export const DASHBOARD_PAYMENTS_MONTHLY = gql`
+  query orgDashboardPaymentsMonthly($filter: DashboardPaymentMonthlyFilter) {
+    orgDashboardPaymentsMonthly(filter: $filter) {
+      january
+      february
+      march
+      april
+      may
+      june
+      july
+      august
+      september
+      october
+      november
+      december
+    }
+  }
+`;

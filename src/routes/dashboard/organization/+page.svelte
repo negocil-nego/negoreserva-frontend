@@ -6,13 +6,12 @@
     type DashboardPaymentByMethod,
     type DashboardCatalogWithProductCount,
   } from "$lib/feature/org/dashboard/data/service/dashboard.service";
-  import * as Tabs from "$lib/components/ui/tabs/index.js";
-  import CatalogDataTable from "$lib/feature/org/catalog/ui/catalog-data-table.svelte";
-  import ProductDatatable from "$lib/feature/org/product/ui/table/product-data-table.svelte";
   import PaymentDatatable from "$lib/feature/shared/payment/ui/table/payment-data-table.svelte";
   import PieTotalChart from "$lib/feature/org/dashboard/ui/pie-total-chart.svelte";
   import BarTotalChart from "$lib/feature/org/dashboard/ui/bar-total-chart.svelte";
   import BarCatalogChart from "$lib/feature/org/dashboard/ui/bar-catalog-chart.svelte";
+  import BarPaymentsChart from "$lib/feature/org/dashboard/ui/bar-payments-chart.svelte";
+  import PiePaymentsByStatus from "$lib/feature/org/dashboard/ui/pie-payments-by-status.svelte";
 
   let service = new DashboardService();
 
@@ -43,13 +42,6 @@
       });
   });
 
-  const STATUS_COLOR: Record<string, string> = {
-    PENDING: "bg-amber-500",
-    PAID: "bg-green-500",
-    CANCELED: "bg-red-500",
-    RECEIPT_VALID: "bg-blue-500",
-  };
-
   const STATUS_LABEL: Record<string, string> = {
     PENDING: "Pendente",
     PAID: "Pago",
@@ -57,11 +49,11 @@
     RECEIPT_VALID: "Comprovativo Válido",
   };
 
-  const METHOD_COLOR: Record<string, string> = {
-    NONE: "bg-gray-400",
-    RECEIPT: "bg-blue-500",
-    MULTCAIXA_EXPRESS: "bg-teal-500",
-    REFERENCIA: "bg-purple-500",
+  const STATUS_COLOR: Record<string, string> = {
+    PENDING: "var(--chart-1)",
+    PAID: "var(--chart-2)",
+    CANCELED: "var(--chart-3)",
+    RECEIPT_VALID: "var(--chart-4)",
   };
 
   const METHOD_LABEL: Record<string, string> = {
@@ -71,21 +63,35 @@
     REFERENCIA: "Referência",
   };
 
-  let maxStatusCount = $derived(
-    paymentsByStatus.length > 0
-      ? Math.max(...paymentsByStatus.map((s) => s.count))
-      : 1,
+  const METHOD_COLOR: Record<string, string> = {
+    NONE: "var(--chart-1)",
+    RECEIPT: "var(--chart-2)",
+    MULTCAIXA_EXPRESS: "var(--chart-3)",
+    REFERENCIA: "var(--chart-4)",
+  };
+
+  let statusPieData = $derived(
+    paymentsByStatus.map((s, i) => ({
+      key: s.paymentStatus,
+      label: STATUS_LABEL[s.paymentStatus] ?? s.paymentStatus,
+      value: s.count,
+      color: STATUS_COLOR[s.paymentStatus] ?? `var(--chart-${i})`,
+    })),
   );
-  let maxMethodCount = $derived(
-    paymentsByMethod.length > 0
-      ? Math.max(...paymentsByMethod.map((m) => m.count))
-      : 1,
+
+  let methodPieData = $derived(
+    paymentsByMethod.map((m, i) => ({
+      key: m.paymentMethod,
+      label: METHOD_LABEL[m.paymentMethod] ?? m.paymentMethod,
+      value: m.count,
+      color: METHOD_COLOR[m.paymentMethod] ?? `var(--chart-${i})`,
+    })),
   );
 </script>
 
 <div class="space-y-2">
   <div>
-    <h1 class="text-2xl font-bold tracking-tight">Dashboard</h1>
+    <h1 class="text-2xl font-bold tracking-tight">Painel</h1>
     <p class="text-muted-foreground text-sm mt-1">
       Visão geral da sua organização
     </p>
@@ -120,85 +126,24 @@
     </div>
   {/if}
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-    {#if paymentsByStatus.length > 0}
-      <div class="rounded-xl border bg-card text-card-foreground shadow-sm p-6">
-        <p class="text-sm font-semibold text-muted-foreground mb-4">
-          Pagamentos por Estado
-        </p>
-        <div class="space-y-3">
-          {#each paymentsByStatus as item, i (i)}
-            <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span
-                  >{STATUS_LABEL[item.paymentStatus] ??
-                    item.paymentStatus}</span
-                >
-                <span class="font-medium">{item.count}</span>
-              </div>
-              <div class="h-2 bg-muted rounded-full overflow-hidden">
-                <div
-                  class="h-full rounded-full transition-all {STATUS_COLOR[
-                    item.paymentStatus
-                  ] ?? 'bg-brand'}"
-                  style="width: {(item.count / maxStatusCount) * 100}%"
-                ></div>
-              </div>
-            </div>
-          {/each}
-        </div>
-      </div>
-    {/if}
-
-    {#if paymentsByMethod.length > 0}
-      <div class="rounded-xl border bg-card text-card-foreground shadow-sm p-6">
-        <p class="text-sm font-semibold text-muted-foreground mb-4">
-          Pagamentos por Método
-        </p>
-        <div class="space-y-3">
-          {#each paymentsByMethod as item, i (i)}
-            <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span
-                  >{METHOD_LABEL[item.paymentMethod] ??
-                    item.paymentMethod}</span
-                >
-                <span class="font-medium">{item.count}</span>
-              </div>
-              <div class="h-2 bg-muted rounded-full overflow-hidden">
-                <div
-                  class="h-full rounded-full transition-all {METHOD_COLOR[
-                    item.paymentMethod
-                  ] ?? 'bg-brand'}"
-                  style="width: {(item.count / maxMethodCount) * 100}%"
-                ></div>
-              </div>
-            </div>
-          {/each}
-        </div>
-      </div>
-    {/if}
-  </div>
-
   <BarCatalogChart items={catalogs} />
 
-  <Tabs.Root value="pagamentos">
-    <Tabs.List class="mb-4">
-      <Tabs.Trigger value="pagamentos">Pagamentos</Tabs.Trigger>
-      <Tabs.Trigger value="produtos">Produtos</Tabs.Trigger>
-      <Tabs.Trigger value="catalogos">Catálogos</Tabs.Trigger>
-    </Tabs.List>
+  <BarPaymentsChart />
 
-    <Tabs.Content value="pagamentos">
-      <PaymentDatatable hideActions hideFilters hidePagination />
-    </Tabs.Content>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <PiePaymentsByStatus
+      data={statusPieData}
+      title="Pagamentos por Estado"
+      description="Distribuição dos pagamentos por estado"
+      footerLabel="Quantidade de pagamentos por estado"
+    />
+    <PiePaymentsByStatus
+      data={methodPieData}
+      title="Pagamentos por Método"
+      description="Distribuição dos pagamentos por método"
+      footerLabel="Quantidade de pagamentos por método"
+    />
+  </div>
 
-    <Tabs.Content value="produtos">
-      <ProductDatatable hideActions hideFilters hidePagination />
-    </Tabs.Content>
-
-    <Tabs.Content value="catalogos">
-      <CatalogDataTable />
-    </Tabs.Content>
-  </Tabs.Root>
+  <PaymentDatatable hideActions hideFilters hidePagination />
 </div>

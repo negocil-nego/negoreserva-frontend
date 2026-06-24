@@ -42,7 +42,7 @@
   <Card.Content class="flex-1">
     <Chart.Container
       config={chartConfig}
-      class="mx-auto aspect-square max-h-[250px]"
+      class="mx-auto aspect-square max-h-[170px]"
     >
       <PieChart
         data={chartData}
