@@ -55,13 +55,13 @@
     <form class="space-y-3" onsubmit={handleSubmit}>
       {#if action !== "delete"}
         <input
-          class="w-full rounded-md border px-3 py-2 text-sm"
+          class="w-full border px-3 py-2 text-sm"
           placeholder="Nome"
           bind:value={form.name}
           required
         />
         <input
-          class="w-full rounded-md border px-3 py-2 text-sm"
+          class="w-full border px-3 py-2 text-sm"
           placeholder="Email"
           type="email"
           bind:value={form.email}
@@ -69,14 +69,14 @@
           required
         />
         <input
-          class="w-full rounded-md border px-3 py-2 text-sm"
+          class="w-full border px-3 py-2 text-sm"
           placeholder="Telefone"
           bind:value={form.phone}
           disabled={action === "update"}
           required
         />
         <input
-          class="w-full rounded-md border px-3 py-2 text-sm"
+          class="w-full border px-3 py-2 text-sm"
           type="date"
           bind:value={form.birthday}
         />
@@ -88,7 +88,7 @@
           />
         {/if}
       {:else}
-        <div class="rounded-md border p-3 text-sm">{form.name}</div>
+        <div class="border p-3 text-sm">{form.name}</div>
       {/if}
 
       <Dialog.Footer>

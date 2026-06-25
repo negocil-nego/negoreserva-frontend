@@ -23,7 +23,7 @@
     }
 </script>
 
-<div class="w-full max-w-[180px] overflow-hidden rounded-xl border border-border/50 bg-background shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+<div class="w-full max-w-[180px] overflow-hidden border border-border/50 bg-background shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
     <!-- Image -->
     <div class="aspect-[4/3] w-full overflow-hidden bg-muted/40">
         {#if primaryImage?.url}

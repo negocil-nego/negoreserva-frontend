@@ -8,7 +8,7 @@
 </script>
 
 <Drawer.Root direction="right">
-  <Drawer.Trigger class="relative flex cursor-pointer items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-muted transition-colors">
+  <Drawer.Trigger class="relative flex cursor-pointer items-center justify-center p-2 text-muted-foreground hover:bg-muted transition-colors">
     <HugeiconsIcon icon={ShoppingCart01Icon} size={22} color="currentColor" strokeWidth={1.5} />
     {#if count > 0}
       <span class="absolute -right-0.5 -top-0.5 flex size-5 items-center justify-center rounded-full bg-pink-400 text-[10px] font-bold text-white">
@@ -53,7 +53,7 @@
     {#if count > 0}
       <div class="border-t p-4">
         <button
-          class="w-full rounded-md bg-green-700 py-2 text-sm font-bold text-white hover:bg-green-800 transition-colors cursor-pointer"
+          class="w-full bg-green-700 py-2 text-sm font-bold text-white hover:bg-green-800 transition-colors cursor-pointer"
           onclick={() => shopStore.clear()}
         >
           Limpar Carrinho

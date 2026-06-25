@@ -8,7 +8,7 @@
     <p class="text-muted-foreground text-sm mt-1">Consulte todos os seus pagamentos e transações efetuadas.</p>
   </div>
 
-  <div class="rounded-xl border border-border bg-card p-6 shadow-sm">
+  <div class="border border-border bg-card p-6 shadow-sm">
     <ClientPaymentDataTable />
   </div>
 </div>

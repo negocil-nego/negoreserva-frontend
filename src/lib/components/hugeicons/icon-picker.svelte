@@ -50,7 +50,7 @@
 
 	<Popover.Content
 		class={cn(
-			"bg-popover text-popover-foreground z-50 w-[420px] rounded-2xl border p-4 shadow-md outline-none",
+			"bg-popover text-popover-foreground z-50 w-[420px] border p-4 shadow-md outline-none",
 			"data-[state=open]:data-[side=top]:animate-in data-[state=open]:data-[side=bottom]:animate-in",
 			"data-[state=open]:data-[side=left]:animate-in data-[state=open]:data-[side=right]:animate-in"
 		)}
@@ -88,7 +88,7 @@
 				{#each filteredIcons as icon (icon.name)}
 					<button
 						type="button"
-						class="flex size-9 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-accent {value === icon.name ? 'bg-accent ring-ring ring-2' : ''}"
+						class="flex size-9 cursor-pointer items-center justify-center transition-colors hover:bg-accent {value === icon.name ? 'bg-accent ring-ring ring-2' : ''}"
 						title={icon.name}
 						onclick={() => selectIcon(icon.name)}
 					>

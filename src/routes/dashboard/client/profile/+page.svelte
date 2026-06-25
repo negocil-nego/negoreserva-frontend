@@ -66,7 +66,7 @@
 <div class="space-y-6 px-2">
   <!-- Client Profile Banner and Avatar -->
   <div class="relative w-full flex flex-col items-center">
-    <div class="h-32 md:h-40 w-full overflow-hidden rounded-xl bg-linear-to-r from-teal-400 via-brand to-purple-600 relative">
+    <div class="h-32 md:h-40 w-full overflow-hidden bg-linear-to-r from-teal-400 via-brand to-purple-600 relative">
       <div class="absolute inset-0 bg-black/10 backdrop-blur-xs"></div>
     </div>
     <div class="relative -mt-16 mb-2">
@@ -88,7 +88,7 @@
 
   <section class="mt-8">
     <Tabs.Tabs value="user">
-      <div class="flex items-center justify-between rounded-xl overflow-x-auto">
+      <div class="flex items-center justify-between overflow-x-auto">
         <Tabs.TabsList class="bg-gray-50 dark:bg-gray-900 gap-5">
           <Tabs.TabsTrigger value="user">Usuário</Tabs.TabsTrigger>
           <Tabs.TabsTrigger value="security">Segurança</Tabs.TabsTrigger>
@@ -110,7 +110,7 @@
           <SecurityProfileSection />
         </Tabs.TabsContent>
         <Tabs.TabsContent value="gallery" class="mt-6">
-          <div class="divide-y divide-border rounded-xl border border-border bg-card p-6 shadow-sm">
+          <div class="divide-y divide-border border border-border bg-card p-6 shadow-sm">
             <ProfileUploadRow
               label="Foto de Perfil"
               subLabel="Esta é a sua foto de identificação que será apresentada no sistema. Recomenda-se uma imagem quadrada (1:1), preferencialmente em PNG ou JPG de boa qualidade."

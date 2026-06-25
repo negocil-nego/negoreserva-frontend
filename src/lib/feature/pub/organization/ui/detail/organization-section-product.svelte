@@ -21,7 +21,7 @@
 
 <section
   id="organization-products"
-  class="mx-5 mt-10 bg-gray-50 dark:bg-transparent rounded-2xl"
+  class="mx-5 mt-10 bg-gray-50 dark:bg-transparent "
 >
   <div class="p-4 text-xl">Produtos disponiveis</div>
   <Carousel.Root class="w-full relative">

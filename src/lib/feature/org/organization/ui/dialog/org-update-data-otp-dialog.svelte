@@ -88,7 +88,7 @@
         <input
           bind:value={otpCode}
           placeholder="Insira o código OTP"
-          class="rounded-xl md:p-3 text-sm bg-input/30 w-full"
+          class="md:p-3 text-sm bg-input/30 w-full"
         />
       </div>
     </div>

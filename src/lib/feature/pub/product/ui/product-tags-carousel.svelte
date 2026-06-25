@@ -14,7 +14,7 @@
         {#each tags as { uuid, icon, title, value } (uuid)}
           <Carousel.Item class="basis-auto">
             <div
-              class="p-1 text-center rounded-3xl min-w-[82px] text-[11px] bg-gray-50 dark:bg-transparent"
+              class="p-1 text-center min-w-[82px] text-[11px] bg-gray-50 dark:bg-transparent"
             >
               {#if icon}
                 <i class={icon}></i>

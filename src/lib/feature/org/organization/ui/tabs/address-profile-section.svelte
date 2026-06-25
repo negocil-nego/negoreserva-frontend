@@ -118,7 +118,7 @@
         </div>
 
         {#if showAddForm}
-          <div class="border border-border rounded-lg p-4 mb-4 space-y-3">
+          <div class="border border-border p-4 mb-4 space-y-3">
             <LocationSelector
               bind:provinceValue={newProvinceValue}
               bind:municipalityValue={newMunicipalityValue}
@@ -136,7 +136,7 @@
                 type="text"
                 bind:value={newComplement}
                 placeholder="Apto, sala, etc."
-                class="mt-1 flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                class="mt-1 flex h-10 w-full border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
             <div class="flex justify-end gap-2">
@@ -154,7 +154,7 @@
 
         {#each data.addresses as address (address.uuid)}
           <div
-            class="divide-y divide-border border border-border rounded-lg mb-3 p-3 {address.isDefault
+            class="divide-y divide-border border border-border mb-3 p-3 {address.isDefault
               ? 'ring-2 ring-brand/30'
               : ''}"
           >
@@ -225,7 +225,7 @@
         >
       </div>
       {#if showAddForm}
-        <div class="border border-border rounded-lg p-4 mb-4 space-y-3 mx-4">
+        <div class="border border-border p-4 mb-4 space-y-3 mx-4">
           <LocationSelector
             bind:provinceValue={newProvinceValue}
             bind:municipalityValue={newMunicipalityValue}
@@ -242,7 +242,7 @@
               type="text"
               bind:value={newComplement}
               placeholder="Apto, sala, etc."
-              class="mt-1 flex h-10 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+              class="mt-1 flex h-10 w-full border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
           <div class="flex justify-end gap-2">

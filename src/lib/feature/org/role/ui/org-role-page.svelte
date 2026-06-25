@@ -1,5 +1,5 @@
 <script lang="ts">
-  import OrgNameCrudPage from "$lib/feature/org/simple-crud/org-name-crud-page.svelte";
+  import RoleDataTable from "./role-data-table.svelte";
 </script>
 
-<OrgNameCrudPage title="Funcoes" resource="Role" requestName="roleRequest" />
+<RoleDataTable />

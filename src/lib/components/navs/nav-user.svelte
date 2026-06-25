@@ -46,9 +46,9 @@
             class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             {...props}
           >
-            <Avatar.Root class="size-8 rounded-lg">
+            <Avatar.Root class="size-8 ">
               <Avatar.Image src={user?.logo} alt={user?.name} />
-              <Avatar.Fallback class="rounded-lg">CN</Avatar.Fallback>
+              <Avatar.Fallback class="">CN</Avatar.Fallback>
             </Avatar.Root>
             {#if !isShort }
               <div class="grid flex-1 text-start text-sm leading-tight">
@@ -61,16 +61,16 @@
         {/snippet}
       </DropdownMenu.Trigger>
       <DropdownMenu.Content
-        class="w-(--bits-dropdown-menu-anchor-width) min-w-56 rounded-lg"
+        class="w-(--bits-dropdown-menu-anchor-width) min-w-56 "
         side={isMobile ? "bottom" : "right"}
         align="end"
         sideOffset={4}
       >
         <DropdownMenu.Label class="p-0 font-normal">
           <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-            <Avatar.Root class="size-8 rounded-lg">
+            <Avatar.Root class="size-8 ">
               <Avatar.Image src={user?.logo} alt={user?.name} />
-              <Avatar.Fallback class="rounded-lg">CN</Avatar.Fallback>
+              <Avatar.Fallback class="">CN</Avatar.Fallback>
             </Avatar.Root>
             <div class="grid flex-1 text-start text-sm leading-tight">
               <span class="truncate font-medium">{user?.name}</span>

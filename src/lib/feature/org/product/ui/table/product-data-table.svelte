@@ -32,7 +32,15 @@
   });
 
   const queryClient = useQueryClient();
-  let { hideActions = false, hideFilters = false, hidePagination = false }: { hideActions?: boolean; hideFilters?: boolean; hidePagination?: boolean } = $props();
+  let {
+    hideActions = false,
+    hideFilters = false,
+    hidePagination = false,
+  }: {
+    hideActions?: boolean;
+    hideFilters?: boolean;
+    hidePagination?: boolean;
+  } = $props();
 
   let service = new OrgProductService();
 
@@ -107,19 +115,24 @@
     {
       accessorKey: "description",
       header: "Descrição",
-      cell: ({ row }) =>renderComponent(TableText, {
-        text: row.original.description
-      }),
-    },
-    ...(hideActions ? [] : [{
-      id: "actions" as const,
-      enableHiding: false,
-      cell: ({ row }: { row: { original: OrgProductResponse } }) =>
-        renderComponent(ProductDataTableActions, {
-          product: row.original,
-          onAction: onHandler,
+      cell: ({ row }) =>
+        renderComponent(TableText, {
+          text: row.original.description,
         }),
-    }] as ColumnDef<OrgProductResponse>[]),
+    },
+    ...(hideActions
+      ? []
+      : ([
+          {
+            id: "actions" as const,
+            enableHiding: false,
+            cell: ({ row }: { row: { original: OrgProductResponse } }) =>
+              renderComponent(ProductDataTableActions, {
+                product: row.original,
+                onAction: onHandler,
+              }),
+          },
+        ] as ColumnDef<OrgProductResponse>[])),
   ]);
 
   const tableState = $derived(
@@ -134,32 +147,33 @@
 
 <div class="w-full">
   {#if !hideFilters}
-  <TableFiltersControl
-    {table}
-    {onReset}
-    {onSearch}
-    {isLoading}
-    placeholder="Filtrar nomes..."
-    filterColumns={new Map([
-      ["ALL", "Todos"],
-      ["NAME", "Nome"],
-      ["TYPE", "Tipo"],
-    ])}
-  >
-    {#snippet controls()}
-      <div class="flex items-center gap-2">
-        <a
-          href={resolve("/dashboard/organization/products/create")}
-          class={buttonVariants({
-            variant: "default",
-            class: "bg-brand rounded-full cursor-pointer flex items-center gap-1.5 px-4 py-2 text-white hover:bg-brand/90 transition-colors",
-          })}
-        >
-          <TableLabelCreate />
-        </a>
-      </div>
-    {/snippet}
-  </TableFiltersControl>
+    <TableFiltersControl
+      {table}
+      {onReset}
+      {onSearch}
+      {isLoading}
+      placeholder="Filtrar nomes..."
+      filterColumns={new Map([
+        ["ALL", "Todos"],
+        ["NAME", "Nome"],
+        ["TYPE", "Tipo"],
+      ])}
+    >
+      {#snippet controls()}
+        <div class="flex items-center gap-2">
+          <a
+            href={resolve("/dashboard/organization/products/create")}
+            class={buttonVariants({
+              variant: "default",
+              class:
+                "bg-brand cursor-pointer flex items-center gap-1.5 px-4 py-2 text-white hover:bg-brand/90 transition-colors",
+            })}
+          >
+            <TableLabelCreate />
+          </a>
+        </div>
+      {/snippet}
+    </TableFiltersControl>
   {/if}
 
   <TableData
@@ -171,15 +185,15 @@
   />
 
   {#if !hidePagination}
-  <TablePagination
-    {onPageSizeChange}
-    {onPageChange}
-    totalElements={items?.totalElements ?? 1}
-    totalPages={items?.totalPages ?? 1}
-    page={items?.number ?? 1}
-    size={items?.size ?? 1}
-    first={items?.first ?? false}
-    last={items?.last ?? false}
-  />
+    <TablePagination
+      {onPageSizeChange}
+      {onPageChange}
+      totalElements={items?.totalElements ?? 1}
+      totalPages={items?.totalPages ?? 1}
+      page={items?.number ?? 1}
+      size={items?.size ?? 1}
+      first={items?.first ?? false}
+      last={items?.last ?? false}
+    />
   {/if}
 </div>

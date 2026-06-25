@@ -96,7 +96,7 @@
                         {#each categories as cat (cat.uuid)}
                             <button
                                     type="button"
-                                    class="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm hover:bg-muted cursor-pointer"
+                                    class="flex w-full items-center gap-2 px-2 py-1.5 text-left text-sm hover:bg-muted cursor-pointer"
                                     onclick={() => toggleCategory(cat)}
                             >
                                 <Checkbox checked={isSelected(cat)} class="pointer-events-none"/>
@@ -112,7 +112,7 @@
                         <p class="text-sm text-muted-foreground p-2">Nenhuma categoria selecionada</p>
                     {:else}
                         {#each selects as cat (cat.uuid)}
-                            <div class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm">
+                            <div class="flex items-center gap-2 px-2 py-1.5 text-sm">
                                 <i class={cat.icon ?? "hgi hgi-stroke hgi-access"}></i>
                                 <span class="flex-1">{cat.name}</span>
                                 <button

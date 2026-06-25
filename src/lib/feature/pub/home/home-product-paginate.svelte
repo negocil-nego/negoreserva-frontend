@@ -42,7 +42,7 @@
     const isEmpty = $derived($query.isFetched && items.length === 0);
 </script>
 
-<div class="container p-2 md:p-4 rounded-md bg-panel">
+<div class="container p-2 md:p-4 bg-panel">
     <div
         class="flex md:flex-row flex-col mx-3 md:mx-0 md:justify-between md:items-center mb-5"
     >
@@ -61,7 +61,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 container mb-2">
             {#each Array.from({ length: 3 }, (_, i) => i) as i (i)}
                 <div class="flex flex-col space-y-3">
-                    <Skeleton class="h-31.25 w-62.5 rounded-xl" />
+                    <Skeleton class="h-31.25 w-62.5 " />
                     <div class="space-y-2">
                         <Skeleton class="h-4 w-62.5" />
                         <Skeleton class="h-4 w-50" />

@@ -21,7 +21,7 @@
       <img
         src={item.logo}
         alt={item.name}
-        class="w-10 h-10 rounded-full border-2 border-white/50 shadow-xs object-cover"
+        class="w-10 h-10 border-2 border-white/50 shadow-xs object-cover"
       />
       <div class="flex flex-col">
         <span class="text-white text-sm font-bold drop-shadow-xs"
@@ -54,7 +54,7 @@
     </div>
   </aside>
   <aside
-    class="absolute top-0 right-1 flex gap-2 z-30 bg-black/30 backdrop-blur-md rounded-2xl"
+    class="absolute top-0 right-1 flex gap-2 z-30 bg-black/30 backdrop-blur-md"
   >
     <Tooltip.Provider>
       <Tooltip.Root>

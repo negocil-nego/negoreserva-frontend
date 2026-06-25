@@ -60,7 +60,7 @@
     {#if isLoading}
         <div class="w-full flex justify-center gap-3 overflow-x-auto mt-3">
             {#each Array.from({ length: 8 }, (_, i) => i) as i (i)}
-                <Skeleton class="h-5 w-16 rounded-xl" />
+                <Skeleton class="h-5 w-16 " />
             {/each}
         </div>
     {:else if categories.length > 0}

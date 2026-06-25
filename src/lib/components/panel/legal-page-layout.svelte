@@ -33,12 +33,12 @@
             {#if subtitle}
                 <p class="mt-3 md:mt-10 text-base leading-relaxed text-gray-500 dark:text-gray-300">{subtitle}</p>
             {/if}
-            <p class="mt-5 inline-flex rounded-md border-gray-200 bg-white px-3 py-1.5 font-mono text-xs text-gray-500">
+            <p class="mt-5 inline-flex border-gray-200 bg-white px-3 py-1.5 font-mono text-xs text-gray-500">
                 Última atualização: {updatedAt}
             </p>
         </header>
 
-        <div class="rounded-xl bg-panel px-2 md:px-10 py-1 md:py-4 shadow-sm sm:px-5 sm:py-2">
+        <div class="bg-panel px-2 md:px-10 py-1 md:py-4 shadow-sm sm:px-5 sm:py-2">
             {@render children()}
         </div>
 

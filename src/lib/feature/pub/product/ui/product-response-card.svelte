@@ -11,13 +11,13 @@
 
 <div class="relative aspect-4/3 overflow-hidden bg-muted">
   <div
-    class="absolute inset-0 bg-linear-to-b from-black/80 to-transparent rounded-md min-h-10"
+    class="absolute inset-0 bg-linear-to-b from-black/80 to-transparent min-h-10"
   ></div>
   {#if product.image}
     <img
       src={product.image}
       alt={product.name}
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-md"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 "
     />
   {:else}
     <div class="w-full h-full flex items-center justify-center">
@@ -58,7 +58,7 @@
   {/if}
 
   <div
-    class="absolute inset-x-0 bottom-0 p-3 gap-2 bg-linear-to-t from-black/10 via-black/10 to-transparent pt-8 rounded-b-md flex flex-col justify-end"
+    class="absolute inset-x-0 bottom-0 p-3 gap-2 bg-linear-to-t from-black/10 via-black/10 to-transparent pt-8 flex flex-col justify-end"
   >
     <div
       class="font-semibold text-base text-white truncate"
@@ -70,7 +70,7 @@
       <ProductPreview slug={product.slug} />
 
       <span
-        class="text-xl font-bold text-emerald-400 bg-black/50 px-2 py-0.5 rounded-sm shrink-0"
+        class="text-xl font-bold text-emerald-400 bg-black/50 px-2 py-0.5 shrink-0"
       >
         {new Intl.NumberFormat("pt-AO", {
           style: "currency",

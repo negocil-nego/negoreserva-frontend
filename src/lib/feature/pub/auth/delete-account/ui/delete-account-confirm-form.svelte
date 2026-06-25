@@ -99,7 +99,7 @@
   {/if}
 
   {#if expired}
-    <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
+    <div class="border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
       O tempo para confirmar a eliminação expirou. Solicite um novo código.
     </div>
   {/if}
@@ -162,7 +162,7 @@
 
   <button
     type="button"
-    class="w-full rounded-md border px-4 py-3 text-sm font-semibold text-muted-foreground"
+    class="w-full border px-4 py-3 text-sm font-semibold text-muted-foreground"
     onclick={() => goto(resolve("/auth/delete-account" as any))}
   >
     Pedir novo código

@@ -4,14 +4,12 @@ import { ORG_PAGINATE_PERSON } from "./keys";
 
 interface Props {
     service: PersonService;
-    pageNumber: number;
-    pageSize: number;
+    filter: { pageNumber: number; pageSize: number };
 }
 
-export const useOrgPaginatePerson = ({ service, pageNumber, pageSize }: Props) => {
+export const useOrgPaginatePerson = ({ service, filter }: Props) => {
     return useQuery(
-        [ORG_PAGINATE_PERSON, pageNumber, pageSize],
-        () => service.paginate(pageNumber, pageSize),
-        { refetchOnWindowFocus: false },
+        [ORG_PAGINATE_PERSON, filter],
+        () => service.paginate(filter.pageNumber, filter.pageSize),
     );
 };

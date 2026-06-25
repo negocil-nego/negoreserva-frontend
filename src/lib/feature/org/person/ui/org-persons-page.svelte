@@ -1,12 +1,14 @@
 <script lang="ts">
+  import { useQueryClient } from "@sveltestack/svelte-query";
   import { Button } from "$lib/components/ui/button";
   import DataTableCheckbox from "$lib/components/ui/data-table/data-table-checkbox.svelte";
   import { renderComponent } from "$lib/components/ui/data-table/index.js";
   import TableData from "$lib/components/table/table-data.svelte";
-  import TableFiltersControl, { type SearchProps } from "$lib/components/table/table-filters-control.svelte";
+  import TableFiltersControl, {
+    type SearchProps,
+  } from "$lib/components/table/table-filters-control.svelte";
   import TableLabelCreate from "$lib/components/table/table-label-create.svelte";
   import TablePagination from "$lib/components/table/table-pagination.svelte";
-  import { createOrgProductTable } from "$lib/feature/org/product/ui/table/use-product-table.svelte";
   import OrgPersonActions from "./org-person-actions.svelte";
   import OrgPersonFormDialog from "./org-person-form-dialog.svelte";
   import type { ColumnDef } from "@tanstack/table-core";
@@ -18,47 +20,81 @@
   import { useOrgSavePerson } from "../data/hooks/use-org-save-person";
   import { useOrgUpdatePerson } from "../data/hooks/use-org-update-person";
   import { useOrgDeletePerson } from "../data/hooks/use-org-delete-person";
+  import { ORG_PAGINATE_PERSON } from "../data/hooks/keys";
+  import { createOrgProductTable } from "../../product/ui/table/use-product-table.svelte";
 
   type PersonAction = "create" | "update" | "delete";
 
-  const EMPTY: Person = { uuid: "", name: "", email: "", phone: "", birthday: "" };
+  const EMPTY: Person = {
+    uuid: "",
+    name: "",
+    email: "",
+    phone: "",
+    birthday: "",
+  };
 
   const repo = new PersonGqlRepo();
   const service = new PersonService(repo);
+  const queryClient = useQueryClient();
 
-  let pageNumber = $state(0);
-  let pageSize = $state(10);
-  let filter = $state({ field: "ALL", search: "", pageNumber: 0, pageSize: 10 });
-
-  const personsQuery = useOrgPaginatePerson({ service, pageNumber, pageSize });
-  const saveMutation = useOrgSavePerson({ service });
-  const updateMutation = useOrgUpdatePerson({ service });
-  const deleteMutation = useOrgDeletePerson({ service });
-
+  let filter = $state({
+    field: "ALL",
+    search: "",
+    pageNumber: 0,
+    pageSize: 10,
+  });
   let form = $state<Person>({ ...EMPTY });
   let selectedRoles = $state<OrgRoleSelectorItem[]>([]);
   let action = $state<PersonAction>("create");
   let open = $state(false);
 
-  const persons = $derived($personsQuery.data?.content ?? []);
-  const totalElements = $derived($personsQuery.data?.totalElements ?? 0);
-  const totalPages = $derived($personsQuery.data?.totalPages ?? 1);
-  const isLoading = $derived($personsQuery.isLoading || $saveMutation.isLoading || $updateMutation.isLoading || $deleteMutation.isLoading);
+  const baseQuery = $derived(
+    useOrgPaginatePerson({
+      service,
+      filter: { pageNumber: filter.pageNumber, pageSize: filter.pageSize },
+    }),
+  );
+  const saveMutation = useOrgSavePerson({ service });
+  const updateMutation = useOrgUpdatePerson({ service });
+  const deleteMutation = useOrgDeletePerson({ service });
+
+  const isLoading = $derived(
+    $baseQuery?.isLoading ||
+      $saveMutation.isLoading ||
+      $updateMutation.isLoading ||
+      $deleteMutation.isLoading,
+  );
+
+  const items = $derived(
+    $baseQuery?.data ?? {
+      content: [],
+      totalElements: 0,
+      totalPages: 1,
+      first: true,
+      last: true,
+      number: 0,
+      size: 10,
+    },
+  );
 
   const filteredPersons = $derived(
     filter.search
-      ? persons.filter((person) => {
+      ? items.content.filter((person) => {
           const value =
-            filter.field === "EMAIL" ? person.email :
-            filter.field === "PHONE" ? person.phone :
-            filter.field === "BIRTHDAY" ? person.birthday :
-            person.name;
-          const haystack = filter.field === "ALL"
-            ? `${person.name} ${person.email} ${person.phone} ${person.birthday ?? ""}`
-            : (value ?? "");
+            filter.field === "EMAIL"
+              ? person.email
+              : filter.field === "PHONE"
+                ? person.phone
+                : filter.field === "BIRTHDAY"
+                  ? person.birthday
+                  : person.name;
+          const haystack =
+            filter.field === "ALL"
+              ? `${person.name} ${person.email} ${person.phone} ${person.birthday ?? ""}`
+              : (value ?? "");
           return haystack.toLowerCase().includes(filter.search.toLowerCase());
         })
-      : persons,
+      : items.content,
   );
 
   function resetForm() {
@@ -79,22 +115,24 @@
     open = true;
   }
 
-  const onPageChange = async (page: number) => {
-    pageNumber = page;
+  const onPageChange = (page: number) => {
     filter = { ...filter, pageNumber: page };
+    queryClient.invalidateQueries({ queryKey: [ORG_PAGINATE_PERSON] });
   };
 
-  const onPageSizeChange = async (size: number) => {
-    pageSize = size;
+  const onPageSizeChange = (size: number) => {
     filter = { ...filter, pageSize: size, pageNumber: 0 };
+    queryClient.invalidateQueries({ queryKey: [ORG_PAGINATE_PERSON] });
   };
 
   const onSearch = ({ field, search }: SearchProps) => {
-    filter = { ...filter, field, search };
+    filter = { ...filter, field, search, pageNumber: 0 };
+    queryClient.invalidateQueries({ queryKey: [ORG_PAGINATE_PERSON] });
   };
 
   const onReset = () => {
-    filter = { ...filter, field: "ALL", search: "" };
+    filter = { field: "ALL", search: "", pageNumber: 0, pageSize: 10 };
+    queryClient.invalidateQueries({ queryKey: [ORG_PAGINATE_PERSON] });
   };
 
   async function submit() {
@@ -126,7 +164,9 @@
       header: ({ table }) =>
         renderComponent(DataTableCheckbox, {
           checked: table.getIsAllPageRowsSelected(),
-          indeterminate: table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
+          indeterminate:
+            table.getIsSomePageRowsSelected() &&
+            !table.getIsAllPageRowsSelected(),
           onCheckedChange: (value) => table.toggleAllPageRowsSelected(!!value),
           "aria-label": "Select all",
         }),
@@ -185,7 +225,7 @@
     {table}
     {onReset}
     {onSearch}
-    isLoading={isLoading}
+    {isLoading}
     placeholder="Filtrar nomes..."
     filterColumns={new Map([
       ["ALL", "Todos"],
@@ -198,7 +238,7 @@
     {#snippet controls()}
       <Button
         type="button"
-        class="bg-brand rounded-full cursor-pointer flex items-center gap-1.5 px-4 py-2 text-white hover:bg-brand/90 transition-colors"
+        class="bg-brand cursor-pointer flex items-center gap-1.5 px-4 py-2 text-white hover:bg-brand/90 transition-colors"
         onclick={openCreate}
       >
         <TableLabelCreate />
@@ -209,7 +249,7 @@
   <TableData
     {table}
     {columns}
-    isLoading={isLoading}
+    {isLoading}
     isEmpty={!filteredPersons.length}
     title="Utilizadores"
   />
@@ -217,12 +257,12 @@
   <TablePagination
     {onPageSizeChange}
     {onPageChange}
-    {totalElements}
-    {totalPages}
-    page={pageNumber}
-    size={pageSize}
-    first={$personsQuery.data?.first ?? true}
-    last={$personsQuery.data?.last ?? true}
+    totalElements={items.totalElements}
+    totalPages={items.totalPages}
+    page={items.number}
+    size={items.size}
+    first={items.first}
+    last={items.last}
   />
 
   <OrgPersonFormDialog

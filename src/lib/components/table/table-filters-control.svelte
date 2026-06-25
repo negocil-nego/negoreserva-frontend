@@ -53,7 +53,7 @@
 </script>
 
 <section
-  class="bg-panel px-2 my-5 rounded-lg border border-gray-100 dark:border-gray-800"
+  class="bg-panel px-2 my-5 border border-gray-100 dark:border-gray-800"
 >
   <div>
     <div class="text-lg font-semibold">Control</div>

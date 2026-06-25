@@ -19,9 +19,9 @@
     breadcrumb?: Snippet;
   }>();
 
-  let numbers = $derived(items?.length
-    ? Array.from({ length: items.length }, (_, i) => i + 1)
-    : []);
+  let numbers = $derived(
+    items?.length ? Array.from({ length: items.length }, (_, i) => i + 1) : [],
+  );
 </script>
 
 <div class="grid lg:grid-cols-2">
@@ -82,7 +82,7 @@
                   <div class="flex gap-2 items-center">
                     {#each numbers as num (num)}
                       <div
-                        class={`h-3 w-3 rounded-full ${
+                        class={`h-3 w-3 ${
                           num === i ? "bg-brand p-0" : "bg-white"
                         }`}
                       ></div>

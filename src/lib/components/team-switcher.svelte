@@ -25,7 +25,7 @@
 						class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 					>
 						<div
-							class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
+							class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center "
 						>
 							<activeTeam.logo class="size-4" />
 						</div>
@@ -40,7 +40,7 @@
 				{/snippet}
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content
-				class="w-(--bits-dropdown-menu-anchor-width) min-w-56 rounded-lg"
+				class="w-(--bits-dropdown-menu-anchor-width) min-w-56 "
 				align="start"
 				side={sidebar.isMobile ? "bottom" : "right"}
 				sideOffset={4}
@@ -48,7 +48,7 @@
 				<DropdownMenu.Label class="text-muted-foreground text-xs">Teams</DropdownMenu.Label>
 				{#each teams as team, index (team.name)}
 					<DropdownMenu.Item onSelect={() => (activeTeam = team)} class="gap-2 p-2">
-						<div class="flex size-6 items-center justify-center rounded-md border">
+						<div class="flex size-6 items-center justify-center border">
 							<team.logo class="size-3.5 shrink-0" />
 						</div>
 						{team.name}
@@ -58,7 +58,7 @@
 				<DropdownMenu.Separator />
 				<DropdownMenu.Item class="gap-2 p-2">
 					<div
-						class="flex size-6 items-center justify-center rounded-md border bg-transparent"
+						class="flex size-6 items-center justify-center border bg-transparent"
 					>
 						<PlusIcon class="size-4" />
 					</div>

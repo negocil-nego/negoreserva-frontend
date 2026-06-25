@@ -65,7 +65,7 @@
           </h3>
           <div class="flex flex-wrap gap-2">
             {#each data.tags as tag (tag.uuid)}
-              <span class="inline-flex items-center px-3 py-1 rounded-xl text-xs font-medium bg-muted/40 text-foreground border border-muted/25 shadow-xs">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium bg-muted/40 text-foreground border border-muted/25 shadow-xs">
                 {tag.title}
               </span>
             {/each}

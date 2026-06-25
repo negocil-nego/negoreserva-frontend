@@ -57,11 +57,11 @@
   <dd class="sm:-ml-4 p-0 mt-1 text-sm/6 text-foreground sm:mt-0">
     {#if isEditing}
       {#if type === "text"}
-        <input bind:value={text} class="rounded-xl md:w-8/12 bg-input/30" />
+        <input bind:value={text} class="md:w-8/12 bg-input/30" />
       {:else if type === "textarea"}
         <textarea
           bind:value
-          class="rounded-xl md:w-8/12 md:min-h-16 bg-input/30"
+          class="md:w-8/12 md:min-h-16 bg-input/30"
         ></textarea>
       {/if}
     {:else}

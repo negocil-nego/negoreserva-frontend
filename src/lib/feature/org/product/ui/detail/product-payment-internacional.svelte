@@ -20,24 +20,24 @@
     <div class="space-y-3">
         <div class="space-y-2">
             <Label for="card-number">Número do Cartão</Label>
-            <Input id="card-number" placeholder="0000 0000 0000 0000" bind:value={cardNumber} class="rounded-xl" />
+            <Input id="card-number" placeholder="0000 0000 0000 0000" bind:value={cardNumber} class="" />
         </div>
         <div class="grid grid-cols-2 gap-3">
             <div class="space-y-2">
                 <Label for="card-expiry">Validade</Label>
-                <Input id="card-expiry" placeholder="MM/AA" bind:value={cardExpiry} class="rounded-xl" />
+                <Input id="card-expiry" placeholder="MM/AA" bind:value={cardExpiry} class="" />
             </div>
             <div class="space-y-2">
                 <Label for="card-cvv">CVV</Label>
-                <Input id="card-cvv" placeholder="123" bind:value={cardCvv} class="rounded-xl" />
+                <Input id="card-cvv" placeholder="123" bind:value={cardCvv} class="" />
             </div>
         </div>
         <div class="space-y-2">
             <Label for="card-name">Titular do Cartão</Label>
-            <Input id="card-name" placeholder="Nome do titular" bind:value={cardName} class="rounded-xl" />
+            <Input id="card-name" placeholder="Nome do titular" bind:value={cardName} class="" />
         </div>
     </div>
-    <Button type="button" class="h-10 w-full rounded-xl bg-brand text-white hover:bg-brand/90">
+    <Button type="button" class="h-10 w-full bg-brand text-white hover:bg-brand/90">
         <HugeiconsIcon icon={Payment01Icon} size={16} />
         <span>Confirmar Pagamento Internacional</span>
     </Button>

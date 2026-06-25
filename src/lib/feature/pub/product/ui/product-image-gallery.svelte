@@ -7,14 +7,14 @@
 </script>
 
 <div
-  class="flex flex-col gap-2 w-full bg-white dark:bg-gray-900/50 border border-gray-50 dark:border-gray-900 rounded-sm"
+  class="flex flex-col gap-2 w-full bg-white dark:bg-gray-900/50 border border-gray-50 dark:border-gray-900 "
 >
   <div class="relative aspect-square overflow-hidden m-auto p-2">
     {#if primary?.url}
       <img
         src={primary.url}
         alt={primary.title ?? ""}
-        class="h-[200px] w-[200px] object-cover rounded-2xl"
+        class="h-[200px] w-[200px] object-cover "
       />
     {:else}
       <div

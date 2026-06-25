@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
+  <div class="border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700">
     Esta ação é sensível. Depois da confirmação, a conta deixará de estar disponível.
   </div>
 

@@ -17,7 +17,7 @@
     <div class="space-y-4">
       <h3 class="text-sm font-semibold text-muted-foreground">Endereços Estruturados</h3>
       {#each data.addresses as address (address.uuid)}
-        <div class="rounded-lg border border-border p-4 space-y-2">
+        <div class="border border-border p-4 space-y-2">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
             <InfoRow label="Província" icon={MapPinpoint01Icon} value={address.province.label} />
             <InfoRow label="Município" icon={City02Icon} value={address.municipality.label} />

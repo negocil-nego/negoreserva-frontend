@@ -19,7 +19,7 @@
   } = $props();
 </script>
 
-<div class="group relative rounded-sm border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="group relative border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-md transition-shadow">
   <div class="relative overflow-hidden h-[150px] md:h-[160px] bg-muted">
     {#if item.imgUrl}
       <img

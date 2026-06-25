@@ -61,7 +61,7 @@
         >
           {#snippet children({ cells })}
             <InputOTP.Group
-              class="gap-2.5 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-12 *:data-[slot=input-otp-slot]:rounded-full *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-xl"
+              class="gap-2.5 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-12 *:data-[slot=input-otp-slot]:*:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-xl"
             >
               {#each cells.slice(0, 3) as cell (cell)}
                 <InputOTP.Slot {cell} />
@@ -69,7 +69,7 @@
             </InputOTP.Group>
             <InputOTP.Separator />
             <InputOTP.Group
-              class="gap-2.5 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-12 *:data-[slot=input-otp-slot]:rounded-full *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-xl"
+              class="gap-2.5 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-12 *:data-[slot=input-otp-slot]:*:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-xl"
             >
               {#each cells.slice(3, 6) as cell (cell)}
                 <InputOTP.Slot {cell} />

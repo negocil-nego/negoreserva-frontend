@@ -25,7 +25,7 @@
   const formatted = $derived(`${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`);
 </script>
 
-<div class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-center">
+<div class="border border-amber-200 bg-amber-50 px-4 py-3 text-center">
   <p class="text-xs font-medium uppercase text-amber-700">Tempo para terminar o processo</p>
   <p class="mt-1 font-mono text-2xl font-bold text-amber-800">{formatted}</p>
 </div>

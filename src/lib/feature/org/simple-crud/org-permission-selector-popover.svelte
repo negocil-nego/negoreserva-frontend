@@ -107,7 +107,7 @@
             <p class="text-sm text-muted-foreground p-2">Nenhuma permissão encontrada</p>
           {:else}
             {#each permissions as permission (permission.uuid)}
-              <button type="button" class="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm hover:bg-muted" onclick={() => toggle(permission)}>
+              <button type="button" class="flex w-full items-center gap-2 px-2 py-1.5 text-left text-sm hover:bg-muted" onclick={() => toggle(permission)}>
                 <Checkbox checked={isSelected(permission)} class="pointer-events-none" />
                 <span>{permission.name}</span>
               </button>
@@ -120,7 +120,7 @@
             <p class="text-sm text-muted-foreground p-2">Nenhuma permissão selecionada</p>
           {:else}
             {#each selected as permission (permission.uuid)}
-              <div class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm">
+              <div class="flex items-center gap-2 px-2 py-1.5 text-sm">
                 <span class="flex-1">{permission.name}</span>
                 <button type="button" class="text-muted-foreground hover:text-destructive" onclick={() => toggle(permission)}>
                   <HugeiconsIcon icon={Cancel01Icon} size={18} color="currentColor" strokeWidth={1.5} />

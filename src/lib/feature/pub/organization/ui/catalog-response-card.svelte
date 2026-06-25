@@ -89,7 +89,7 @@
 
 <Dialog.Root bind:open>
   <Dialog.Trigger class="w-full text-left" onclick={handleOpen}>
-    <div class="w-full overflow-hidden rounded-xl border border-border/50 bg-background shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
+    <div class="w-full overflow-hidden border border-border/50 bg-background shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
       <div class="h-[200px] w-full overflow-hidden bg-muted/40">
         {#if catalog.imgUrl}
           <img src={catalog.imgUrl} alt={catalog.name} class="h-full w-full object-cover transition-transform duration-300 hover:scale-105" />
@@ -110,7 +110,7 @@
     </div>
   </Dialog.Trigger>
 
-  <Dialog.Content class="sm:max-w-5xl max-h-[90vh] flex flex-col p-0 overflow-hidden bg-background rounded-xl">
+  <Dialog.Content class="sm:max-w-5xl max-h-[90vh] flex flex-col p-0 overflow-hidden bg-background ">
     <div class="p-6 pb-4 border-b">
       <Dialog.Title class="text-xl font-bold tracking-tight">{catalog.name}</Dialog.Title>
       <Dialog.Description class="text-xs text-muted-foreground">
@@ -122,7 +122,7 @@
       {#if isLoadingProducts}
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {#each Array.from({ length: 4 }) as _, i (i)}
-            <div class="h-[28rem] animate-pulse rounded-lg border bg-background"></div>
+            <div class="h-[28rem] animate-pulse border bg-background"></div>
           {/each}
         </div>
       {:else if products.length > 0}
@@ -130,7 +130,7 @@
           {#each products as product (product.uuid)}
             {@const image = productImage(product)}
             {@const price = productPrice(product)}
-            <article class="overflow-hidden rounded-sm border bg-background shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+            <article class="overflow-hidden border bg-background shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
               <div class="relative aspect-[4/3] overflow-hidden bg-muted">
                 {#if image}
                   <img src={image} alt={product.name} class="h-full w-full object-cover" />
@@ -151,14 +151,14 @@
                     <span class="text-sm font-medium text-foreground">kz</span>
                   </p>
                   <div class="mt-5 grid grid-cols-[1fr_1.1fr] gap-3">
-                    <div class="grid h-11 grid-cols-3 overflow-hidden rounded-md border border-green-700/25 bg-muted/30">
+                    <div class="grid h-11 grid-cols-3 overflow-hidden border border-green-700/25 bg-muted/30">
                       <button type="button" class="text-xl cursor-pointer" onclick={() => decrease(product)}>−</button>
                       <span class="flex items-center justify-center text-sm font-semibold">{quantityOf(product)}</span>
                       <button type="button" class="text-xl cursor-pointer" onclick={() => increase(product)}>+</button>
                     </div>
                     <button
                       type="button"
-                      class="flex h-11 items-center justify-center gap-2 rounded-md bg-green-700 px-4 font-bold text-white hover:bg-green-800 cursor-pointer"
+                      class="flex h-11 items-center justify-center gap-2 bg-green-700 px-4 font-bold text-white hover:bg-green-800 cursor-pointer"
                       onclick={() => addToCatalogCart(product)}
                     >
                       <HugeiconsIcon icon={ShoppingBasket01Icon} size={18} color="currentColor" strokeWidth={2} />
@@ -171,7 +171,7 @@
           {/each}
         </div>
       {:else}
-        <p class="rounded-lg border border-dashed bg-background p-8 text-center text-sm text-muted-foreground">
+        <p class="border border-dashed bg-background p-8 text-center text-sm text-muted-foreground">
           Nenhum produto disponível neste catálogo.
         </p>
       {/if}

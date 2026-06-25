@@ -43,7 +43,7 @@
             class="relative h-8 w-16 rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 {checked ? 'bg-brand' : 'bg-gray-300'}"
     >
         <span
-                class="absolute top-1 flex h-6 w-6 items-center justify-center rounded-lg bg-white shadow-sm transition-all duration-200 {checked ? 'left-9' : 'left-1'}"
+                class="absolute top-1 flex h-6 w-6 items-center justify-center bg-white shadow-sm transition-all duration-200 {checked ? 'left-9' : 'left-1'}"
         >
             {#if checked}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">

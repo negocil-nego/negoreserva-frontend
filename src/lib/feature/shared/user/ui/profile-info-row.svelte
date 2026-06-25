@@ -56,12 +56,12 @@
       {#if type === "text"}
         <input
           bind:value={text}
-          class="rounded-xl w-full md:min-w-[300px] lg:min-w-[400px] bg-input/30"
+          class="w-full md:min-w-[300px] lg:min-w-[400px] bg-input/30"
         />
       {:else if type === "textarea"}
         <textarea
           bind:value
-          class="rounded-xl w-full md:min-w-[300px] lg:min-w-[400px] md:min-h-16 lg:min-h-40 bg-input/30"
+          class="w-full md:min-w-[300px] lg:min-w-[400px] md:min-h-16 lg:min-h-40 bg-input/30"
         ></textarea>
       {/if}
     {:else}

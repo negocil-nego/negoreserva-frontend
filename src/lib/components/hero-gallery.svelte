@@ -84,7 +84,7 @@
 
     <!-- Col 0 -->
     <div class="flex flex-col gap-3">
-        <div class="h-[160px] w-[150px] overflow-hidden rounded-2xl bg-[#161b27] animate-[fadeUp_.6s_ease_.45s_both]">
+        <div class="h-[160px] w-[150px] overflow-hidden bg-[#161b27] animate-[fadeUp_.6s_ease_.45s_both]">
             <img
                     src={currentPhotos[0]}
                     alt="Galeria 1"
@@ -92,7 +92,7 @@
                     style="opacity: {fadingSlots.has(0) ? 0 : 1}; transform: scale({fadingSlots.has(0) ? 1.04 : 1}); transition: opacity 0.5s ease, transform 0.5s ease;"
             />
         </div>
-        <div class="h-[150px] w-[150px] overflow-hidden rounded-2xl bg-[#161b27] animate-[fadeUp_.6s_ease_.55s_both]">
+        <div class="h-[150px] w-[150px] overflow-hidden bg-[#161b27] animate-[fadeUp_.6s_ease_.55s_both]">
             <img
                     src={currentPhotos[1]}
                     alt="Galeria 2"
@@ -104,7 +104,7 @@
 
     <!-- Col 1 -->
     <div class="mt-14 flex flex-col gap-3 animate-[fadeUp_.6s_ease_.3s_both]">
-        <div class="h-[320px] w-[150px] overflow-hidden rounded-2xl bg-[#161b27]">
+        <div class="h-[320px] w-[150px] overflow-hidden bg-[#161b27]">
             <img
                     src={currentPhotos[2]}
                     alt="Galeria 3"
@@ -116,7 +116,7 @@
 
     <!-- Col 2 -->
     <div class="flex flex-col gap-3">
-        <div class="h-[190px] w-[150px] overflow-hidden rounded-2xl bg-[#161b27] animate-[fadeUp_.6s_ease_.45s_both]">
+        <div class="h-[190px] w-[150px] overflow-hidden bg-[#161b27] animate-[fadeUp_.6s_ease_.45s_both]">
             <img
                     src={currentPhotos[3]}
                     alt="Galeria 4"
@@ -124,7 +124,7 @@
                     style="opacity: {fadingSlots.has(3) ? 0 : 1}; transform: scale({fadingSlots.has(3) ? 1.04 : 1}); transition: opacity 0.5s ease, transform 0.5s ease;"
             />
         </div>
-        <div class="h-[190px] w-[150px] overflow-hidden rounded-2xl bg-[#161b27] animate-[fadeUp_.6s_ease_.55s_both]">
+        <div class="h-[190px] w-[150px] overflow-hidden bg-[#161b27] animate-[fadeUp_.6s_ease_.55s_both]">
             <img
                     src={currentPhotos[4]}
                     alt="Galeria 5"
@@ -136,7 +136,7 @@
 
     <!-- Col 3 -->
     <div class="-mt-10 flex flex-col gap-3">
-        <div class="h-[155px] w-[125px] overflow-hidden rounded-2xl bg-[#161b27] animate-[fadeUp_.6s_ease_.5s_both]">
+        <div class="h-[155px] w-[125px] overflow-hidden bg-[#161b27] animate-[fadeUp_.6s_ease_.5s_both]">
             <img
                     src={currentPhotos[5]}
                     alt="Galeria 6"
@@ -144,7 +144,7 @@
                     style="opacity: {fadingSlots.has(5) ? 0 : 1}; transform: scale({fadingSlots.has(5) ? 1.04 : 1}); transition: opacity 0.5s ease, transform 0.5s ease;"
             />
         </div>
-        <div class="h-[155px] w-[125px] overflow-hidden rounded-2xl bg-[#161b27] animate-[fadeUp_.6s_ease_.65s_both]">
+        <div class="h-[155px] w-[125px] overflow-hidden bg-[#161b27] animate-[fadeUp_.6s_ease_.65s_both]">
             <img
                     src={currentPhotos[6]}
                     alt="Galeria 7"

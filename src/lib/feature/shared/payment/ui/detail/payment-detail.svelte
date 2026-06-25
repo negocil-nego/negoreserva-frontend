@@ -13,7 +13,10 @@
     RouteIcon,
     ArrowRightIcon,
   } from "@hugeicons/core-free-icons";
-  import type { OrgPaymentResponse, PaymentFileReceiptResponse } from "../../data/model/payment.model";
+  import type {
+    OrgPaymentResponse,
+    PaymentFileReceiptResponse,
+  } from "../../data/model/payment.model";
   import { PaymentStatus, PaymentMethod } from "../../data/model/payment.model";
 
   let { payment }: { payment: OrgPaymentResponse } = $props();
@@ -38,11 +41,13 @@
   <div class="flex items-center justify-between">
     <div>
       <h1 class="text-2xl font-bold text-foreground">Detalhe do Pagamento</h1>
-      <p class="text-sm text-muted-foreground mt-1">Código: {payment.transaction.code}</p>
+      <p class="text-sm text-muted-foreground mt-1">
+        Código: {payment.transaction.code}
+      </p>
     </div>
     <div class="flex items-center gap-2">
       <span
-        class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
+        class="inline-flex items-center px-3 py-1 text-xs font-semibold"
         class:bg-green-100={payment.status === PaymentStatus.PAID}
         class:text-green-700={payment.status === PaymentStatus.PAID}
         class:bg-yellow-100={payment.status === PaymentStatus.PENDING}
@@ -59,7 +64,9 @@
 
   <div class="border-b border-border pb-6">
     <div class="px-4 sm:px-0">
-      <div class="flex items-center gap-2 text-base/7 font-semibold text-foreground">
+      <div
+        class="flex items-center gap-2 text-base/7 font-semibold text-foreground"
+      >
         <HugeiconsIcon icon={Building03Icon} size={18} strokeWidth={1} />
         <span>Organização</span>
       </div>
@@ -71,7 +78,12 @@
       <dl class="divide-y divide-border">
         <InfoRow label="Nome" value={org.name} icon={Building03Icon} />
         <InfoRow label="Email" value={org.email} icon={Building03Icon} isCopy />
-        <InfoRow label="Telefone" value={org.phone} icon={Building03Icon} isCopy />
+        <InfoRow
+          label="Telefone"
+          value={org.phone}
+          icon={Building03Icon}
+          isCopy
+        />
         {#if org.address}
           <InfoRow label="Endereço" value={org.address} icon={Building03Icon} />
         {/if}
@@ -86,11 +98,15 @@
 
   <div class="border-b border-border pb-6">
     <div class="px-4 sm:px-0">
-      <div class="flex items-center gap-2 text-base/7 font-semibold text-foreground">
+      <div
+        class="flex items-center gap-2 text-base/7 font-semibold text-foreground"
+      >
         <HugeiconsIcon icon={UserIcon} size={18} strokeWidth={1} />
         <span>Cliente</span>
       </div>
-      <p class="mt-1 max-w-2xl text-sm/6 text-muted-foreground">Dados do cliente que efetuou a compra</p>
+      <p class="mt-1 max-w-2xl text-sm/6 text-muted-foreground">
+        Dados do cliente que efetuou a compra
+      </p>
     </div>
     <div class="mt-4 border-t border-border">
       <dl class="divide-y divide-border">
@@ -103,11 +119,15 @@
 
   <div class="border-b border-border pb-6">
     <div class="px-4 sm:px-0">
-      <div class="flex items-center gap-2 text-base/7 font-semibold text-foreground">
+      <div
+        class="flex items-center gap-2 text-base/7 font-semibold text-foreground"
+      >
         <HugeiconsIcon icon={ShoppingBag03Icon} size={18} strokeWidth={1} />
         <span>Produto</span>
       </div>
-      <p class="mt-1 max-w-2xl text-sm/6 text-muted-foreground">Dados do produto adquirido</p>
+      <p class="mt-1 max-w-2xl text-sm/6 text-muted-foreground">
+        Dados do produto adquirido
+      </p>
     </div>
     <div class="mt-4 border-t border-border">
       <dl class="divide-y divide-border">
@@ -123,22 +143,43 @@
 
   <div>
     <div class="px-4 sm:px-0">
-      <div class="flex items-center gap-2 text-base/7 font-semibold text-foreground">
+      <div
+        class="flex items-center gap-2 text-base/7 font-semibold text-foreground"
+      >
         <HugeiconsIcon icon={Money01Icon} size={18} strokeWidth={1} />
         <span>Pagamento</span>
       </div>
-      <p class="mt-1 max-w-2xl text-sm/6 text-muted-foreground">Detalhes financeiros do pagamento</p>
+      <p class="mt-1 max-w-2xl text-sm/6 text-muted-foreground">
+        Detalhes financeiros do pagamento
+      </p>
     </div>
     <div class="mt-4 border-t border-border">
       <dl class="divide-y divide-border">
-        <InfoRow label="Código" value={payment.transaction.code} icon={Ticket01Icon} isCopy />
+        <InfoRow
+          label="Código"
+          value={payment.transaction.code}
+          icon={Ticket01Icon}
+          isCopy
+        />
         <InfoRow
           label="Valor"
-          value={payment.transaction.price.toLocaleString("pt-AO", { style: "currency", currency: "AOA", minimumFractionDigits: 2 })}
+          value={payment.transaction.price.toLocaleString("pt-AO", {
+            style: "currency",
+            currency: "AOA",
+            minimumFractionDigits: 2,
+          })}
           icon={Money01Icon}
         />
-        <InfoRow label="Método" value={PAYMENT_LABEL[payment.type] ?? payment.type} icon={CreditCardIcon} />
-        <InfoRow label="Estado" value={PAYMENT_LABEL[payment.status] ?? payment.status} icon={RouteIcon} />
+        <InfoRow
+          label="Método"
+          value={PAYMENT_LABEL[payment.type] ?? payment.type}
+          icon={CreditCardIcon}
+        />
+        <InfoRow
+          label="Estado"
+          value={PAYMENT_LABEL[payment.status] ?? payment.status}
+          icon={RouteIcon}
+        />
         {#if payment.paymentFileReceipt}
           <PanelInfoRow label="Comprovativo" icon={FileDownloadIcon}>
             <a
@@ -147,8 +188,12 @@
               rel="noopener noreferrer"
               class="flex items-center gap-1.5 text-primary hover:underline text-sm"
             >
-              <HugeiconsIcon icon={FileDownloadIcon} size={16} strokeWidth={1} />
-              <span>{payment.paymentFileReceipt.fileUrl.split('/').pop()}</span>
+              <HugeiconsIcon
+                icon={FileDownloadIcon}
+                size={16}
+                strokeWidth={1}
+              />
+              <span>{payment.paymentFileReceipt.fileUrl.split("/").pop()}</span>
               <HugeiconsIcon icon={ArrowRightIcon} size={14} strokeWidth={1} />
             </a>
           </PanelInfoRow>

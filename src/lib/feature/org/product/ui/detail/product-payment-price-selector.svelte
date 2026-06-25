@@ -16,7 +16,7 @@
 </script>
 
 {#if prices.length > 0}
-    <div class="mb-6 space-y-4 rounded-xl">
+    <div class="mb-6 space-y-4 ">
         <div class="flex items-center gap-2">
             <HugeiconsIcon icon={Money01Icon} size={18} class="text-muted-foreground" />
             <span class="text-sm font-semibold tracking-widest">Selecione o Preço</span>

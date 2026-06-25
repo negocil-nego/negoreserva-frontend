@@ -5,7 +5,7 @@
     let {data}: { data: CatalogResponse } = $props();
 </script>
 
-<div class=" w-full overflow-hidden rounded-xl border border-border/50 bg-background shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+<div class=" w-full overflow-hidden border border-border/50 bg-background shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
     <div class="h-[200px] w-full overflow-hidden bg-muted/40">
         {#if data.imgUrl}
             <img src={data.imgUrl} alt={data.name} class="h-full w-full object-cover transition-transform duration-300 hover:scale-105"/>

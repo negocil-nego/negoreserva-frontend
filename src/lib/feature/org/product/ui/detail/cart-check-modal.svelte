@@ -24,7 +24,7 @@
 </script>
 
 <Dialog.Root bind:open>
-    <Dialog.Content class="sm:max-w-md rounded-2xl">
+    <Dialog.Content class="sm:max-w-md ">
         <Dialog.Header>
             <Dialog.Title class="flex items-center gap-2">
                 <HugeiconsIcon icon={ShoppingCart01Icon} size={20} />
@@ -39,11 +39,11 @@
             {#each items as item (item.productUuid)}
                 <button
                     onclick={() => goToProduct(item.productSlug)}
-                    class="flex w-full items-center justify-between gap-3 rounded-xl border border-border p-3 text-left transition-colors hover:border-primary hover:bg-primary/5 cursor-pointer"
+                    class="flex w-full items-center justify-between gap-3 border border-border p-3 text-left transition-colors hover:border-primary hover:bg-primary/5 cursor-pointer"
                 >
                     <div class="flex items-center gap-3">
                         {#if item.image}
-                            <img src={item.image} alt={item.productName} class="size-12 rounded-lg object-cover" />
+                            <img src={item.image} alt={item.productName} class="size-12 object-cover" />
                         {/if}
                         <div>
                             <p class="text-sm font-medium">{item.productName}</p>

@@ -47,11 +47,11 @@
             type="email"
             required
             {placeholder}
-            class="min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base outline -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
+            class="min-w-0 flex-auto bg-white/5 px-3.5 py-2 text-base outline -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
           />
           <button
             type="submit"
-            class="flex-none rounded-md bg-brand px-3.5 py-2.5 text-sm font-semibold"
+            class="flex-none bg-brand px-3.5 py-2.5 text-sm font-semibold"
           >
             {buttonText}
           </button>
@@ -61,7 +61,7 @@
       <div class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
         {#each navigation as section (section.title)}
           <div class="flex flex-col items-start">
-            <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+            <div class="bg-white/5 p-2 ring-1 ring-white/10">
               <HugeiconsIcon
                 icon={section.icon}
                 size={24}

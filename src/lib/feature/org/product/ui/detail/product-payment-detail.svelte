@@ -55,7 +55,7 @@
   <ProductPaymentPriceSelector prices={data.prices ?? []} bind:selectedPrice />
 
   <div
-    class="mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-xl border border-border p-1"
+    class="mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-border p-1"
   >
     <div class="flex items-center gap-3 justify-between w-full">
       <span class="text-sm font-semibold">Quantidade</span>
@@ -63,7 +63,7 @@
         type="number"
         min={1}
         bind:value={quantity}
-        class="w-20 rounded-xl text-center"
+        class="w-20 text-center"
       />
     </div>
     {#if selectedPriceObj && quantity > 0}

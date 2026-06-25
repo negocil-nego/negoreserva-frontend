@@ -6,10 +6,7 @@
   import * as InputOTP from "$lib/components/ui/input-otp/index.js";
   import type { HTMLAttributes } from "svelte/elements";
   import OtpCountdown from "$lib/feature/pub/auth/otp/otp-countdown.svelte";
-  import {
-    isOtpExpired,
-    registerStore,
-  } from "$lib/stores/register.store";
+  import { isOtpExpired, registerStore } from "$lib/stores/register.store";
   import OtpResendOtp from "./otp-resend-otp.svelte";
   import { RegisterService } from "../register/data/service/register.service";
   import { useConfirmOtp } from "../register/data/hooks/use-confirm-otp";
@@ -42,7 +39,7 @@
     <Field.Group>
       <div class="flex flex-col items-center gap-2 text-center">
         <a href="#/" class="flex flex-col items-center gap-2 font-medium">
-          <div class="size-8 items-center justify-center rounded-md hidden">
+          <div class="size-8 items-center justify-center hidden">
             <GalleryVerticalEndIcon class="size-6" />
           </div>
           <span class="sr-only">NegoReserva</span>
@@ -66,7 +63,7 @@
         >
           {#snippet children({ cells })}
             <InputOTP.Group
-              class="gap-2.5 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-12 *:data-[slot=input-otp-slot]:rounded-full *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-xl"
+              class="gap-2.5 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-12 *:data-[slot=input-otp-slot]:*:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-xl"
             >
               {#each cells.slice(0, 3) as cell (cell)}
                 <InputOTP.Slot {cell} />
@@ -74,7 +71,7 @@
             </InputOTP.Group>
             <InputOTP.Separator />
             <InputOTP.Group
-              class="gap-2.5 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-12 *:data-[slot=input-otp-slot]:rounded-full *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-xl"
+              class="gap-2.5 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-12 *:data-[slot=input-otp-slot]:*:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-xl"
             >
               {#each cells.slice(3, 6) as cell (cell)}
                 <InputOTP.Slot {cell} />

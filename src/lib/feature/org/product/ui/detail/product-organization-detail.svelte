@@ -33,7 +33,7 @@
         <img
                 src={organization.image}
                 alt={`Logo da empresa ${organization.name}`}
-                class="h-[200px] w-full rounded-2xl object-cover"
+                class="h-[200px] w-full object-cover"
         />
     </div>
 

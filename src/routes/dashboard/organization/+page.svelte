@@ -101,7 +101,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {#each Array.from({ length: 3 }) as index, i (i)}
         <div
-          class="rounded-xl border bg-card text-card-foreground shadow-sm p-6 animate-pulse"
+          class="border bg-card text-card-foreground shadow-sm p-6 animate-pulse"
         >
           <div class="h-4 bg-muted rounded w-1/2 mb-3"></div>
           <div class="h-8 bg-muted rounded w-1/4">

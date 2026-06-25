@@ -36,7 +36,7 @@
             if(item.onClick) item.onClick(item.name)
             scrollToSection(item)
           }}
-          class="flex w-full items-center gap-2 rounded-lg px-3 py-2 md:py-3 text-left text-sm transition-all duration-200 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground cursor-pointer {activeId === item.url ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' : ''}"
+          class="flex w-full items-center gap-2 px-3 py-2 md:py-3 text-left text-sm transition-all duration-200 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground cursor-pointer {activeId === item.url ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' : ''}"
         >
           {#if item.icon}
             <HugeiconsIcon icon={item.icon} size={24} color="currentColor" strokeWidth={1} />

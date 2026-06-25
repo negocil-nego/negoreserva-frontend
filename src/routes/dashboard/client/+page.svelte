@@ -127,7 +127,7 @@
       <h1 class="text-3xl font-extrabold tracking-tight text-foreground bg-clip-text">Painel do Cliente</h1>
       <p class="text-muted-foreground text-sm mt-1">Bem-vindo de volta, <span class="font-semibold text-foreground">{user?.name ?? "Cliente"}</span>!</p>
     </div>
-    <div class="flex items-center gap-2 text-xs text-muted-foreground bg-card border border-border rounded-lg px-3 py-1.5 w-fit">
+    <div class="flex items-center gap-2 text-xs text-muted-foreground bg-card border border-border px-3 py-1.5 w-fit">
       <Calendar class="size-4 text-brand" />
       <span>{new Date().toLocaleDateString('pt-AO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
     </div>
@@ -135,36 +135,36 @@
 
   <!-- Stats Grid -->
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-    <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm p-6 flex items-center justify-between transition-all hover:shadow-md">
+    <div class="border border-border bg-card text-card-foreground shadow-sm p-6 flex items-center justify-between transition-all hover:shadow-md">
       <div class="space-y-1">
         <p class="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total Investido</p>
         <p class="text-2xl font-bold mt-1">
           {totalSpent.toLocaleString('pt-AO', { style: 'currency', currency: 'AOA', minimumFractionDigits: 2 })}
         </p>
       </div>
-      <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg text-emerald-600 dark:text-emerald-400">
+      <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400">
         <DollarSign class="size-6" />
       </div>
     </div>
 
-    <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm p-6 flex items-center justify-between transition-all hover:shadow-md">
+    <div class="border border-border bg-card text-card-foreground shadow-sm p-6 flex items-center justify-between transition-all hover:shadow-md">
       <div class="space-y-1">
         <p class="text-xs font-medium text-muted-foreground uppercase tracking-wider">Pendente</p>
         <p class="text-2xl font-bold mt-1 text-amber-600 dark:text-amber-400">
           {totalPending.toLocaleString('pt-AO', { style: 'currency', currency: 'AOA', minimumFractionDigits: 2 })}
         </p>
       </div>
-      <div class="p-3 bg-amber-50 dark:bg-amber-950/30 rounded-lg text-amber-600 dark:text-amber-400">
+      <div class="p-3 bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400">
         <CreditCard class="size-6" />
       </div>
     </div>
 
-    <div class="rounded-xl border border-border bg-card text-card-foreground shadow-sm p-6 flex items-center justify-between transition-all hover:shadow-md">
+    <div class="border border-border bg-card text-card-foreground shadow-sm p-6 flex items-center justify-between transition-all hover:shadow-md">
       <div class="space-y-1">
         <p class="text-xs font-medium text-muted-foreground uppercase tracking-wider">Total de Transações</p>
         <p class="text-2xl font-bold mt-1">{clientPayments.length}</p>
       </div>
-      <div class="p-3 bg-brand/10 rounded-lg text-brand">
+      <div class="p-3 bg-brand/10 text-brand">
         <Activity class="size-6" />
       </div>
     </div>
@@ -172,7 +172,7 @@
 
   <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
     <!-- Activity Chart (Left / Spans 3 columns) -->
-    <div class="lg:col-span-3 rounded-xl border border-border bg-card p-6 shadow-sm flex flex-col justify-between">
+    <div class="lg:col-span-3 border border-border bg-card p-6 shadow-sm flex flex-col justify-between">
       <div class="flex items-center justify-between mb-4">
         <div>
           <h2 class="text-md font-bold text-foreground">Atividade Financeira</h2>
@@ -247,7 +247,7 @@
         {#if hoveredPoint !== null}
           {@const active = monthlyActivity[hoveredPoint]}
           <div 
-            class="absolute bg-card border border-border shadow-lg rounded-lg px-2.5 py-1.5 text-xs z-10 transition-all pointer-events-none"
+            class="absolute bg-card border border-border shadow-lg px-2.5 py-1.5 text-xs z-10 transition-all pointer-events-none"
             style="left: {15 + (hoveredPoint / (monthlyActivity.length - 1)) * 72}%; bottom: 65%; transform: translateX(-50%);"
           >
             <p class="font-bold text-foreground">{active.month}</p>
@@ -265,7 +265,7 @@
     </div>
 
     <!-- Recent Payments (Right / Spans 2 columns) -->
-    <div class="lg:col-span-2 rounded-xl border border-border bg-card p-6 shadow-sm flex flex-col justify-between">
+    <div class="lg:col-span-2 border border-border bg-card p-6 shadow-sm flex flex-col justify-between">
       <div>
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-md font-bold text-foreground">Últimas Transações</h2>
@@ -276,7 +276,7 @@
           <div class="space-y-4">
             {#each Array(3) as _, i (i)}
               <div class="flex items-center gap-3 animate-pulse">
-                <div class="size-10 bg-muted rounded-lg"></div>
+                <div class="size-10 bg-muted "></div>
                 <div class="space-y-1 flex-1">
                   <div class="h-3 bg-muted rounded w-3/4"></div>
                   <div class="h-2.5 bg-muted rounded w-1/2"></div>
@@ -291,9 +291,9 @@
         {:else}
           <div class="space-y-3.5">
             {#each recentPayments as p (p.uuid)}
-              <div class="flex items-center justify-between p-2 rounded-lg hover:bg-muted/30 transition-all border border-transparent hover:border-border/30">
+              <div class="flex items-center justify-between p-2 hover:bg-muted/30 transition-all border border-transparent hover:border-border/30">
                 <div class="flex items-center gap-3">
-                  <div class="size-10 bg-brand/10 text-brand rounded-lg flex items-center justify-center font-bold text-sm">
+                  <div class="size-10 bg-brand/10 text-brand flex items-center justify-center font-bold text-sm">
                     {p.transaction?.product?.name ? p.transaction.product.name.substring(0,2).toUpperCase() : "TX"}
                   </div>
                   <div>

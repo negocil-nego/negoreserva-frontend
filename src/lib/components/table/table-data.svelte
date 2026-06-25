@@ -21,7 +21,7 @@
   } = $props();
 </script>
 
-<div class="rounded-md border bg-panel">
+<div class="border bg-panel">
   <div class="flex items-center justify-between w-full md:flex-row">
     {#if title}
       <div class="p-2 md:p-4">

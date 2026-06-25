@@ -1,0 +1,3 @@
+export const ORG_ROLE_FILTER = "ORG_ROLE_FILTER"
+export const ORG_ROLE_SAVE = "ORG_ROLE_SAVE"
+export const ORG_ROLE_EDIT = "ORG_ROLE_EDIT"

@@ -89,7 +89,7 @@
     {#if file}
         <label
                 for={inputId}
-                class="group relative flex w-full cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed border-primary bg-primary/5 p-6 text-center transition-all duration-200 hover:bg-primary/10
+                class="group relative flex w-full cursor-pointer flex-col items-center gap-3 border-2 border-dashed border-primary bg-primary/5 p-6 text-center transition-all duration-200 hover:bg-primary/10
             {error ? 'border-destructive bg-destructive/5' : ''}"
         >
             <div class="flex size-12 items-center justify-center rounded-full bg-primary/10 transition-transform duration-200 group-hover:scale-105">
@@ -116,7 +116,7 @@
         <button
                 type="button"
                 onclick={handleRemove}
-                class="flex w-full items-center justify-center gap-1.5 rounded-lg py-1.5 text-xs text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                class="flex w-full items-center justify-center gap-1.5 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
         >
             <HugeiconsIcon icon={Delete02Icon} size={13} />
             <span>Remover ficheiro</span>
@@ -125,7 +125,7 @@
     {:else}
         <label
                 for={inputId}
-                class="group flex w-full cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed border-border bg-muted/10 p-6 text-center transition-all duration-200 hover:border-primary/50 hover:bg-muted/20
+                class="group flex w-full cursor-pointer flex-col items-center gap-3 border-2 border-dashed border-border bg-muted/10 p-6 text-center transition-all duration-200 hover:border-primary/50 hover:bg-muted/20
             {error ? 'border-destructive bg-destructive/5' : ''}"
         >
             <div class="flex size-12 items-center justify-center rounded-full bg-muted transition-all duration-200 group-hover:scale-105 group-hover:bg-primary/10">

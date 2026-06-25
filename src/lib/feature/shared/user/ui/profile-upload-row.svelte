@@ -89,7 +89,7 @@
             <section>
                 <button
                         type="button"
-                        class="size-24 md:size-32 shrink-0 rounded-2xl border border-border overflow-hidden bg-muted flex items-center justify-center cursor-pointer"
+                        class="size-24 md:size-32 shrink-0 border border-border overflow-hidden bg-muted flex items-center justify-center cursor-pointer"
                         onclick={triggerInput}
                 >
                     {#if preview}

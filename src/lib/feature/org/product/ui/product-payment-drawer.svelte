@@ -27,7 +27,7 @@
     class={buttonVariants({
       variant: "default",
       class:
-        "w-full cursor-pointer flex items-center justify-center gap-2 bg-brand hover:bg-brand/90 text-white font-bold py-3 rounded-xl shadow-md transition-all duration-300",
+        "w-full cursor-pointer flex items-center justify-center gap-2 bg-brand hover:bg-brand/90 text-white font-bold py-3 shadow-md transition-all duration-300",
     })}
   >
     <HugeiconsIcon icon={Payment01Icon} size={16} />

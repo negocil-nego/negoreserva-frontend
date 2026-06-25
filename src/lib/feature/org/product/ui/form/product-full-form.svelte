@@ -157,7 +157,7 @@
           type="button"
           onclick={() => handleScrollTo(item.id)}
           class={[
-            "w-full flex items-center gap-3 px-3 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 cursor-pointer text-left",
+            "w-full flex items-center gap-3 px-3 py-2.5 text-sm font-semibold transition-all duration-200 cursor-pointer text-left",
             activeSection === item.id
               ? "bg-brand text-white shadow-sm"
               : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-800 dark:hover:text-slate-200"
@@ -184,14 +184,14 @@
             variant="outline"
             onclick={handleCancel}
             disabled={isSaving}
-            class="rounded-xl px-5 cursor-pointer"
+            class="px-5 cursor-pointer"
           >
             Cancelar
           </Button>
           <Button
             onclick={handleSubmit}
             disabled={isSaving}
-            class="rounded-xl px-5 bg-brand hover:bg-brand/90 text-white font-semibold flex items-center gap-1.5 cursor-pointer"
+            class="px-5 bg-brand hover:bg-brand/90 text-white font-semibold flex items-center gap-1.5 cursor-pointer"
           >
             <HugeiconsIcon icon={FloppyDiskIcon} size={16} />
             <span>{isSaving ? "A guardar..." : "Guardar Produto"}</span>

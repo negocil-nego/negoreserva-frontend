@@ -56,7 +56,7 @@
       {href}
       target="_blank"
       rel="noopener noreferrer"
-      class="bg-white rounded-full flex flex-col justify-center items-center p-1 h-6 w-6 md:w-8 md:h-8"
+      class="bg-white flex flex-col justify-center items-center p-1 h-6 w-6 md:w-8 md:h-8"
     >
       <img {src} {alt} class="h-full w-full object-cover" />
     </a>
@@ -65,7 +65,7 @@
 
 <section class="relative w-full">
   <div
-    class="relative flex flex-col md:flex-row items-end justify-center md:h-48 w-full overflow-hidden rounded-xl bg-linear-to-r from-green-400 via-green-500 to-green-600 dark:from-green-700 dark:via-green-800 dark:to-green-900"
+    class="relative flex flex-col md:flex-row items-end justify-center md:h-48 w-full overflow-hidden bg-linear-to-r from-green-400 via-green-500 to-green-600 dark:from-green-700 dark:via-green-800 dark:to-green-900"
   >
     {#if data.image}
       <img
@@ -78,13 +78,13 @@
     <aside class="z-20 md:absolute top-1 right-2 p-4 flex gap-2 md:gap-3">
       <Button
         variant="outline"
-        class="w-10 h-10 rounded-full bg-white dark:bg-slate-900 cursor-pointer"
+        class="w-10 h-10 bg-white dark:bg-slate-900 cursor-pointer"
       >
         <HugeiconsIcon icon={Copy01Icon} size={20} />
       </Button>
       <Button
         variant="outline"
-        class="w-10 h-10 rounded-full bg-white dark:bg-slate-900 cursor-pointer"
+        class="w-10 h-10 bg-white dark:bg-slate-900 cursor-pointer"
       >
         <HugeiconsIcon icon={ShareIcon} size={20} />
       </Button>
@@ -97,24 +97,22 @@
         class="flex flex-col md:flex-row justify-center md:justify-start items-center md:items-start gap-1 w-full lg:h-37.5 lg:gap-5"
       >
         {#if data.logo}
-          <div class="bg-white rounded-2xl w-25 lg:w-37.5 h-full">
+          <div class="bg-white w-25 lg:w-37.5 h-full">
             <img
               src={data.logo}
               alt={data.name}
-              class="size-24 md:size-28 lg:h-full m-auto rounded-2xl object-cover"
+              class="size-24 md:size-28 lg:h-full m-auto object-cover"
             />
           </div>
         {:else}
-          <Avatar.Root
-            class="size-24 rounded-2xl border-4 border-background bg-muted"
-          >
-            <Avatar.Fallback class="rounded-2xl">
+          <Avatar.Root class="size-24 border-4 border-background bg-muted">
+            <Avatar.Fallback class="">
               <HugeiconsIcon icon={Building03Icon} size={36} />
             </Avatar.Fallback>
           </Avatar.Root>
         {/if}
         <div
-          class="bg-black/5 p-1 rounded-md flex flex-col items-center md:items-start md:h-full"
+          class="bg-black/5 p-1 flex flex-col items-center md:items-start md:h-full"
         >
           <div class="text-white font-bold text-xl">{data.name}</div>
           {#if data.rating}
@@ -150,7 +148,5 @@
       </aside>
     </section>
   </div>
-  <div
-    class="absolute z-10 inset-0 bg-black/50 to-transparent rounded-md h-full"
-  ></div>
+  <div class="absolute z-10 inset-0 bg-black/50 to-transparent h-full"></div>
 </section>

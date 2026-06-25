@@ -56,7 +56,7 @@
   }
 </script>
 
-<div id="product-tag-section" class="bg-white dark:bg-transparent rounded-2xl p-6 space-y-6 scroll-mt-20">
+<div id="product-tag-section" class="bg-white dark:bg-transparent p-6 space-y-6 scroll-mt-20">
   <div class="space-y-1 border-b border-slate-100 dark:border-slate-800 pb-4">
     <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">Detalhes & Especificações (Tags)</h3>
     <p class="text-sm text-slate-500 dark:text-slate-400">Adicione características ou comodidades adicionais para detalhar o produto (ex: Wifi - Grátis).</p>
@@ -64,7 +64,7 @@
 
   {#if !readOnly}
     <!-- Add Tag Form -->
-    <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-150 dark:border-slate-850 space-y-4">
+    <div class="bg-slate-50 dark:bg-slate-950 p-4 border border-slate-150 dark:border-slate-850 space-y-4">
       <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Adicionar Nova Especificação</div>
       
       <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
@@ -72,7 +72,7 @@
           <Label class="text-xs font-semibold text-slate-600 dark:text-slate-400">Categoria/Ícone</Label>
           <select
             bind:value={newIcon}
-            class="flex h-10 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-slate-700 dark:text-slate-350"
+            class="flex h-10 w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-slate-700 dark:text-slate-350"
           >
             {#each iconPresets as preset (preset.key)}
               <option value={preset.key}>{preset.display}</option>
@@ -86,7 +86,7 @@
             type="text"
             placeholder="Ex: Wi-Fi"
             bind:value={newTitle}
-            class="rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+            class="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
           />
         </div>
 
@@ -96,7 +96,7 @@
             type="text"
             placeholder="Ex: Grátis / Disponível"
             bind:value={newValue}
-            class="rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+            class="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
           />
         </div>
 
@@ -105,7 +105,7 @@
             type="button"
             onclick={handleAddTag}
             disabled={!newTitle.trim() || !newValue.trim()}
-            class="w-full h-10 rounded-xl bg-brand hover:bg-brand/90 text-white font-medium flex items-center justify-center gap-1 cursor-pointer"
+            class="w-full h-10 bg-brand hover:bg-brand/90 text-white font-medium flex items-center justify-center gap-1 cursor-pointer"
           >
             <HugeiconsIcon icon={PlusSignIcon} size={16} />
             <span>Adicionar</span>
@@ -120,15 +120,15 @@
     <div class="text-sm font-bold text-slate-700 dark:text-slate-350">Especificações Adicionadas ({tags.length})</div>
 
     {#if tags.length === 0}
-      <div class="text-center py-8 text-sm text-slate-400 border-2 border-dashed border-slate-100 dark:border-slate-850 rounded-2xl">
+      <div class="text-center py-8 text-sm text-slate-400 border-2 border-dashed border-slate-100 dark:border-slate-850 ">
         Nenhuma tag ou especificação adicionada ainda. Detalhe mais o seu produto.
       </div>
     {:else}
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {#each tags as tag, index}
-          <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-xl hover:shadow-md transition-shadow relative group">
+          <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow relative group">
             <div class="flex items-center gap-3">
-              <div class="p-2 bg-white dark:bg-slate-900 rounded-lg text-lg flex items-center justify-center border border-slate-100 dark:border-slate-800 shadow-sm">
+              <div class="p-2 bg-white dark:bg-slate-900 text-lg flex items-center justify-center border border-slate-100 dark:border-slate-800 shadow-sm">
                 {#if tag.icon === "WifiIcon"}📶
                 {:else if tag.icon === "BedIcon"}🛏️
                 {:else if tag.icon === "CoffeeIcon"}☕
@@ -148,7 +148,7 @@
               <button
                 type="button"
                 onclick={() => handleRemoveTag(index)}
-                class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-1.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-red-200 rounded-lg cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 p-1.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-red-200 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                 title="Remover Especificação"
               >
                 <HugeiconsIcon icon={Delete02Icon} size={14} />

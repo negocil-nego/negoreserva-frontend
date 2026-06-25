@@ -42,7 +42,7 @@
       <div class="grid gap-4 grid-cols-1 md:grid-cols-2">
         {#each items as item (item.label)}
           <div
-            class="flex items-center gap-4 border rounded-md p-4 hover:bg-muted hover:cursor-pointer"
+            class="flex items-center gap-4 border p-4 hover:bg-muted hover:cursor-pointer"
           >
             <img src={item.icon} alt={item.label} class="w-8 h-8" />
             <div>

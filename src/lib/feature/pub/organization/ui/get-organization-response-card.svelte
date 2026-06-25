@@ -10,11 +10,13 @@
   let { item } = $props<{ item: OrganizationResponse }>();
 </script>
 
-<aside class="rounded-md border border-gray-50 dark:border-gray-800 relative">
+<aside class="border border-gray-50 dark:border-gray-800 relative">
   <div
     class="absolute p-2 flex flex-col-reverse items-center md:flex-row justify-between z-5 w-full"
   >
-    <div class="absolute inset-0 bg-linear-to-b from-black/80 to-transparent rounded-md min-h-40 md:min-h-52"></div>
+    <div
+      class="absolute inset-0 bg-linear-to-b from-black/80 to-transparent min-h-40 md:min-h-52"
+    ></div>
     <HeaderCardOrganization {item} />
   </div>
   <div class="relative h-50 lg:min-h-56 xl:min-h-72">
@@ -22,7 +24,7 @@
       <img
         src={item.image}
         alt={item.name}
-        class="w-full h-50 lg:min-h-56 xl:min-h-72 object-cover group-hover:scale-105 transition-transform duration-500 rounded-md"
+        class="w-full h-50 lg:min-h-56 xl:min-h-72 object-cover group-hover:scale-105 transition-transform duration-500"
       />
     </button>
 
@@ -34,7 +36,7 @@
           {#each item.categories as category (category.uuid)}
             <Carousel.Item class="pl-2 basis-auto">
               <div
-                class="bg-black/60 rounded-full text-white px-4 py-1 flex gap-2 items-center cursor-pointer hover:bg-black/75 transition-colors"
+                class="bg-black/60 text-white px-4 py-1 flex gap-2 items-center cursor-pointer hover:bg-black/75 transition-colors"
               >
                 <i class={category.icon ?? "hgi-a-access"}></i>
                 <span class="whitespace-nowrap text-sm font-medium"
@@ -46,7 +48,7 @@
         </Carousel.Content>
       </Carousel.Root>
       <button
-        class="bg-black/40 backdrop-blur-lg rounded-full p-1 flex px-2 gap-2 items-center justify-between cursor-pointer text-white border border-gray-50/50"
+        class="bg-black/40 backdrop-blur-lg p-1 flex px-2 gap-2 items-center justify-between cursor-pointer text-white border border-gray-50/50"
         onclick={() => {
           goto(resolve(`/detail/organization/${item.slug}`));
         }}

@@ -94,7 +94,7 @@
           <p class="text-sm text-muted-foreground p-2">Nenhum cargo encontrado</p>
         {:else}
           {#each roles as role (role.uuid)}
-            <button type="button" class="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm hover:bg-muted" onclick={() => toggle(role)}>
+            <button type="button" class="flex w-full items-center gap-2 px-2 py-1.5 text-left text-sm hover:bg-muted" onclick={() => toggle(role)}>
               <Checkbox checked={isSelected(role)} class="pointer-events-none" />
               <span>{role.name}</span>
             </button>

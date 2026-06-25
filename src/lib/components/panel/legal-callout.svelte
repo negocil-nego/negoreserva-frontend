@@ -26,7 +26,7 @@
   const s = $derived(styles[type]);
 </script>
 
-<div class="my-5 flex gap-3 rounded-lg border px-5 py-4 shadow-sm {s.wrap}">
+<div class="my-5 flex gap-3 border px-5 py-4 shadow-sm {s.wrap}">
   <span
     class="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm ring-4 {s.icon}"
   >

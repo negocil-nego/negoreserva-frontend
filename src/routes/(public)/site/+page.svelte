@@ -174,11 +174,11 @@
           A Negoreserva aproxima clientes de hotéis, restaurantes, experiências e prestadores locais com uma jornada clara: descobrir, comparar, reservar, pagar e acompanhar sem perder confiança.
         </p>
         <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-          <a href={resolve("/")} class="inline-flex items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-bold text-green-800 shadow-sm">
+          <a href={resolve("/")} class="inline-flex items-center justify-center gap-2 bg-white px-5 py-3 text-sm font-bold text-green-800 shadow-sm">
             Explorar agora
             <HugeiconsIcon icon={ArrowRight01Icon} size={18} color="currentColor" strokeWidth={1.8} />
           </a>
-          <a href="#recursos" class="inline-flex items-center justify-center rounded-md border border-white/35 px-5 py-3 text-sm font-bold text-white hover:bg-white/10">
+          <a href="#recursos" class="inline-flex items-center justify-center border border-white/35 px-5 py-3 text-sm font-bold text-white hover:bg-white/10">
             Ver recursos
           </a>
         </div>
@@ -211,7 +211,7 @@
     </section>
 
     <section id="recursos" class="bg-panel py-20">
-      <div class="container rounded-lg bg-background px-6 py-20 shadow-sm md:px-14">
+      <div class="container bg-background px-6 py-20 shadow-sm md:px-14">
         <div class="mx-auto max-w-2xl text-center">
           <p class="text-sm font-extrabold text-green-700">Publicar melhor</p>
           <h2 class="mt-4 text-4xl font-extrabold tracking-tight">
@@ -224,7 +224,7 @@
         <div class="mx-auto mt-16 grid max-w-4xl gap-x-20 gap-y-12 md:grid-cols-2">
           {#each resources as resource (resource.title)}
             <article class="flex gap-5">
-              <span class="bg-brand inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-white">
+              <span class="bg-brand inline-flex h-10 w-10 shrink-0 items-center justify-center text-white">
                 <HugeiconsIcon icon={resource.icon} size={20} color="currentColor" strokeWidth={1.8} />
               </span>
               <div>
@@ -246,8 +246,8 @@
         <div class="mt-14 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {#each team as person (person.name)}
             <article>
-              <div class="h-48 overflow-hidden rounded-lg p-2">
-                <img src={person.image} alt={person.name} class="size-full rounded-md object-cover" />
+              <div class="h-48 overflow-hidden p-2">
+                <img src={person.image} alt={person.name} class="size-full object-cover" />
               </div>
               <div class="-mt-10 ml-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand text-2xl font-extrabold text-white">
                 {person.name.slice(0, 1)}
@@ -262,10 +262,10 @@
     </section>
 
     <section class="bg-panel py-16">
-      <div class="container rounded-lg bg-background p-8 shadow-sm md:p-14">
+      <div class="container bg-background p-8 shadow-sm md:p-14">
         <div class="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-          <div class="h-72 overflow-hidden rounded-lg p-3">
-            <img src={PHOTO_SIGNUP_ORGANIZATION_STEP3} alt="Equipa a construir soluções digitais" class="size-full rounded-md object-cover" />
+          <div class="h-72 overflow-hidden p-3">
+            <img src={PHOTO_SIGNUP_ORGANIZATION_STEP3} alt="Equipa a construir soluções digitais" class="size-full object-cover" />
           </div>
           <div>
             <h2 class="text-4xl font-extrabold tracking-tight">Junte-se à equipa</h2>
@@ -289,13 +289,13 @@
     </section>
 
     <section class="bg-background py-16">
-      <div class="container overflow-hidden rounded-lg bg-panel shadow-sm">
+      <div class="container overflow-hidden bg-panel shadow-sm">
         <div class="grid lg:grid-cols-2">
           <div class="bg-brand site-grid min-h-[520px] p-8 md:p-12">
-            <div class="h-44 overflow-hidden rounded-lg bg-white/20 p-2">
-              <img src={supportImage} alt="Suporte da Negoreserva" class="size-full rounded-md object-cover" />
+            <div class="h-44 overflow-hidden bg-white/20 p-2">
+              <img src={supportImage} alt="Suporte da Negoreserva" class="size-full object-cover" />
             </div>
-            <div class="mt-8 rounded-lg bg-white/95 p-6 text-green-950 shadow-sm">
+            <div class="mt-8 bg-white/95 p-6 text-green-950 shadow-sm">
               <h2 class="text-4xl font-extrabold tracking-tight">Fale connosco</h2>
               <p class="mt-6 max-w-md text-base leading-8 text-green-900/80">
                 Quer colocar a sua organização na Negoreserva, esclarecer uma dúvida ou conversar sobre parceria? A equipa responde com contexto.
@@ -320,27 +320,27 @@
             <div class="grid gap-6 sm:grid-cols-2">
               <label class="space-y-2 text-sm font-bold">
                 Nome
-                <input class="w-full rounded-md bg-background text-foreground" />
+                <input class="w-full bg-background text-foreground" />
               </label>
               <label class="space-y-2 text-sm font-bold">
                 Sobrenome
-                <input class="w-full rounded-md bg-background text-foreground" />
+                <input class="w-full bg-background text-foreground" />
               </label>
             </div>
             <label class="block space-y-2 text-sm font-bold">
               Email
-              <input type="email" class="w-full rounded-md bg-background text-foreground" />
+              <input type="email" class="w-full bg-background text-foreground" />
             </label>
             <label class="block space-y-2 text-sm font-bold">
               Telefone
-              <input class="w-full rounded-md bg-background text-foreground" />
+              <input class="w-full bg-background text-foreground" />
             </label>
             <label class="block space-y-2 text-sm font-bold">
               Mensagem
-              <textarea rows="5" class="w-full rounded-md bg-background text-foreground"></textarea>
+              <textarea rows="5" class="w-full bg-background text-foreground"></textarea>
             </label>
             <div class="flex justify-end">
-              <button type="button" class="bg-brand rounded-md px-5 py-3 text-sm font-extrabold text-white">
+              <button type="button" class="bg-brand px-5 py-3 text-sm font-extrabold text-white">
                 Enviar mensagem
               </button>
             </div>

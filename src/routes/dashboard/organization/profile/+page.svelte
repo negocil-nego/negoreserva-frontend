@@ -32,9 +32,9 @@
     <ProfileAvatarPanel {data} />
   {/if}
 
-  <section class="lg:mt-5 bg-panel rounded-md p-2">
+  <section class="lg:mt-5 bg-panel p-2">
     <Tabs.Tabs value="user">
-      <div class="flex items-center justify-between rounded-xl overflow-x-auto">
+      <div class="flex items-center justify-between overflow-x-auto">
         <Tabs.TabsList class="bg-gray-50 dark:bg-gray-900 gap-5">
           <Tabs.TabsTrigger value="user">Usuário</Tabs.TabsTrigger>
           <Tabs.TabsTrigger value="organization">Organização</Tabs.TabsTrigger>

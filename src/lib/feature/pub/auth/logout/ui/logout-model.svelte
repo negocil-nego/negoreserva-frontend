@@ -22,7 +22,7 @@
 <Dialog.Root>
   <Dialog.Trigger
     type="button"
-    class="relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground w-full data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-red-500 ml-1"
+    class="relative flex cursor-default select-none items-center gap-2 px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground w-full data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-red-500 ml-1"
   >
     <HugeiconsIcon icon={Logout01Icon} class="size-4" />
     Sair
@@ -31,9 +31,7 @@
   <Dialog.Content class="sm:max-w-[400px] text-center">
     <Dialog.Header>
       <div class="flex justify-center mb-2">
-        <div
-          class="flex h-14 w-14 items-center justify-center rounded-full bg-red-100"
-        >
+        <div class="flex h-14 w-14 items-center justify-center bg-red-100">
           <HugeiconsIcon icon={AlertTriangle} class="h-7 w-7 text-red-500" />
         </div>
       </div>

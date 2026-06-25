@@ -29,7 +29,7 @@
       variant: "ghost",
       size: "sm",
       class:
-        "cursor-pointer flex items-center text-white bg-black/40 backdrop-blur-lg p-0 py-0 m-0 px-1 rounded-md border border-gray-50/50",
+        "cursor-pointer flex items-center text-white bg-black/40 backdrop-blur-lg p-0 py-0 m-0 px-1 border border-gray-50/50",
     })}
   >
     Solicitar
@@ -41,7 +41,7 @@
     />
   </Dialog.Trigger>
   <Dialog.Content
-    class="sm:max-w-4xl h-[85vh] max-h-[85vh] flex flex-col p-0 overflow-hidden bg-background rounded-xl"
+    class="sm:max-w-4xl h-[85vh] max-h-[85vh] flex flex-col p-0 overflow-hidden bg-background "
   >
     <div class="p-6 pb-4 border-b border-muted/20">
       <Dialog.Title class="text-xl font-bold tracking-tight"
@@ -57,15 +57,15 @@
         class="flex-1 p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-8"
       >
         <div class="space-y-4">
-          <Skeleton class="aspect-square w-full rounded-2xl" />
+          <Skeleton class="aspect-square w-full " />
         </div>
         <div class="space-y-4">
-          <Skeleton class="h-8 w-3/4 rounded-md" />
-          <Skeleton class="h-6 w-1/4 rounded-md" />
+          <Skeleton class="h-8 w-3/4 " />
+          <Skeleton class="h-6 w-1/4 " />
           <div class="space-y-2 pt-4">
-            <Skeleton class="h-4 w-full rounded-sm" />
-            <Skeleton class="h-4 w-full rounded-sm" />
-            <Skeleton class="h-4 w-2/3 rounded-sm" />
+            <Skeleton class="h-4 w-full " />
+            <Skeleton class="h-4 w-full " />
+            <Skeleton class="h-4 w-2/3 " />
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@
       </div>
 
       <div
-        class="absolute bottom-0 inset-x-0 p-4 bg-background border-t border-muted/30 flex items-center justify-between z-10 rounded-b-xl"
+        class="absolute bottom-0 inset-x-0 p-4 bg-background border-t border-muted/30 flex items-center justify-between z-10 "
       >
         <div class="flex flex-col">
           <span
