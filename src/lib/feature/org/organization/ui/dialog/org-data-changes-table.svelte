@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          {#each data as item}
+          {#each data as item (item.id)}
             <tr class="border-b border-border hover:bg-muted/50">
               <td class="py-2 px-3">{item.id}</td>
               <td class="py-2 px-3">{item.input ?? "-"}</td>

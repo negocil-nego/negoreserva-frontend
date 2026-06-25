@@ -33,6 +33,13 @@ export interface AddressResponse {
     municipality?: MunicipalityResponse | null
     latitude?: number | null
     longitude?: number | null
+    isDefault: boolean
+}
+
+export interface AddressUpsertRequest {
+    complement?: string | null
+    provinceUuid: string
+    municipalityUuid: string
 }
 
 export interface OrganizationSocialMediaDetailResponse {

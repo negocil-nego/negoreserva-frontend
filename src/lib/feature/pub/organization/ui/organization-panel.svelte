@@ -13,14 +13,16 @@
     name: string;
     logo?: string | null | undefined;
     image?: string | null | undefined;
-  }
+  };
 
   let { image, name, logo }: Props = $props();
 </script>
 
 <section class="relative w-full">
   <div class="relative w-full flex items-center justify-center">
-    <section class="relative flex items-end justify-center h-32 md:h-40 w-full overflow-hidden rounded-xl bg-linear-to-r from-green-400 via-green-500 to-green-600 dark:from-green-700 dark:via-green-800 dark:to-green-900">
+    <section
+      class="relative flex items-end justify-center h-32 md:h-40 w-full overflow-hidden rounded-xl bg-linear-to-r from-green-400 via-green-500 to-green-600 dark:from-green-700 dark:via-green-800 dark:to-green-900"
+    >
       {#if image}
         <img
           src={image}
@@ -49,21 +51,25 @@
           <HugeiconsIcon icon={BlockedIcon} size={20} />
         </Button>
       </aside>
-  </section>
-    <section class="absolute z-10 -bottom-10 md:-bottom-16">
-      <aside class="bg-white rounded-2xl">
-        {#if logo}
-          <img src={logo}
-             alt={name}
-             class="size-24 md:size-32 rounded-2xl border-4 border-gray-300 dark:border-slate-600 object-cover"
-        />
-        {:else}
-          <Avatar.Root class="size-24 rounded-2xl border-4 border-background bg-muted">
-            <Avatar.Fallback class="rounded-2xl">
-              <HugeiconsIcon icon={Building03Icon} size={36} />
-            </Avatar.Fallback>
-          </Avatar.Root>
-        {/if}
+
+      <aside class="absolute left-2 bottom-2 z-10">
+        <aside class="bg-white rounded-2xl">
+          {#if logo}
+            <img
+              src={logo}
+              alt={name}
+              class="size-24 md:size-32 rounded-2xl border-4 border-gray-300 dark:border-slate-600 object-cover"
+            />
+          {:else}
+            <Avatar.Root
+              class="size-24 rounded-2xl border-4 border-background bg-muted"
+            >
+              <Avatar.Fallback class="rounded-2xl">
+                <HugeiconsIcon icon={Building03Icon} size={36} />
+              </Avatar.Fallback>
+            </Avatar.Root>
+          {/if}
+        </aside>
       </aside>
     </section>
   </div>

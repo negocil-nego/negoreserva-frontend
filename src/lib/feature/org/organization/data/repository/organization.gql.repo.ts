@@ -2,8 +2,8 @@ import type { OrgOrganizationEditProfileRequest } from "$lib/feature/admin/organ
 import type { OrganizationResponse } from "$lib/feature/pub/organization";
 import { apolloClient } from "$lib/providers/graphql.provider";
 import type { IOrgOrganizationRepo } from "../contract/organization.repo";
-import type { OrgOrganizationProfile, OrganizationSocialMediaEditRequest, OrganizationAddressEditRequest } from "../model/organization";
-import { GET_ORGANIZATION, ORG_ORGANIZATION_UPDATE, ORG_ORGANIZATION_UPDATE_SOCIAL_MEDIA, ORG_ORGANIZATION_UPDATE_ADDRESS } from "../queries/organization";
+import type { OrgOrganizationProfile, OrganizationSocialMediaEditRequest, OrganizationAddressEditRequest, AddressUpsertRequest, AddressResponse } from "../model/organization";
+import { GET_ORGANIZATION, ORG_ORGANIZATION_UPDATE, ORG_ORGANIZATION_UPDATE_SOCIAL_MEDIA, ORG_ORGANIZATION_UPDATE_ADDRESS, ORG_ORGANIZATION_UPSERT_ADDRESS, ORG_ORGANIZATION_SET_DEFAULT_ADDRESS, ORG_ORGANIZATION_REMOVE_ADDRESS } from "../queries/organization";
 import { useUpdateImageOrganization } from "../usecase/useUpdateImageOrganization";
 import { useUpdateLogoOrganization } from "../usecase/useUpdateLogoOrganization";
 import { useUpdateVideoOrganization } from "../usecase/useUpdateVideoOrganization";
@@ -39,6 +39,30 @@ export class OrgOrganizationGqlRepo implements IOrgOrganizationRepo {
             variables: { request },
         });
         return data!.orgOrganizationUpdateAddress;
+    }
+
+    async orOrganizationUpsertAddress(request: AddressUpsertRequest): Promise<AddressResponse> {
+        const { data } = await apolloClient.mutate<{ orgOrganizationUpsertAddress: AddressResponse }>({
+            mutation: ORG_ORGANIZATION_UPSERT_ADDRESS,
+            variables: { request },
+        });
+        return data!.orgOrganizationUpsertAddress;
+    }
+
+    async orOrganizationSetDefaultAddress(addressUuid: string): Promise<AddressResponse> {
+        const { data } = await apolloClient.mutate<{ orgOrganizationSetDefaultAddress: AddressResponse }>({
+            mutation: ORG_ORGANIZATION_SET_DEFAULT_ADDRESS,
+            variables: { addressUuid },
+        });
+        return data!.orgOrganizationSetDefaultAddress;
+    }
+
+    async orOrganizationRemoveAddress(addressUuid: string): Promise<OrganizationResponse> {
+        const { data } = await apolloClient.mutate<{ orgOrganizationRemoveAddress: OrganizationResponse }>({
+            mutation: ORG_ORGANIZATION_REMOVE_ADDRESS,
+            variables: { addressUuid },
+        });
+        return data!.orgOrganizationRemoveAddress;
     }
 
     async orOrganizationUpdateLogo(file: File): Promise<OrganizationResponse> {

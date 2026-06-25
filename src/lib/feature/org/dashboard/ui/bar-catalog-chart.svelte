@@ -14,7 +14,7 @@
   } satisfies Chart.ChartConfig;
 
   const chartData = $derived(
-    items.map((item, index) => {
+    items.map((item: any, index: any) => {
       const chartNumber = (index % 20) + 1;
       return {
         name: item.name,
@@ -25,7 +25,7 @@
   );
 
   let totalProducts = $derived(
-    items.reduce((sum, item) => sum + item.productCount, 0),
+    items.reduce((sum: any, item: any) => sum + item.productCount, 0),
   );
 </script>
 

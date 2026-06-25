@@ -128,8 +128,6 @@
 
   <BarCatalogChart items={catalogs} />
 
-  <BarPaymentsChart />
-
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <PiePaymentsByStatus
       data={statusPieData}
@@ -144,6 +142,8 @@
       footerLabel="Quantidade de pagamentos por método"
     />
   </div>
+
+  <BarPaymentsChart />
 
   <PaymentDatatable hideActions hideFilters hidePagination />
 </div>

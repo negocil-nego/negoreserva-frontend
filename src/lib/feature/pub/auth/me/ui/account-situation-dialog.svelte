@@ -29,7 +29,7 @@
     </Dialog.Header>
 
     <div class="space-y-3">
-      {#each situations as situation}
+      {#each situations as situation (situation.code)}
         <div class="rounded-md border p-3">
           <div class="text-sm font-medium">{situation.code}</div>
           <div class="text-sm text-muted-foreground">{situation.description}</div>

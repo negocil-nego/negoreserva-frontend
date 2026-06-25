@@ -54,11 +54,14 @@
   <dd class="mt-1 text-sm/6 text-foreground sm:mt-0">
     {#if isEditing}
       {#if type === "text"}
-        <input bind:value={text} class="rounded-xl w-full md:w-8/12 bg-input/30" />
+        <input
+          bind:value={text}
+          class="rounded-xl w-full md:min-w-[300px] lg:min-w-[400px] bg-input/30"
+        />
       {:else if type === "textarea"}
         <textarea
           bind:value
-          class="rounded-xl w-full md:w-8/12 md:min-h-16 bg-input/30"
+          class="rounded-xl w-full md:min-w-[300px] lg:min-w-[400px] md:min-h-16 lg:min-h-40 bg-input/30"
         ></textarea>
       {/if}
     {:else}
@@ -82,7 +85,9 @@
       <span>Editar</span>
     </button>
   {:else}
-    <div class="flex items-center justify-start sm:justify-end gap-5 sm:col-start-4 mt-2 sm:mt-0">
+    <div
+      class="flex items-center justify-start sm:justify-end gap-5 sm:col-start-4 mt-2 sm:mt-0"
+    >
       <button
         class="flex items-center gap-1 cursor-pointer text-sm text-red-800 dark:text-red-200"
         onclick={() => (isEditing = !isEditing)}

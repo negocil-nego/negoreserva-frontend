@@ -90,7 +90,11 @@
   }
 </script>
 
-<form use:enhance class="w-10/12 md:w-full mx-auto space-y-4" onsubmit={onSubmit}>
+<form
+  use:enhance
+  class="w-10/12 md:w-full mx-auto space-y-4"
+  onsubmit={onSubmit}
+>
   <div class="text-center space-y-1">
     <div class="text-lg font-bold">Criar conta de empresa</div>
     <div class="text-muted-foreground text-sm">
@@ -174,12 +178,17 @@
   <CategorySelectorPopover />
 
   {#if !hasCategorySelected}
-    <p class="text-destructive text-xs -mt-3">Seleccione pelo menos uma categoria</p>
+    <p class="text-destructive text-xs -mt-3">
+      Seleccione pelo menos uma categoria
+    </p>
   {/if}
 
   <div>
     <p class="text-sm font-medium mb-2">Localização</p>
-    <LocationSelector bind:provinceValue={selectedProvince} bind:municipalityValue={selectedMunicipality} />
+    <LocationSelector
+      bind:provinceValue={selectedProvince}
+      bind:municipalityValue={selectedMunicipality}
+    />
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-2">

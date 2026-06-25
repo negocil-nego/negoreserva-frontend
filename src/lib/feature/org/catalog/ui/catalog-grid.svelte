@@ -71,7 +71,7 @@
 
   {#if isLoading}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {#each Array(4) as _}
+      {#each Array(4) as _, i (i)}
         <div class="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden">
           <div class="aspect-video bg-muted animate-pulse"></div>
           <div class="p-4 space-y-2">
@@ -89,7 +89,7 @@
     </div>
   {:else}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {#each items as item}
+      {#each items as item (item.uuid)}
         <CatalogCard
           {item}
           onEdit={() => handleEdit(item)}

@@ -62,16 +62,17 @@ export const ORGANIZATION_DETAIL = gql`
             }
             addresses {
                 uuid
-                country
-                state
-                city
-                neighborhood
-                street
-                number
-                zipCode
                 complement
-                province
-                municipality
+                province {
+                    uuid
+                    value
+                    label
+                }
+                municipality {
+                    uuid
+                    value
+                    label
+                }
                 latitude
                 longitude
             }

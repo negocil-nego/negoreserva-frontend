@@ -28,18 +28,23 @@ export interface OrganizationSocialMediaDetailResponse {
     linkedin?: string | null;
 }
 
+export interface ProvinceResponse {
+    uuid: string;
+    value: string;
+    label: string;
+}
+
+export interface MunicipalityResponse {
+    uuid: string;
+    value: string;
+    label: string;
+}
+
 export interface AddressResponse {
     uuid: string;
-    country?: string | null;
-    state?: string | null;
-    city?: string | null;
-    neighborhood?: string | null;
-    street?: string | null;
-    number?: string | null;
-    zipCode?: string | null;
     complement?: string | null;
-    province?: string | null;
-    municipality?: string | null;
+    province: ProvinceResponse;
+    municipality: MunicipalityResponse;
     latitude?: number | null;
     longitude?: number | null;
 }

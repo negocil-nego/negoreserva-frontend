@@ -74,7 +74,7 @@
             bind:value={newIcon}
             class="flex h-10 w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-slate-700 dark:text-slate-350"
           >
-            {#each iconPresets as preset}
+            {#each iconPresets as preset (preset.key)}
               <option value={preset.key}>{preset.display}</option>
             {/each}
           </select>

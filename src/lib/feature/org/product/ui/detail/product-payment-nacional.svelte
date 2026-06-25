@@ -123,7 +123,7 @@
 
 <div class="space-y-4">
     <div class="space-y-3">
-        {#each NACIONAL_METHODS as method}
+        {#each NACIONAL_METHODS as method (method.id)}
             {@const active = nacionalMethod === method.id}
             <button
                 onclick={() => nacionalMethod = method.id}

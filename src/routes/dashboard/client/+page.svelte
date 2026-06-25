@@ -258,7 +258,7 @@
 
       <!-- X-Axis Labels -->
       <div class="flex justify-between px-4 text-xs font-semibold text-muted-foreground border-t border-border/40 pt-3">
-        {#each monthlyActivity as d}
+        {#each monthlyActivity as d (d.month)}
           <span>{d.month}</span>
         {/each}
       </div>
@@ -274,7 +274,7 @@
 
         {#if isLoading}
           <div class="space-y-4">
-            {#each Array(3) as _}
+            {#each Array(3) as _, i (i)}
               <div class="flex items-center gap-3 animate-pulse">
                 <div class="size-10 bg-muted rounded-lg"></div>
                 <div class="space-y-1 flex-1">
@@ -290,7 +290,7 @@
           </div>
         {:else}
           <div class="space-y-3.5">
-            {#each recentPayments as p}
+            {#each recentPayments as p (p.uuid)}
               <div class="flex items-center justify-between p-2 rounded-lg hover:bg-muted/30 transition-all border border-transparent hover:border-border/30">
                 <div class="flex items-center gap-3">
                   <div class="size-10 bg-brand/10 text-brand rounded-lg flex items-center justify-center font-bold text-sm">

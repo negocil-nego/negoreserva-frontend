@@ -13,7 +13,7 @@
 </script>
 
 <AvatarGroup>
-  {#each visible as file}
+  {#each visible as file (file.uuid)}
     <Avatar size="sm">
       <AvatarImage src={file.url} alt={file.title ?? ""} />
       <AvatarFallback>

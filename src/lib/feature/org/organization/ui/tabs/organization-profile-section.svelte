@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    City01Icon,
-    Location03Icon,
-    Message01Icon,
-  } from "@hugeicons/core-free-icons";
+  import { City01Icon, Message01Icon } from "@hugeicons/core-free-icons";
   import type { OrgOrganizationProfile } from "../../data/model/organization";
   import ProfileInfoRow from "$lib/feature/shared/user/ui/profile-info-row.svelte";
   import { useOrgOrganizationUpdate } from "../../data/hooks/use-org-organization-update";
@@ -38,15 +34,6 @@
       address: data.organization.address ?? "",
     });
   };
-
-  const editOrgAddress = async (value: string) => {
-    if (isLoading) return;
-    await $orgUpdateMutation.mutateAsync({
-      name: data.organization.name,
-      description: data.organization.description ?? "",
-      address: value,
-    });
-  };
 </script>
 
 <div>
@@ -76,13 +63,6 @@
         value={data.organization.description}
         type="textarea"
         onSubmit={editOrgDescription}
-        {isLoading}
-      />
-      <ProfileInfoRow
-        label="Endereço"
-        icon={Location03Icon}
-        value={data.organization.address}
-        onSubmit={editOrgAddress}
         {isLoading}
       />
     </dl>

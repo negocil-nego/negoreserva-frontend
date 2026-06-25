@@ -121,7 +121,7 @@
     <div class="flex-1 overflow-y-auto p-6">
       {#if isLoadingProducts}
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {#each Array.from({ length: 4 }) as _}
+          {#each Array.from({ length: 4 }) as _, i (i)}
             <div class="h-[28rem] animate-pulse rounded-lg border bg-background"></div>
           {/each}
         </div>

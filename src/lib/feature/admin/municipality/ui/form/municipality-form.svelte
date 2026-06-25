@@ -226,7 +226,7 @@
                 {provinces.find(p => p.uuid === selectedProvinceId)?.label || (provincesLoaded ? "Selecione uma província" : "Carregando...")}
               </Select.Trigger>
               <Select.Content>
-                {#each provinces as province}
+                {#each provinces as province (province.uuid)}
                   <Select.Item value={province.uuid} label={province.label}>
                     {province.label}
                   </Select.Item>
