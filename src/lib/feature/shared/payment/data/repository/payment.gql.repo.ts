@@ -1,5 +1,6 @@
+import type { PaginateRequest } from "$lib/feature/shared/core/data/model";
 import { apolloClient } from "$lib/providers/graphql.provider";
-import type { IOrgPaymentRepo, PaginateRequest } from "../contract/payment.repo";
+import type { IOrgPaymentRepo } from "../contract/payment.repo";
 import type { OrgPaymentResponse, OrgPaymentPaginate, PaymentRequest, PaymentFilterQueryParamInput } from "../model/payment.model";
 import { ORG_PAYMENT_FILTER_PAGINATE, FIND_BY_UUID_PAYMENT, SAVE_PAYMENT, UPDATE_PAYMENT, VALIDATE_PAYMENT_RECEIPT, DELETE_PAYMENT } from "../queries/payment";
 

@@ -29,7 +29,7 @@
       variant: "ghost",
       size: "sm",
       class:
-        "cursor-pointer flex items-center text-white bg-black/40 backdrop-blur-lg p-0 py-0 m-0 px-1 border border-gray-50/50",
+        "cursor-pointer rounded-sm flex items-center text-white bg-black/40 backdrop-blur-lg p-0 py-0 m-0 px-1 border border-gray-50/50",
     })}
   >
     Solicitar
@@ -75,7 +75,7 @@
       </div>
 
       <div
-        class="absolute bottom-0 inset-x-0 p-4 bg-background border-t border-muted/30 flex items-center justify-between z-10 "
+        class="absolute bottom-0 inset-x-0 p-4 bg-background border-t border-muted/30 flex items-center justify-between z-10"
       >
         <div class="flex flex-col">
           <span

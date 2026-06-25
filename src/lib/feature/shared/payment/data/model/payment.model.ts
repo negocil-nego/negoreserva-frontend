@@ -84,11 +84,6 @@ export interface PaymentFilterQueryParamInput {
     pageNumber?: number;
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
-
 export const ORG_PAYMENT_RESPONSE_EMPTY: OrgPaymentResponse = {
     uuid: "",
     transaction: {

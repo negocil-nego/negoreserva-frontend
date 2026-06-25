@@ -13,9 +13,9 @@ import type {
     OrganizationResponse,
     OrganizationPaginate,
     OrganizationRequest,
-    OrganizationFilterQueryParamInput,
-    PaginateRequest
+    OrganizationFilterQueryParamInput
 } from "../model/organization.model";
+import type { PaginateRequest } from "$lib/feature/shared/core/data/model";
 
 export class AdminOrganizationGqlRepo implements IAdminOrganizationRepo {
 

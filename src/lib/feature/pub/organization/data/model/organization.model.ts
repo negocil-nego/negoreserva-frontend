@@ -100,10 +100,6 @@ export interface OrganizationDetailResponse {
     addresses: AddressResponse[];
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
 
 export interface OrganizationSearchFilterParamInput {
     q?: string | null;

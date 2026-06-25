@@ -1,5 +1,6 @@
 import type { OrgCatalogResponse, OrgCatalogPaginate } from "../model/catalog.model";
 import type { OrgProductResponse, OrgProductPaginate } from "$lib/feature/org/product/data/model/product.model";
+import type { PaginateRequest } from "$lib/feature/shared/core/data/model";
 
 export interface IOrgCatalogRepo {
     paginate(request: PaginateRequest): Promise<OrgCatalogPaginate>
@@ -14,10 +15,6 @@ export interface IOrgCatalogRepo {
     removeProductsFromCatalog(uuidOrSlug: string, productUuids: string[]): Promise<boolean>
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
 
 export interface CatalogFilterQueryParamInput {
     field?: string;

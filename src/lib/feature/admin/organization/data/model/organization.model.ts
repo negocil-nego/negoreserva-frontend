@@ -28,10 +28,6 @@ export interface OrganizationFilterQueryParamInput {
     pageNumber?: number;
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
 
 export interface OrgOrganizationEditProfileRequest {
     name: string;

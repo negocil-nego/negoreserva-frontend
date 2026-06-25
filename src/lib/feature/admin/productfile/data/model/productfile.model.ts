@@ -30,11 +30,6 @@ export interface ProductFileRequest {
     type: string;
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
-
 export const PRODUCTFILE_RESPONSE_EMPTY = {
     uuid: "",
     title: "",

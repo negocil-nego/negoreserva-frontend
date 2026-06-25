@@ -42,11 +42,6 @@ export interface ProductFilterQueryParamInput {
     pageNumber?: number;
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
-
 export const ORG_PRODUCT_RESPONSE_EMPTY: OrgProductResponse = {
     uuid: "",
     name: "",

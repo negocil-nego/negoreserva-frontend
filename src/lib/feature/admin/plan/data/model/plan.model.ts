@@ -32,10 +32,6 @@ export interface PlanFilterQueryParamInput {
     pageNumber?: number;
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
 
 export const PLAN_RESPONSE_EMPTY = {
     uuid: "",

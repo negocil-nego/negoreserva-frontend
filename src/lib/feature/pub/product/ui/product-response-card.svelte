@@ -2,7 +2,8 @@
   import RatingGenerator from "$lib/components/rating-generator.svelte";
   import type { ProductResponse } from "$lib/feature/pub/product";
   import ProductPreview from "./product-preview.svelte";
-  import {goto} from "$app/navigation";
+  import { goto } from "$app/navigation";
+  import { resolve } from "$app/paths";
 
   type Props = { product: ProductResponse; hideOrganization?: boolean };
 
@@ -17,7 +18,7 @@
     <img
       src={product.image}
       alt={product.name}
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 "
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
     />
   {:else}
     <div class="w-full h-full flex items-center justify-center">
@@ -28,8 +29,10 @@
   {/if}
 
   {#if !hideOrganization}
-    <button class="absolute inset-x-0 top-0 flex items-center gap-1.5 p-1 z-50 cursor-pointer"
-         onclick={() => goto(`/detail/organization/${product.organization.slug}`)}
+    <button
+      class="absolute inset-x-0 top-0 flex items-center gap-1.5 p-1 z-50 cursor-pointer"
+      onclick={() =>
+        goto(resolve(`/detail/organization/${product.organization.slug}`))}
     >
       {#if product.organization.logo}
         <img

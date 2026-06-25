@@ -36,11 +36,6 @@ export interface ProductFilterQueryParamInput {
     pageNumber?: number;
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
-
 export const PRODUCT_RESPONSE_EMPTY = {
     uuid: "",
     name: "",

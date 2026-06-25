@@ -30,11 +30,6 @@ export interface CategoryFilterQueryParamInput {
     pageNumber?: number;
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
-
 export const CATEGORY_RESPONSE_EMPTY = {
     uuid: "",
     name: "",

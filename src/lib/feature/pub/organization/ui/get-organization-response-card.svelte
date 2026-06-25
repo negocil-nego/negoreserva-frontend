@@ -36,7 +36,7 @@
           {#each item.categories as category (category.uuid)}
             <Carousel.Item class="pl-2 basis-auto">
               <div
-                class="bg-black/60 text-white px-4 py-1 flex gap-2 items-center cursor-pointer hover:bg-black/75 transition-colors"
+                class="bg-black/60 rounded-sm text-white px-4 py-1 flex gap-2 items-center cursor-pointer hover:bg-black/75 transition-colors"
               >
                 <i class={category.icon ?? "hgi-a-access"}></i>
                 <span class="whitespace-nowrap text-sm font-medium"
@@ -48,7 +48,7 @@
         </Carousel.Content>
       </Carousel.Root>
       <button
-        class="bg-black/40 backdrop-blur-lg p-1 flex px-2 gap-2 items-center justify-between cursor-pointer text-white border border-gray-50/50"
+        class="bg-black/40 backdrop-blur-lg p-1 flex rounded-sm px-2 gap-2 items-center justify-between cursor-pointer text-white border border-gray-50/50"
         onclick={() => {
           goto(resolve(`/detail/organization/${item.slug}`));
         }}

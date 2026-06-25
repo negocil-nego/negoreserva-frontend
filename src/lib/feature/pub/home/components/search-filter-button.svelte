@@ -58,7 +58,7 @@
       </div>
 
       <LocationSelector
-        varient="filter"
+        variant="filter"
         bind:provinceValue
         bind:municipalityValue
       />

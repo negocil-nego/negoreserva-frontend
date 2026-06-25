@@ -1,3 +1,4 @@
+import type { PaginateRequest } from "$lib/feature/shared/core/data/model";
 import type { OrgPaymentResponse, OrgPaymentPaginate, PaymentRequest, PaymentFilterQueryParamInput } from "../model/payment.model";
 
 export interface IOrgPaymentRepo {
@@ -8,9 +9,4 @@ export interface IOrgPaymentRepo {
     update(uuid: string, request: PaymentRequest): Promise<OrgPaymentResponse>
     validateReceipt(uuid: string): Promise<OrgPaymentResponse>
     deleteByUuid(uuid: string): Promise<boolean>
-}
-
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
 }

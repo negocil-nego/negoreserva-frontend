@@ -61,7 +61,7 @@
         <Tooltip.Trigger
           class={buttonVariants({
             variant: "outline",
-            class: "cursor-pointer",
+            class: "cursor-pointer rounded-sm",
           })}
         >
           <HugeiconsIcon
@@ -82,7 +82,7 @@
         <Tooltip.Trigger
           class={buttonVariants({
             variant: "outline",
-            class: "cursor-pointer",
+            class: "cursor-pointer rounded-sm",
           })}
         >
           <HugeiconsIcon

@@ -1,0 +1,3 @@
+export const Admin_PERMISSION_FILTER = "Admin_PERMISSION_FILTER"
+export const Admin_PERMISSION_SAVE = "Admin_PERMISSION_SAVE"
+export const Admin_PERMISSION_EDIT = "Admin_PERMISSION_EDIT"

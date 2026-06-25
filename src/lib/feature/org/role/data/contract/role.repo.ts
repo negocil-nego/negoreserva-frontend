@@ -12,8 +12,3 @@ export interface OrgRoleSaveRequest {
     name: string;
     permissionUuids?: string[];
 }
-
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}

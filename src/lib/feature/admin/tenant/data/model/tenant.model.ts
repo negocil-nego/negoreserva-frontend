@@ -32,10 +32,6 @@ export interface TenantFilterQueryParamInput {
     pageNumber?: number;
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
 
 export const TENANT_RESPONSE_EMPTY = {
     uuid: "",

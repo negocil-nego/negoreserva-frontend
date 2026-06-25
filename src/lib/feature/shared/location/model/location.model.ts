@@ -63,11 +63,6 @@ export interface MunicipalityFilterQueryParamInput {
     provinceId?: number;
 }
 
-export interface PaginateRequest {
-    pageNumber: number;
-    pageSize: number;
-}
-
 export const PROVINCE_RESPONSE_EMPTY = {
     uuid: "",
     value: "",

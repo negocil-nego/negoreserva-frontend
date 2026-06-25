@@ -44,14 +44,14 @@
         icon: AddTeamIcon,
       },
       {
-        name: "Cargos",
-        url: "/dashboard/organization/role",
-        icon: Briefcase01Icon,
-      },
-      {
         name: "Permissões",
         url: "/dashboard/organization/permission",
         icon: Layers01Icon,
+      },
+      {
+        name: "Cargos",
+        url: "/dashboard/organization/role",
+        icon: Briefcase01Icon,
       },
       {
         name: "Produtos",
