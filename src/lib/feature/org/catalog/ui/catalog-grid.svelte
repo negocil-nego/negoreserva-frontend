@@ -10,6 +10,7 @@
   import CatalogCreateDialog from "./catalog-create-dialog.svelte";
   import CatalogEditDialog from "./catalog-edit-dialog.svelte";
   import CatalogCard from "./catalog-card.svelte";
+  import { resolve } from "$app/paths";
 
   let service = new OrgCatalogService();
 
@@ -49,7 +50,7 @@
   }
 
   function handleProducts(item: OrgCatalogResponse) {
-    goto(`/dashboard/organization/catalog/${item.slug}/products`);
+    goto(resolve(`/dashboard/organization/catalog/${item.slug}/products`));
   }
 </script>
 
@@ -85,7 +86,7 @@
     <div
       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
     >
-      {#each Array(4) as _, i (i)}
+      {#each Array(4) as it, i (i)}
         <div
           class="border bg-card text-card-foreground shadow-sm overflow-hidden"
         >
@@ -93,6 +94,7 @@
           <div class="p-4 space-y-2">
             <div class="h-5 bg-muted animate-pulse rounded w-3/4"></div>
             <div class="h-4 bg-muted animate-pulse rounded w-full"></div>
+            <div class="hidden">{it}</div>
           </div>
         </div>
       {/each}

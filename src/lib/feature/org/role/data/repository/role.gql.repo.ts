@@ -1,10 +1,10 @@
 import { apolloClient } from "$lib/providers/graphql.provider";
 import {
     PAGINATE_ROLE, FIND_BY_UUID_ROLE,
-    SAVE_ROLE, UPDATE_ROLE, DELETE_BY_UUID_ROLE
+    SAVE_ROLE, UPDATE_ROLE, DELETE_BY_UUID_ROLE, GET_ROLE_PERMISSIONS
 } from "../queries/role";
 import type { IOrgRoleRepo, OrgRoleSaveRequest } from "../contract/role.repo";
-import type { OrgRoleResponse, OrgRolePaginate } from "../model/role.model";
+import type { OrgRoleResponse, OrgRolePaginate, OrgRolePermissions } from "../model/role.model";
 
 export class OrgRoleGqlRepo implements IOrgRoleRepo {
 
@@ -44,5 +44,12 @@ export class OrgRoleGqlRepo implements IOrgRoleRepo {
             mutation: DELETE_BY_UUID_ROLE, variables: { uuid }
         });
         return data!.orgDeleteByUuidRole;
+    }
+
+    async getRolePermissions(roleUuid: string): Promise<OrgRolePermissions> {
+        const { data } = await apolloClient.query<{ orgGetRolePermissions: OrgRolePermissions }>({
+            query: GET_ROLE_PERMISSIONS, variables: { roleUuid }
+        });
+        return data!.orgGetRolePermissions;
     }
 }

@@ -1,9 +1,14 @@
+export interface OrgRoleItem {
+    uuid: string;
+    name: string;
+}
+
 export interface Person {
     uuid: string;
     name: string;
     email: string;
     phone: string;
-    birthday?: string | null;
+    roles: OrgRoleItem[];
 }
 
 export interface PersonCreateRequest {
@@ -11,13 +16,12 @@ export interface PersonCreateRequest {
     email: string;
     phone: string;
     password: string;
-    birthday?: string | null;
-    roleUuid?: string | null;
+    roleUuids?: string[];
 }
 
 export interface PersonUpdateRequest {
     name?: string;
-    birthday?: string | null;
+    roleUuids?: string[];
 }
 
 export interface PersonPaginate {
@@ -28,4 +32,9 @@ export interface PersonPaginate {
     size: number;
     totalElements: number;
     totalPages: number;
+}
+
+export interface OrgPersonRoles {
+    assignedRoles: OrgRoleItem[];
+    availableRoles: OrgRoleItem[];
 }

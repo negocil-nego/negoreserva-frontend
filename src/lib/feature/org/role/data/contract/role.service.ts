@@ -1,5 +1,5 @@
 import type { IOrgRoleRepo, OrgRoleSaveRequest } from "./role.repo";
-import type { OrgRoleResponse, OrgRolePaginate } from "../model/role.model";
+import type { OrgRoleResponse, OrgRolePaginate, OrgRolePermissions } from "../model/role.model";
 
 export class IOrgRoleService {
     private repo: IOrgRoleRepo;
@@ -26,5 +26,9 @@ export class IOrgRoleService {
 
     async deleteByUuid(uuid: string): Promise<boolean> {
         return await this.repo.deleteByUuid(uuid);
+    }
+
+    async getRolePermissions(roleUuid: string): Promise<OrgRolePermissions> {
+        return await this.repo.getRolePermissions(roleUuid);
     }
 }

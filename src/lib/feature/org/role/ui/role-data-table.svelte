@@ -16,10 +16,12 @@
   import type { ColumnDef } from "@tanstack/table-core";
   import RoleActions from "./role-actions.svelte";
   import RoleFormDialog from "./role-form-dialog.svelte";
+  import RolePermissionModal from "./role-permission-modal.svelte";
   import type { OrgPermissionSelectorItem } from "$lib/feature/org/simple-crud/org-permission-selector-popover.svelte";
   import { ORG_ROLE_FILTER } from "../data/hooks/keys";
 
   type FormAction = "create" | "update" | "delete";
+  type RoleAction = "update" | "delete" | "permissions";
 
   let service = new OrgRoleService();
   const queryClient = useQueryClient();
@@ -31,8 +33,12 @@
     pageSize: 10,
   });
   let action = $state<FormAction>("create");
+
   let editItem = $state<OrgRoleResponse | null>(null);
   let showDialog = $state(false);
+  let showPermissionModal = $state(false);
+  let permissionRoleUuid = $state("");
+  let permissionRoleName = $state("");
   let selectedPermissions = $state<OrgPermissionSelectorItem[]>([]);
 
   const baseQuery = $derived(
@@ -83,10 +89,13 @@
     queryClient.invalidateQueries({ queryKey: [ORG_ROLE_FILTER] });
   };
 
-  function handleAction(
-    item: OrgRoleResponse,
-    nextAction: "update" | "delete",
-  ) {
+  function handleAction(item: OrgRoleResponse, nextAction: RoleAction) {
+    if (nextAction === "permissions") {
+      permissionRoleUuid = item.uuid;
+      permissionRoleName = item.name;
+      showPermissionModal = true;
+      return;
+    }
     editItem = item;
     action = nextAction;
     selectedPermissions = [];
@@ -201,4 +210,12 @@
   bind:action
   bind:selectedPermissions
   onSuccess={handleDialogSuccess}
+/>
+
+<RolePermissionModal
+  bind:open={showPermissionModal}
+  roleUuid={permissionRoleUuid}
+  roleName={permissionRoleName}
+  onSuccess={() =>
+    queryClient.invalidateQueries({ queryKey: [ORG_ROLE_FILTER] })}
 />

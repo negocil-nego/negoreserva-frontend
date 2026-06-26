@@ -2,15 +2,9 @@
   import { Button } from "$lib/components/ui/button/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import TableActionsIcon from "$lib/components/table/table-actions-icon.svelte";
+  import type { Person } from "../data/model/person";
 
-  type Person = {
-    uuid: string;
-    name: string;
-    email: string;
-    phone: string;
-    birthday?: string | null;
-  };
-  type PersonAction = "update" | "delete";
+  type PersonAction = "update" | "delete" | "roles";
 
   let {
     person,
@@ -35,6 +29,9 @@
       <DropdownMenu.Label>Acoes</DropdownMenu.Label>
       <DropdownMenu.Item onclick={() => onAction(person, "update")} class="cursor-pointer">
         Editar
+      </DropdownMenu.Item>
+      <DropdownMenu.Item onclick={() => onAction(person, "roles")} class="cursor-pointer">
+        Cargos
       </DropdownMenu.Item>
       <DropdownMenu.Item onclick={() => onAction(person, "delete")} class="text-red-400 cursor-pointer">
         Eliminar

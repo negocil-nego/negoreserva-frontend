@@ -11,9 +11,9 @@
   import TablePagination from "$lib/components/table/table-pagination.svelte";
   import OrgPersonActions from "./org-person-actions.svelte";
   import OrgPersonFormDialog from "./org-person-form-dialog.svelte";
+  import PersonRoleModal from "./person-role-modal.svelte";
   import type { ColumnDef } from "@tanstack/table-core";
-  import type { OrgRoleSelectorItem } from "$lib/feature/org/simple-crud/org-role-selector-popover.svelte";
-  import type { Person } from "../data/model/person";
+  import type { Person, OrgRoleItem } from "../data/model/person";
   import { PersonGqlRepo } from "../data/repository/person.gql.repo";
   import { PersonService } from "../data/contract/person.service";
   import { useOrgPaginatePerson } from "../data/hooks/use-org-paginate-person";
@@ -23,14 +23,14 @@
   import { ORG_PAGINATE_PERSON } from "../data/hooks/keys";
   import { createOrgProductTable } from "../../product/ui/table/use-product-table.svelte";
 
-  type PersonAction = "create" | "update" | "delete";
+  type PersonAction = "create" | "update" | "delete" | "roles";
 
   const EMPTY: Person = {
     uuid: "",
     name: "",
     email: "",
     phone: "",
-    birthday: "",
+    roles: [],
   };
 
   const repo = new PersonGqlRepo();
@@ -44,9 +44,14 @@
     pageSize: 10,
   });
   let form = $state<Person>({ ...EMPTY });
-  let selectedRoles = $state<OrgRoleSelectorItem[]>([]);
+  let selectedRoles = $state<OrgRoleItem[]>([]);
+  let allRoles = $state<OrgRoleItem[]>([]);
   let action = $state<PersonAction>("create");
   let open = $state(false);
+
+  let showRoleModal = $state(false);
+  let roleModalUserUuid = $state("");
+  let roleModalUserName = $state("");
 
   const baseQuery = $derived(
     useOrgPaginatePerson({
@@ -57,6 +62,14 @@
   const saveMutation = useOrgSavePerson({ service });
   const updateMutation = useOrgUpdatePerson({ service });
   const deleteMutation = useOrgDeletePerson({ service });
+
+  async function loadAllRoles() {
+    try {
+      allRoles = await service.findAllRoles();
+    } catch {
+      allRoles = [];
+    }
+  }
 
   const isLoading = $derived(
     $baseQuery?.isLoading ||
@@ -77,20 +90,24 @@
     },
   );
 
+  $effect(() => {
+    if (open) {
+      loadAllRoles();
+    }
+  });
+
   const filteredPersons = $derived(
     filter.search
-      ? items.content.filter((person) => {
+      ? items.content.filter((p) => {
           const value =
             filter.field === "EMAIL"
-              ? person.email
+              ? p.email
               : filter.field === "PHONE"
-                ? person.phone
-                : filter.field === "BIRTHDAY"
-                  ? person.birthday
-                  : person.name;
+                ? p.phone
+                : p.name;
           const haystack =
             filter.field === "ALL"
-              ? `${person.name} ${person.email} ${person.phone} ${person.birthday ?? ""}`
+              ? `${p.name} ${p.email} ${p.phone}`
               : (value ?? "");
           return haystack.toLowerCase().includes(filter.search.toLowerCase());
         })
@@ -108,9 +125,15 @@
     open = true;
   }
 
-  function openAction(person: Person, nextAction: "update" | "delete") {
-    form = { ...person, birthday: person.birthday ?? "" };
-    selectedRoles = [];
+  function openAction(person: Person, nextAction: "update" | "delete" | "roles") {
+    if (nextAction === "roles") {
+      roleModalUserUuid = person.uuid;
+      roleModalUserName = person.name;
+      showRoleModal = true;
+      return;
+    }
+    form = { ...person };
+    selectedRoles = person.roles ?? [];
     action = nextAction;
     open = true;
   }
@@ -141,19 +164,20 @@
         name: form.name,
         email: form.email,
         phone: form.phone,
-        birthday: form.birthday || null,
         password: "",
-        roleUuid: selectedRoles[0]?.uuid ?? null,
+        roleUuids: selectedRoles.map((r) => r.uuid),
       });
     } else if (action === "update") {
       await $updateMutation.mutateAsync({
         uuid: form.uuid,
-        request: { name: form.name, birthday: form.birthday || null },
+        request: {
+          name: form.name,
+          roleUuids: selectedRoles.map((r) => r.uuid),
+        },
       });
     } else {
       await $deleteMutation.mutateAsync(form.uuid);
     }
-
     open = false;
     resetForm();
   }
@@ -195,9 +219,14 @@
       cell: ({ row }) => row.original.phone,
     },
     {
-      accessorKey: "birthday",
-      header: "Nascimento",
-      cell: ({ row }) => row.original.birthday ?? "",
+      id: "roles",
+      header: "Cargos",
+      cell: ({ row }) => {
+        const roles = row.original.roles ?? [];
+        return roles.length > 0
+          ? roles.map((r) => r.name).join(", ")
+          : "-";
+      },
     },
     {
       id: "actions",
@@ -232,7 +261,6 @@
       ["NAME", "Nome"],
       ["EMAIL", "Email"],
       ["PHONE", "Telefone"],
-      ["BIRTHDAY", "Nascimento"],
     ])}
   >
     {#snippet controls()}
@@ -270,7 +298,16 @@
     bind:form
     bind:action
     bind:selectedRoles
+    bind:allRoles
     {isLoading}
     onSubmit={submit}
+  />
+
+  <PersonRoleModal
+    bind:open={showRoleModal}
+    userUuid={roleModalUserUuid}
+    userName={roleModalUserName}
+    onSuccess={() =>
+      queryClient.invalidateQueries({ queryKey: [ORG_PAGINATE_PERSON] })}
   />
 </div>

@@ -4,7 +4,7 @@
   import TableActionsIcon from "$lib/components/table/table-actions-icon.svelte";
   import type { OrgRoleResponse } from "../data/model/role.model";
 
-  type RoleAction = "update" | "delete";
+  type RoleAction = "update" | "delete" | "permissions";
 
   let {
     item,
@@ -29,6 +29,9 @@
       <DropdownMenu.Label>Acções</DropdownMenu.Label>
       <DropdownMenu.Item onclick={() => onAction(item, "update")} class="cursor-pointer">
         Editar
+      </DropdownMenu.Item>
+      <DropdownMenu.Item onclick={() => onAction(item, "permissions")} class="cursor-pointer">
+        Permissões
       </DropdownMenu.Item>
       <DropdownMenu.Item onclick={() => onAction(item, "delete")} class="text-red-400 cursor-pointer">
         Eliminar

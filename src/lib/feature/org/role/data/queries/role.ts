@@ -51,3 +51,20 @@ export const DELETE_BY_UUID_ROLE = gql`
     orgDeleteByUuidRole(uuid: $uuid)
   }
 `;
+
+export const GET_ROLE_PERMISSIONS = gql`
+  query orgGetRolePermissions($roleUuid: ID!) {
+    orgGetRolePermissions(roleUuid: $roleUuid) {
+      assignedPermissions {
+        uuid
+        name
+        description
+      }
+      availablePermissions {
+        uuid
+        name
+        description
+      }
+    }
+  }
+`;

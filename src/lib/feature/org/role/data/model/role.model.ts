@@ -15,6 +15,17 @@ export interface OrgRolePaginate {
     totalPages?: number;
 }
 
+export interface OrgRolePermissionResponse {
+    uuid: string;
+    name: string;
+    description?: string;
+}
+
+export interface OrgRolePermissions {
+    assignedPermissions: OrgRolePermissionResponse[];
+    availablePermissions: OrgRolePermissionResponse[];
+}
+
 export const ORG_ROLE_RESPONSE_EMPTY: OrgRoleResponse = {
     uuid: "",
     name: "",
