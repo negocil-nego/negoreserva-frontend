@@ -5,7 +5,8 @@ import {
     FIND_BY_UUID_PRODUCT,
     SAVE_PRODUCT,
     UPDATE_PRODUCT,
-    DELETE_BY_UUID_PRODUCT
+    DELETE_BY_UUID_PRODUCT,
+    PRODUCT_SUGGESTIONS
 } from "../queries/product";
 import type { IOrgProductRepo } from "../contract/product.repo";
 import type {
@@ -15,6 +16,7 @@ import type {
     ProductFilterQueryParamInput,
     PaginateRequest
 } from "../model/product.model";
+import type { ProductSuggestionResponse } from "../model/product-suggestion.model";
 
 export class OrgProductGqlRepo implements IOrgProductRepo {
 
@@ -64,5 +66,12 @@ export class OrgProductGqlRepo implements IOrgProductRepo {
             variables: { uuid }
         });
         return data!.orgDeleteByUuidProduct;
+    }
+
+    async suggestions(): Promise<ProductSuggestionResponse[]> {
+        const { data } = await apolloClient.query<{ orgProductSuggestions: ProductSuggestionResponse[] }>({
+            query: PRODUCT_SUGGESTIONS
+        });
+        return data!.orgProductSuggestions;
     }
 }

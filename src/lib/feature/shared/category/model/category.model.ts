@@ -1,3 +1,8 @@
+export class CategoryType {
+    public static readonly HOSTING: string = "HOSTING"
+    public static readonly RESTAURANT: string = "RESTAURANT"
+}
+
 export interface CategoryResponse {
     uuid: string;
     name: string;

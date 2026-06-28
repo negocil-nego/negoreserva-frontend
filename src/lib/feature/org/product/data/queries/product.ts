@@ -116,3 +116,13 @@ export const DELETE_BY_UUID_PRODUCT = gql`
     orgDeleteByUuidProduct(uuid: $uuid)
   }
 `;
+
+export const PRODUCT_SUGGESTIONS = gql`
+  query orgProductSuggestions {
+    orgProductSuggestions {
+      categoryType
+      products
+      tags
+    }
+  }
+`;

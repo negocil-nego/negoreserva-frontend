@@ -17,6 +17,8 @@
     ArrowLeft01Icon,
   } from "@hugeicons/core-free-icons";
   import type { OrgProductResponse } from "../../data/model/product.model";
+  import { OrgProductService } from "../../data/service/product.service";
+  import { useOrgGetProductSuggestions } from "../../data/hooks/use-get-suggestions";
   import { resolve } from "$app/paths";
 
   let {
@@ -37,6 +39,10 @@
 
   let isSaving = $state(false);
   let activeSection = $state("product-info-section");
+
+  let service = new OrgProductService();
+  let suggestionsQuery = $derived(useOrgGetProductSuggestions({ service }));
+  let suggestions = $derived($suggestionsQuery?.data ?? []);
 
   $effect(() => {
     if (product) {
@@ -195,7 +201,7 @@
     <div
       class="space-y-8 pr-1 max-h-[calc(100vh-9rem)] overflow-y-auto scroll-smooth w-full sm:w-auto"
     >
-      <ProductInfoSection bind:name bind:description {readOnly} />
+      <ProductInfoSection bind:name bind:description {readOnly} suggestions={suggestions} />
 
       <ProductPriceSection bind:prices {readOnly} />
 
@@ -206,7 +212,7 @@
         existingFiles={product?.files ?? []}
       />
 
-      <ProductTagSection bind:tags {readOnly} />
+      <ProductTagSection bind:tags {readOnly} suggestions={suggestions} />
 
       {#if !readOnly}
         <div

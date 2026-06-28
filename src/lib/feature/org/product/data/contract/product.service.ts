@@ -6,6 +6,7 @@ import type {
     ProductFilterQueryParamInput,
     PaginateRequest
 } from "../model/product.model";
+import type { ProductSuggestionResponse } from "../model/product-suggestion.model";
 
 export class IOrgProductService {
     private repo: IOrgProductRepo;
@@ -36,5 +37,9 @@ export class IOrgProductService {
 
     async deleteByUuid(uuid: string): Promise<boolean> {
         return await this.repo.deleteByUuid(uuid);
+    }
+
+    async suggestions(): Promise<ProductSuggestionResponse[]> {
+        return await this.repo.suggestions();
     }
 }

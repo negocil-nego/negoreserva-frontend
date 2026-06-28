@@ -5,6 +5,7 @@ import type {
     ProductFilterQueryParamInput,
     PaginateRequest
 } from "../model/product.model";
+import type { ProductSuggestionResponse } from "../model/product-suggestion.model";
 
 export interface IOrgProductRepo {
     paginate(request: PaginateRequest): Promise<OrgProductPaginate>
@@ -13,4 +14,5 @@ export interface IOrgProductRepo {
     save(request: ProductRequest): Promise<OrgProductResponse>
     update(uuid: string, request: ProductRequest): Promise<OrgProductResponse>
     deleteByUuid(uuid: string): Promise<boolean>
+    suggestions(): Promise<ProductSuggestionResponse[]>
 }

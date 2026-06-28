@@ -4,10 +4,11 @@
   import { Button } from "$lib/components/ui/button/index.js";
   import { HugeiconsIcon } from "@hugeicons/svelte";
   import { PlusSignIcon, Delete02Icon } from "@hugeicons/core-free-icons";
-  import * as Select from "$lib/components/ui/select/index.js";
+  import type { ProductSuggestionResponse } from "../../data/model/product-suggestion.model";
+  import TagTitleAutocomplete from "./tag-title-autocomplete.svelte";
 
   interface TagItem {
-    icon: string;
+    icon?: string;
     title: string;
     value: string;
   }
@@ -15,43 +16,26 @@
   let {
     tags = $bindable([]),
     readOnly = false,
+    suggestions = [],
   }: {
     tags: TagItem[];
     readOnly?: boolean;
+    suggestions?: ProductSuggestionResponse[];
   } = $props();
 
-  // State for new tag inputs
-  let newIcon = $state("WifiIcon");
   let newTitle = $state("");
   let newValue = $state("");
-
-  // Premium predefined preset icons
-  const iconPresets = [
-    { name: "Conectividade", key: "WifiIcon", display: "📶 Internet/Wifi" },
-    { name: "Conforto", key: "BedIcon", display: "🛏️ Quarto/Cama" },
-    {
-      name: "Alimentação",
-      key: "CoffeeIcon",
-      display: "☕ Café/Pequeno Almoço",
-    },
-    { name: "Segurança", key: "ShieldIcon", display: "🛡️ Seguro/Protegido" },
-    { name: "Utilitário", key: "TvIcon", display: "📺 TV/Multimédia" },
-    { name: "Estacionamento", key: "CarIcon", display: "🚗 Estacionamento" },
-    { name: "Outro", key: "StarIcon", display: "✨ Destaque/Geral" },
-  ];
 
   function handleAddTag() {
     if (!newTitle.trim() || !newValue.trim()) return;
 
     const newTag: TagItem = {
-      icon: newIcon,
       title: newTitle.trim(),
       value: newValue.trim(),
     };
 
     tags = [...tags, newTag];
 
-    // Reset inputs
     newTitle = "";
     newValue = "";
   }
@@ -59,8 +43,6 @@
   function handleRemoveTag(index: number) {
     tags = tags.filter((_, i) => i !== index);
   }
-
-  let tagActive = $derived(iconPresets.findLast((it) => it.key == newIcon));
 </script>
 
 <div id="product-tag-section" class="bg-panel p-6 space-y-6 scroll-mt-20">
@@ -75,46 +57,33 @@
   </div>
 
   {#if !readOnly}
-    <!-- Add Tag Form -->
     <div class="p-4 border border-slate-150 dark:border-slate-850 space-y-4">
       <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
         Adicionar Nova Especificação
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
-        <div class="space-y-1.5 col-span-1">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+        <div class="space-y-1.5 flex-1">
           <Label
             class="text-xs font-semibold text-slate-600 dark:text-slate-400"
-            >Categoria/Ícone</Label
           >
-          <Select.Root bind:value={newIcon} type="single">
-            <Select.Trigger>{tagActive?.name}</Select.Trigger>
-            <Select.Content>
-              {#each iconPresets as preset (preset.key)}
-                <Select.Item value={preset.key}>{preset.display}</Select.Item>
-              {/each}
-            </Select.Content>
-          </Select.Root>
-        </div>
-
-        <div class="space-y-1.5 col-span-1">
-          <Label
-            class="text-xs font-semibold text-slate-600 dark:text-slate-400"
-            >Título (ex: Wi-Fi, Piscina)</Label
-          >
-          <Input
-            type="text"
-            placeholder="Ex: Wi-Fi"
+            Título (ex: Wi-Fi, Piscina)
+          </Label>
+          <TagTitleAutocomplete
+            id="tag-title"
             bind:value={newTitle}
-            class="border-slate-200 dark:border-slate-800"
+            {readOnly}
+            {suggestions}
+            placeholder="Ex: Wi-Fi"
           />
         </div>
 
         <div class="space-y-1.5 col-span-1">
           <Label
             class="text-xs font-semibold text-slate-600 dark:text-slate-400"
-            >Valor (ex: Grátis, Incluído, 24h)</Label
           >
+            Valor (ex: Grátis, Incluído, 24h)
+          </Label>
           <Input
             type="text"
             placeholder="Ex: Grátis / Disponível"
@@ -138,7 +107,6 @@
     </div>
   {/if}
 
-  <!-- List Tags display -->
   <div class="space-y-3">
     <div class="text-sm font-bold text-slate-700 dark:text-slate-350">
       Especificações Adicionadas ({tags.length})

@@ -1,16 +1,19 @@
 <script lang="ts">
-  import { Input } from "$lib/components/ui/input/index.js";
   import { Textarea } from "$lib/components/ui/textarea/index.js";
   import { Label } from "$lib/components/ui/label/index.js";
+  import type { ProductSuggestionResponse } from "../../data/model/product-suggestion.model";
+  import ProductNameAutocomplete from "./product-name-autocomplete.svelte";
 
   let {
     name = $bindable(),
     description = $bindable(),
     readOnly = false,
+    suggestions = [],
   }: {
     name: string;
     description: string;
     readOnly?: boolean;
+    suggestions?: ProductSuggestionResponse[];
   } = $props();
 </script>
 
@@ -32,12 +35,12 @@
       >
         Nome do Produto <span class="text-red-500">*</span>
       </Label>
-      <Input
+      <ProductNameAutocomplete
         id="product-name"
-        placeholder="Ex: Reserva de Quarto Standard"
         bind:value={name}
-        disabled={readOnly}
-        class="w-full border-slate-200 dark:border-slate-800"
+        {readOnly}
+        {suggestions}
+        placeholder="Ex: Reserva de Quarto Standard"
         required
       />
     </div>

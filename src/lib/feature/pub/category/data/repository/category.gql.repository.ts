@@ -1,7 +1,8 @@
 import { apolloClient } from "$lib/providers/graphql.provider";
-import type { CategoryFilterQueryParamInput, CategoryPaginate, PaginateRequest } from "$lib/feature/shared/category/model/category.model";
+import type { CategoryFilterQueryParamInput, CategoryPaginate } from "$lib/feature/shared/category/model/category.model";
 import type { ICategoryRepo } from "../contract/category.repository";
 import { PAGINATE_CATEGORY, PAGINATE_CATEGORY_FILTER } from "../queries/category";
+import type { PaginateRequest } from "$lib/feature/shared/core/data/model";
 
 
 export class CategoryGqlRepo implements ICategoryRepo {
