@@ -16,6 +16,7 @@
   import type { ComponentProps } from "svelte";
   import NavMenus from "../nav-menus.svelte";
   import NavUser from "../nav-user.svelte";
+  import Logo from "$lib/components/logo.svelte";
 
   let {
     ref = $bindable(null),
@@ -73,11 +74,21 @@
 </script>
 
 <Sidebar.Root bind:ref {collapsible} {...restProps}>
-  <Sidebar.Header>
-    <NavUser user={data.user} />
+  <Sidebar.Header class="flex items-center justify-center">
+    <div class="group-data-[state=expanded]:block hidden">
+      <Logo />
+    </div>
+    <div
+      class="group-data-[state=collapsed]:flex hidden h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground font-bold text-sm"
+    >
+      N
+    </div>
   </Sidebar.Header>
   <Sidebar.Content>
     <NavMenus items={data.menus} />
   </Sidebar.Content>
   <Sidebar.Rail />
+  <Sidebar.Footer>
+    <NavUser user={data.user} />
+  </Sidebar.Footer>
 </Sidebar.Root>

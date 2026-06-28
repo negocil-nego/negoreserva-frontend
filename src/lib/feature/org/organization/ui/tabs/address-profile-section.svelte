@@ -153,11 +153,7 @@
         {/if}
 
         {#each data.addresses as address (address.uuid)}
-          <div
-            class="divide-y divide-border border border-border mb-3 p-3 {address.isDefault
-              ? 'ring-2 ring-brand/30'
-              : ''}"
-          >
+          <div class="divide-y divide-border border border-border mb-3 p-3">
             <div class="flex items-center justify-between mb-2">
               <div class="flex items-center gap-2">
                 {#if address.isDefault}

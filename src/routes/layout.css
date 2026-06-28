@@ -21,6 +21,10 @@
   @apply bg-white dark:bg-[#1B211A] rounded-md;
 }
 
+@utility bg-btn-create {
+  @apply bg-brand rounded-tr-2xl rounded-br-2xl;
+}
+
 @utility container {
   @apply w-11/12 m-auto;
 }

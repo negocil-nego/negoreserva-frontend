@@ -3,7 +3,8 @@
   import { Label } from "$lib/components/ui/label/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import { HugeiconsIcon } from "@hugeicons/svelte";
-  import { PlusSignIcon, Delete02Icon, InformationCircleIcon } from "@hugeicons/core-free-icons";
+  import { PlusSignIcon, Delete02Icon } from "@hugeicons/core-free-icons";
+  import * as Select from "$lib/components/ui/select/index.js";
 
   interface TagItem {
     icon: string;
@@ -28,11 +29,15 @@
   const iconPresets = [
     { name: "Conectividade", key: "WifiIcon", display: "📶 Internet/Wifi" },
     { name: "Conforto", key: "BedIcon", display: "🛏️ Quarto/Cama" },
-    { name: "Alimentação", key: "CoffeeIcon", display: "☕ Café/Pequeno Almoço" },
+    {
+      name: "Alimentação",
+      key: "CoffeeIcon",
+      display: "☕ Café/Pequeno Almoço",
+    },
     { name: "Segurança", key: "ShieldIcon", display: "🛡️ Seguro/Protegido" },
     { name: "Utilitário", key: "TvIcon", display: "📺 TV/Multimédia" },
     { name: "Estacionamento", key: "CarIcon", display: "🚗 Estacionamento" },
-    { name: "Outro", key: "StarIcon", display: "✨ Destaque/Geral" }
+    { name: "Outro", key: "StarIcon", display: "✨ Destaque/Geral" },
   ];
 
   function handleAddTag() {
@@ -54,49 +59,67 @@
   function handleRemoveTag(index: number) {
     tags = tags.filter((_, i) => i !== index);
   }
+
+  let tagActive = $derived(iconPresets.findLast((it) => it.key == newIcon));
 </script>
 
-<div id="product-tag-section" class="bg-white dark:bg-transparent p-6 space-y-6 scroll-mt-20">
+<div id="product-tag-section" class="bg-panel p-6 space-y-6 scroll-mt-20">
   <div class="space-y-1 border-b border-slate-100 dark:border-slate-800 pb-4">
-    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">Detalhes & Especificações (Tags)</h3>
-    <p class="text-sm text-slate-500 dark:text-slate-400">Adicione características ou comodidades adicionais para detalhar o produto (ex: Wifi - Grátis).</p>
+    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">
+      Detalhes & Especificações (Tags)
+    </h3>
+    <p class="text-sm text-slate-500 dark:text-slate-400">
+      Adicione características ou comodidades adicionais para detalhar o produto
+      (ex: Wifi - Grátis).
+    </p>
   </div>
 
   {#if !readOnly}
     <!-- Add Tag Form -->
-    <div class="bg-slate-50 dark:bg-slate-950 p-4 border border-slate-150 dark:border-slate-850 space-y-4">
-      <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Adicionar Nova Especificação</div>
-      
+    <div class="p-4 border border-slate-150 dark:border-slate-850 space-y-4">
+      <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+        Adicionar Nova Especificação
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
         <div class="space-y-1.5 col-span-1">
-          <Label class="text-xs font-semibold text-slate-600 dark:text-slate-400">Categoria/Ícone</Label>
-          <select
-            bind:value={newIcon}
-            class="flex h-10 w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring text-slate-700 dark:text-slate-350"
+          <Label
+            class="text-xs font-semibold text-slate-600 dark:text-slate-400"
+            >Categoria/Ícone</Label
           >
-            {#each iconPresets as preset (preset.key)}
-              <option value={preset.key}>{preset.display}</option>
-            {/each}
-          </select>
+          <Select.Root bind:value={newIcon} type="single">
+            <Select.Trigger>{tagActive?.name}</Select.Trigger>
+            <Select.Content>
+              {#each iconPresets as preset (preset.key)}
+                <Select.Item value={preset.key}>{preset.display}</Select.Item>
+              {/each}
+            </Select.Content>
+          </Select.Root>
         </div>
 
         <div class="space-y-1.5 col-span-1">
-          <Label class="text-xs font-semibold text-slate-600 dark:text-slate-400">Título (ex: Wi-Fi, Piscina)</Label>
+          <Label
+            class="text-xs font-semibold text-slate-600 dark:text-slate-400"
+            >Título (ex: Wi-Fi, Piscina)</Label
+          >
           <Input
             type="text"
             placeholder="Ex: Wi-Fi"
             bind:value={newTitle}
-            class="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+            class="border-slate-200 dark:border-slate-800"
           />
         </div>
 
         <div class="space-y-1.5 col-span-1">
-          <Label class="text-xs font-semibold text-slate-600 dark:text-slate-400">Valor (ex: Grátis, Incluído, 24h)</Label>
+          <Label
+            class="text-xs font-semibold text-slate-600 dark:text-slate-400"
+            >Valor (ex: Grátis, Incluído, 24h)</Label
+          >
           <Input
             type="text"
             placeholder="Ex: Grátis / Disponível"
             bind:value={newValue}
-            class="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+            class="border-slate-200 dark:border-slate-800"
           />
         </div>
 
@@ -117,18 +140,27 @@
 
   <!-- List Tags display -->
   <div class="space-y-3">
-    <div class="text-sm font-bold text-slate-700 dark:text-slate-350">Especificações Adicionadas ({tags.length})</div>
+    <div class="text-sm font-bold text-slate-700 dark:text-slate-350">
+      Especificações Adicionadas ({tags.length})
+    </div>
 
     {#if tags.length === 0}
-      <div class="text-center py-8 text-sm text-slate-400 border-2 border-dashed border-slate-100 dark:border-slate-850 ">
-        Nenhuma tag ou especificação adicionada ainda. Detalhe mais o seu produto.
+      <div
+        class="text-center py-8 text-sm text-slate-400 border-2 border-dashed border-slate-100 dark:border-slate-850"
+      >
+        Nenhuma tag ou especificação adicionada ainda. Detalhe mais o seu
+        produto.
       </div>
     {:else}
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {#each tags as tag, index}
-          <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow relative group">
+        {#each tags as tag, index (index)}
+          <div
+            class="flex items-center justify-between p-3.5 border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow relative group"
+          >
             <div class="flex items-center gap-3">
-              <div class="p-2 bg-white dark:bg-slate-900 text-lg flex items-center justify-center border border-slate-100 dark:border-slate-800 shadow-sm">
+              <div
+                class="p-2 text-lg flex items-center justify-center border border-slate-100 dark:border-slate-800 shadow-sm"
+              >
                 {#if tag.icon === "WifiIcon"}📶
                 {:else if tag.icon === "BedIcon"}🛏️
                 {:else if tag.icon === "CoffeeIcon"}☕
@@ -139,8 +171,16 @@
                 {/if}
               </div>
               <div class="space-y-0.5">
-                <div class="text-xs text-slate-450 dark:text-slate-500 font-medium">{tag.title}</div>
-                <div class="text-sm font-bold text-slate-800 dark:text-slate-100">{tag.value}</div>
+                <div
+                  class="text-xs text-slate-450 dark:text-slate-500 font-medium"
+                >
+                  {tag.title}
+                </div>
+                <div
+                  class="text-sm font-bold text-slate-800 dark:text-slate-100"
+                >
+                  {tag.value}
+                </div>
               </div>
             </div>
 

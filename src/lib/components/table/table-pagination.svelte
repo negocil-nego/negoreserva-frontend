@@ -26,16 +26,14 @@
 <div
   class="flex flex-col-reverse items-center justify-start w-full gap-2 md:flex-row md:justify-between mt-2 lg:mt-5"
 >
-  <div
-    class="flex items-center gap-2 border border-gray-100 p-2 dark:border-gray-800 dark:bg-neutral-800 rounded-full"
-  >
+  <div class="flex items-center gap-2 border p-2 bg-panel rounded-full">
     <div>
       <Select.Root
         type="single"
         value={String(size)}
         onValueChange={(value) => onPageSizeChange(Number(value))}
       >
-        <Select.Trigger>{size}</Select.Trigger>
+        <Select.Trigger class="rounded-full">{size}</Select.Trigger>
         <Select.Content>
           <Select.Item value="10">10</Select.Item>
           <Select.Item value="20">20</Select.Item>
@@ -55,7 +53,7 @@
       class="text-sm text-muted-foreground gap-2 mt-2 md:mt-0 hidden md:flex"
     >
       <div>Total registros:</div>
-      <div class="rounded-full min-w-10 text-center dark:bg-gray-950/50">
+      <div class="rounded-full min-w-10 text-center">
         {totalElements}
       </div>
     </div>
@@ -64,9 +62,7 @@
   <div class="flex flex-col items-end gap-2">
     <Pagination.Root count={totalPages} {page} class="md:justify-end">
       {#snippet children({ pages, currentPage })}
-        <Pagination.Content
-          class="rounded-full border border-gray-100 p-2 dark:border-gray-800 dark:bg-neutral-800"
-        >
+        <Pagination.Content class="rounded-full border p-2 bg-panel">
           <Pagination.Item>
             <Pagination.PrevButton
               disabled={!first}

@@ -10,7 +10,7 @@
     RedoIcon,
     Search01Icon,
     BlushBrush01Icon,
-    ArrowDown01FreeIcons
+    ArrowDown01FreeIcons,
   } from "@hugeicons/core-free-icons";
 
   export type SearchProps = { field: string; search: string };
@@ -38,6 +38,8 @@
   let searchValue = $state("");
   let clicked = $state(false);
 
+  let isNotBody = $derived(controls == null);
+
   function getFilterColumnId() {
     const columns = table.getAllColumns();
     const filterableCol = columns.find(
@@ -52,11 +54,9 @@
   });
 </script>
 
-<section
-  class="bg-panel px-2 my-5 border border-gray-100 dark:border-gray-800"
->
+<section class="bg-panel px-2 my-5 border border-gray-100 dark:border-gray-800">
   <div>
-    <div class="text-lg font-semibold">Control</div>
+    <div class="text-lg font-semibold mt-2">Filtro de pesquisa</div>
   </div>
   {#if !isLoading}
     <div
@@ -71,7 +71,7 @@
             value={columnSelect}
             onValueChange={(v) => (columnSelect = v)}
           >
-            <Select.Trigger class="">
+            <Select.Trigger class="rounded-tl-2xl rounded-bl-2xl">
               {filterColumns?.get(columnSelect) ?? "Todos"}
             </Select.Trigger>
             <Select.Content>
@@ -123,7 +123,7 @@
           </Button>
         {/if}
         <Button
-          class="bg-brand"
+          class="bg-brand rounded-tr-2xl rounded-br-2xl"
           disabled={!searchValue || isLoading}
           onclick={() => {
             clicked = !clicked;
@@ -144,19 +144,25 @@
       </div>
 
       <div
-        class="flex items-center gap-2 bg-white dark:bg-gray-950/50 p-1 rounded-full w-full md:w-auto justify-between md:justify-end"
+        class="flex items-center gap-1 bg-white dark:bg-gray-950/50 p-1 rounded-full w-full md:w-auto justify-between md:justify-end"
       >
         <div>
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
               {#snippet child({ props })}
-                <Button {...props} variant="outline" class="ms-auto">
+                <Button
+                  {...props}
+                  variant="outline"
+                  class="ms-auto {isNotBody
+                    ? 'rounded-2xl'
+                    : 'rounded-tl-2xl rounded-bl-2xl'}"
+                >
                   Colunas
                   <HugeiconsIcon
-                          icon={ArrowDown01FreeIcons}
-                          size={24}
-                          color="currentColor"
-                          strokeWidth={1}
+                    icon={ArrowDown01FreeIcons}
+                    size={24}
+                    color="currentColor"
+                    strokeWidth={1}
                   />
                 </Button>
               {/snippet}

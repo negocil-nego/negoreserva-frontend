@@ -125,7 +125,10 @@
     open = true;
   }
 
-  function openAction(person: Person, nextAction: "update" | "delete" | "roles") {
+  function openAction(
+    person: Person,
+    nextAction: "update" | "delete" | "roles",
+  ) {
     if (nextAction === "roles") {
       roleModalUserUuid = person.uuid;
       roleModalUserName = person.name;
@@ -223,9 +226,7 @@
       header: "Cargos",
       cell: ({ row }) => {
         const roles = row.original.roles ?? [];
-        return roles.length > 0
-          ? roles.map((r) => r.name).join(", ")
-          : "-";
+        return roles.length > 0 ? roles.map((r) => r.name).join(", ") : "-";
       },
     },
     {
@@ -266,7 +267,7 @@
     {#snippet controls()}
       <Button
         type="button"
-        class="bg-brand cursor-pointer flex items-center gap-1.5 px-4 py-2 text-white hover:bg-brand/90 transition-colors"
+        class="bg-btn-create cursor-pointer flex items-center gap-1.5 px-4 py-2 text-white hover:bg-brand/90 transition-colors"
         onclick={openCreate}
       >
         <TableLabelCreate />

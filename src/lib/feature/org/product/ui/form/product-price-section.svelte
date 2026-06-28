@@ -2,7 +2,11 @@
   import { Input } from "$lib/components/ui/input/index.js";
   import { Label } from "$lib/components/ui/label/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
-  import { ProductPriceType } from "$lib/feature/org/product/data/enums/product-price-type";
+  import {
+    ProductPriceType,
+    ProductPriceTypeLabel,
+  } from "$lib/feature/org/product/data/enums/product-price-type";
+  import * as Select from "$lib/components/ui/select/index.js";
   import { HugeiconsIcon } from "@hugeicons/svelte";
   import {
     PlusSignIcon,
@@ -94,10 +98,7 @@
   }
 </script>
 
-<div
-  id="product-price-section"
-  class="bg-white dark:bg-transparent p-6 space-y-6 scroll-mt-20"
->
+<div id="product-price-section" class="bg-panel p-6 space-y-6 scroll-mt-20">
   <div class="space-y-1 border-b border-slate-100 dark:border-slate-800 pb-4">
     <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">
       Lista de Preços
@@ -109,9 +110,7 @@
 
   {#if !readOnly}
     <!-- Add price form -->
-    <div
-      class="bg-slate-50 dark:bg-slate-950 p-4 border border-slate-150 dark:border-slate-850 space-y-4"
-    >
+    <div class="p-4 border border-slate-150 dark:border-slate-850 space-y-4">
       <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
         Adicionar Novo Preço
       </div>
@@ -122,29 +121,33 @@
             class="text-xs font-semibold text-slate-600 dark:text-slate-400"
             >Tipo</Label
           >
-          <select
-            bind:value={newType}
-            class="flex h-10 w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-slate-700 dark:text-slate-350"
-          >
-            <option value={ProductPriceType.BASE}>Base</option>
-            <option value={ProductPriceType.HOUR}>Por Hora</option>
-            <option value={ProductPriceType.DAY}>Por Dia</option>
-            <option value={ProductPriceType.NIGHT}>Por Noite</option>
-          </select>
+          <Select.Root bind:value={newType} type="single">
+            <Select.Trigger>
+              {ProductPriceTypeLabel[newType]}
+            </Select.Trigger>
+            <Select.Content>
+              <Select.Item value={ProductPriceType.BASE}>Base</Select.Item>
+              <Select.Item value={ProductPriceType.HOUR}>Por Hora</Select.Item>
+              <Select.Item value={ProductPriceType.DAY}>Por Dia</Select.Item>
+              <Select.Item value={ProductPriceType.NIGHT}>Por Noite</Select.Item
+              >
+            </Select.Content>
+          </Select.Root>
         </div>
 
         <div class="space-y-1.5 col-span-1">
           <Label
             class="text-xs font-semibold text-slate-600 dark:text-slate-400"
-            >Valor (MT)</Label
           >
+            Valor
+          </Label>
           <Input
             type="number"
             min="0"
             step="0.01"
             placeholder="0.00"
             bind:value={newValue}
-            class="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+            class="border-slate-200 dark:border-slate-800"
           />
         </div>
 
@@ -158,7 +161,7 @@
             min="1"
             step="1"
             bind:value={newUnit}
-            class="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+            class="border-slate-200 dark:border-slate-800"
           />
         </div>
 
@@ -172,7 +175,7 @@
             min="1"
             step="1"
             bind:value={newOrder}
-            class="border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+            class="border-slate-200 dark:border-slate-800"
           />
         </div>
 
@@ -225,7 +228,7 @@
         <table class="w-full text-left border-collapse text-sm">
           <thead>
             <tr
-              class="bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 font-semibold"
+              class="text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 font-semibold"
             >
               <th class="p-3">Tipo</th>
               <th class="p-3 text-right">Valor</th>
@@ -248,7 +251,7 @@
                       item.type,
                     )}"
                   >
-                    {item.type}
+                    {ProductPriceTypeLabel[item.type]}
                   </span>
                 </td>
                 <td

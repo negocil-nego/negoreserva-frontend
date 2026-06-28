@@ -14,8 +14,10 @@
     FolderAddIcon,
     TagsIcon,
     FloppyDiskIcon,
+    ArrowLeft01Icon,
   } from "@hugeicons/core-free-icons";
   import type { OrgProductResponse } from "../../data/model/product.model";
+  import { resolve } from "$app/paths";
 
   let {
     readOnly = false,
@@ -46,7 +48,11 @@
   });
 
   const menuItems = [
-    { id: "product-info-section", name: "Produto", icon: InformationCircleIcon },
+    {
+      id: "product-info-section",
+      name: "Produto",
+      icon: InformationCircleIcon,
+    },
     { id: "product-price-section", name: "Preço", icon: Dollar02Icon },
     { id: "product-file-section", name: "Ficheiro", icon: FolderAddIcon },
     { id: "product-tag-section", name: "Detalhes", icon: TagsIcon },
@@ -94,18 +100,18 @@
       const productPayload = {
         name: name.trim(),
         description: description.trim(),
-        prices: prices.map(p => ({
+        prices: prices.map((p) => ({
           type: p.type,
           value: p.value,
           order: p.order,
           unit: p.unit,
-          isPrimary: p.isPrimary
+          isPrimary: p.isPrimary,
         })),
-        tags: tags.map(t => ({
+        tags: tags.map((t) => ({
           icon: t.icon,
           title: t.title,
-          value: t.value
-        }))
+          value: t.value,
+        })),
       };
 
       const productBlob = new Blob([JSON.stringify(productPayload)], {
@@ -113,7 +119,7 @@
       });
       formData.append("product", productBlob);
 
-      images.forEach(img => {
+      images.forEach((img) => {
         if (img) {
           formData.append("images", img);
         }
@@ -130,10 +136,11 @@
       });
 
       toastSuccess("Produto cadastrado com sucesso!");
-      goto("/dashboard/organization/products");
+      goto(resolve("/dashboard/organization/products"));
     } catch (error: any) {
       console.error("Erro ao cadastrar produto:", error);
-      const errMsg = error.response?.data?.message || "Erro inesperado ao salvar o produto.";
+      const errMsg =
+        error.response?.data?.message || "Erro inesperado ao salvar o produto.";
       toastError(errMsg);
     } finally {
       isSaving = false;
@@ -141,26 +148,42 @@
   }
 
   function handleCancel() {
-    goto("/dashboard/organization/products");
+    goto(resolve("/dashboard/organization/products"));
   }
 </script>
 
 <div class="flex flex-col h-full space-y-6">
   <!-- Form Layout: Local Sidebar + Sections -->
-  <section class="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6 items-start h-full">
+  <section
+    class="grid grid-cols-1 md:grid-cols-[170px_1fr] gap-6 items-start h-full"
+  >
     <!-- Sidebar Navigation -->
-    <div class="sticky top-20 space-y-1 bg-slate-50/50 dark:bg-transparent p-2.5 border-r border-gray-50 dark:border-slate-850 hidden md:block h-full">
-      <div class="text-[10px] font-bold text-slate-450 uppercase tracking-wider px-3 mb-2">Seções do Formuário</div>
+    <div class="sticky top-20 space-y-1 p-0.5 hidden md:block h-full">
+      <Button
+        class="rounded-full cursor-pointer hover:bg-green-100"
+        variant="outline"
+        size="icon"
+        aria-label="Submit"
+        onclick={() => goto(resolve("/dashboard/organization/products"))}
+      >
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} strokeWidth={1} />
+      </Button>
+
+      <div
+        class="md:mt-5 text-[10px] font-bold text-slate-450 uppercase tracking-wider px-3 mb-2"
+      >
+        Seções do Formuário
+      </div>
 
       {#each menuItems as item (item.id)}
         <button
           type="button"
           onclick={() => handleScrollTo(item.id)}
           class={[
-            "w-full flex items-center gap-3 px-3 py-2.5 text-sm font-semibold transition-all duration-200 cursor-pointer text-left",
+            "flex items-center gap-3 px-2 py-3 text-sm font-semibold transition-all duration-200 cursor-pointer text-left",
             activeSection === item.id
-              ? "bg-brand text-white shadow-sm"
-              : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-800 dark:hover:text-slate-200"
+              ? " text-green-800 font-extrabold"
+              : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-slate-800 dark:hover:text-slate-200",
           ]}
         >
           <HugeiconsIcon icon={item.icon} size={16} />
@@ -169,17 +192,26 @@
       {/each}
     </div>
 
-    <div class="space-y-8 pr-1 max-h-[calc(100vh-9rem)] overflow-y-auto scroll-smooth w-full sm:w-auto">
+    <div
+      class="space-y-8 pr-1 max-h-[calc(100vh-9rem)] overflow-y-auto scroll-smooth w-full sm:w-auto"
+    >
       <ProductInfoSection bind:name bind:description {readOnly} />
-      
+
       <ProductPriceSection bind:prices {readOnly} />
-      
-      <ProductFileSection bind:images bind:video {readOnly} existingFiles={product?.files ?? []} />
-      
+
+      <ProductFileSection
+        bind:images
+        bind:video
+        {readOnly}
+        existingFiles={product?.files ?? []}
+      />
+
       <ProductTagSection bind:tags {readOnly} />
 
       {#if !readOnly}
-        <div class="flex items-center justify-end gap-2 border-t border-slate-100 dark:border-slate-800 pt-6">
+        <div
+          class="flex items-center justify-end gap-2 border-t border-slate-100 dark:border-slate-800 pt-6"
+        >
           <Button
             variant="outline"
             onclick={handleCancel}

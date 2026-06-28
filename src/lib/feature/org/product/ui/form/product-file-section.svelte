@@ -98,10 +98,7 @@
   }
 </script>
 
-<div
-  id="product-file-section"
-  class="bg-white dark:bg-transparent p-6 space-y-6 scroll-mt-20"
->
+<div id="product-file-section" class="bg-panel p-6 space-y-6 scroll-mt-20">
   <div class="space-y-1 border-b border-slate-100 dark:border-slate-800 pb-4">
     <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">
       Ficheiros Multimédia
@@ -119,10 +116,11 @@
         >
       </Label>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {#each Array(4) as _, i (i)}
+        {#each Array(4) as it, i (i)}
           <div
-            class="relative group aspect-square overflow-hidden border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-brand dark:hover:border-brand bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center transition-all"
+            class="relative group aspect-square overflow-hidden border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-brand dark:hover:border-brand flex flex-col items-center justify-center transition-all"
           >
+            <div class="hidden">{it}</div>
             <input
               bind:this={imgInputRefs[i]}
               type="file"
@@ -209,7 +207,7 @@
       >
 
       <div
-        class="max-w-md aspect-video overflow-hidden border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-brand dark:hover:border-brand bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center transition-all relative group"
+        class="max-w-md aspect-video overflow-hidden border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-brand dark:hover:border-brand flex flex-col items-center justify-center transition-all relative group"
       >
         <input
           bind:this={videoInputRef}

@@ -166,7 +166,7 @@
             class={buttonVariants({
               variant: "default",
               class:
-                "bg-brand cursor-pointer flex items-center gap-1.5 px-4 py-2 text-white hover:bg-brand/90 transition-colors",
+                "bg-btn-create cursor-pointer flex items-center gap-1.5 px-4 py-2 text-white hover:bg-brand/90 transition-colors",
             })}
           >
             <TableLabelCreate />
