@@ -126,18 +126,6 @@
             class="flex items-center justify-between p-3.5 border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow relative group"
           >
             <div class="flex items-center gap-3">
-              <div
-                class="p-2 text-lg flex items-center justify-center border border-slate-100 dark:border-slate-800 shadow-sm"
-              >
-                {#if tag.icon === "WifiIcon"}📶
-                {:else if tag.icon === "BedIcon"}🛏️
-                {:else if tag.icon === "CoffeeIcon"}☕
-                {:else if tag.icon === "ShieldIcon"}🛡️
-                {:else if tag.icon === "TvIcon"}📺
-                {:else if tag.icon === "CarIcon"}🚗
-                {:else}✨
-                {/if}
-              </div>
               <div class="space-y-0.5">
                 <div
                   class="text-xs text-slate-450 dark:text-slate-500 font-medium"

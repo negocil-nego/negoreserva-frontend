@@ -100,7 +100,7 @@
         class="flex flex-col md:flex-row justify-center md:justify-start items-center md:items-start gap-1 w-full lg:h-37.5 lg:gap-5"
       >
         {#if org.logo}
-          <div class="bg-white w-25 lg:w-37.5 h-full">
+          <div class="bg-white dark:bg-black/35 w-25 lg:w-37.5 h-full">
             <img
               src={org.logo}
               alt={org.name}
