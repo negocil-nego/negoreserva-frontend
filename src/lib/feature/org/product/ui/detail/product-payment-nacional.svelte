@@ -8,15 +8,13 @@
   import type { ProductPriceGetOrgResponse } from "$lib/feature/pub/organization/data/model/organization.model";
   import { toastSuccess, toastError } from "$lib/hooks/toast-status";
   import { Button } from "$lib/components/ui/button/index.js";
-  import { Label } from "$lib/components/ui/label/index.js";
   import { HugeiconsIcon } from "@hugeicons/svelte";
   import { goto } from "$app/navigation";
   import { resolve } from "$app/paths";
   import { axiosClient } from "$lib/providers/http-cliente.provider";
-  import { userAuthStore } from "$lib/stores/user-auth.store";
+  import { isAuthenticatedStore } from "$lib/stores/user-auth.store";
   import { cartStore } from "$lib/stores/cart.store";
   import FileUpload from "$lib/components/input/file-upload.svelte";
-  import { enhance } from "$app/forms";
 
   let {
     productUuid,
@@ -40,6 +38,7 @@
   let comprovanteError = $state("");
   let nacionalMethod = $state("multicaixa");
   let comprovanteFile = $state<File | null>(null);
+  const isAuthenticated = $derived($isAuthenticatedStore);
 
   function handleFileChange(file: File) {
     const allowed = ["application/pdf", "image/jpeg", "image/png"];
@@ -60,9 +59,7 @@
     }
     if (!selectedPriceObj) return;
 
-    const isAuth = userAuthStore.isAuthenticated();
-
-    if (!isAuth && selectedPriceObj != undefined) {
+    if (!isAuthenticated && selectedPriceObj != undefined) {
       cartStore.addItem({
         productUuid,
         productSlug,
@@ -93,18 +90,11 @@
         "Pagamento solicitado com sucesso! Ficará pendente até confirmação.",
       );
       comprovanteFile = null;
-    } catch (e) {
+    } catch {
       toastError("Erro ao enviar comprovativo. Tente novamente.");
     } finally {
       isSubmitting = false;
     }
-  }
-
-  function submitEnhance() {
-    return async ({ update }: { update: Function }) => {
-      // ✅ invalidateAll: false — não invalida os dados da página após submit
-      await update({ invalidateAll: false });
-    };
   }
 
   const NACIONAL_METHODS = [

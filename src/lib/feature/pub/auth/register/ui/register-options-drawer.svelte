@@ -62,7 +62,7 @@
     <Drawer.Trigger
       class={buttonVariants({
         variant: "outline",
-        class: "cursor-pointer bg-white text-black",
+        class: "cursor-pointer bg-white text-black dark:text-white",
       })}
     >
       <HugeiconsIcon icon={UserEdit01Icon} color="currentColor" />
@@ -73,7 +73,7 @@
       class={buttonVariants({
         variant: "outline",
         size: "icon",
-        class: "cursor-pointer bg-white text-black",
+        class: "cursor-pointer bg-white text-black dark:text-white",
       })}
     >
       <HugeiconsIcon icon={UserEdit01Icon} color="currentColor" />

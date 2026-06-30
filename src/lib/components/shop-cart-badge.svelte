@@ -13,7 +13,8 @@
     class={buttonVariants({
       variant: "outline",
       size: "icon",
-      class: "cursor-pointer border-gray-400 dark:border-transparent",
+      class:
+        "cursor-pointer border-gray-400 dark:border-transparent text-black dark:text-white",
     })}
   >
     <HugeiconsIcon
@@ -24,7 +25,7 @@
     />
     {#if count > 0}
       <span
-        class="absolute -right-0.5 -top-0.5 flex size-5 items-center justify-center rounded-full bg-pink-400 text-[10px] font-bold text-white"
+        class="absolute -right-0.5 -top-0.5 flex size-5 items-center justify-center rounded-full bg-pink-400 text-[10px] font-bold dark:text-white"
       >
         {count}
       </span>

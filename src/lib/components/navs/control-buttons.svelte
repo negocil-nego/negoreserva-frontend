@@ -1,14 +1,17 @@
 <script lang="ts">
   import NavUser from "$lib/components/navs/nav-user.svelte";
   import DropdownTheme from "$lib/components/theme/dropdown-theme.svelte";
-  import { userAuthStore } from "$lib/stores/user-auth.store";
+  import {
+    userAuthStore,
+    isAuthenticatedStore,
+  } from "$lib/stores/user-auth.store";
   import RegisterOptionsDrawer from "../../feature/pub/auth/register/ui/register-options-drawer.svelte";
   import ShopCartBadge from "../shop-cart-badge.svelte";
   import LoginNavigationButton from "./login-navigation-button.svelte";
   import MenuDrawer from "./menu-drawer.svelte";
 
-  let isAuthenticated = $derived(userAuthStore.isAuthenticated());
-  const user = $derived(userAuthStore.getUserAuthResponse());
+  const isAuthenticated = $derived($isAuthenticatedStore);
+  const user = $derived($userAuthStore);
 </script>
 
 <div class="flex">

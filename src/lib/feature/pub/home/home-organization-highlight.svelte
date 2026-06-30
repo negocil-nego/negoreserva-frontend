@@ -4,6 +4,7 @@
   import { useSearchOrganizationFilter } from "../organization/data/hooks/use-search-organization-filter";
   import { resolve } from "$app/paths";
   import { goto } from "$app/navigation";
+  import Skeleton from "$lib/components/ui/skeleton/skeleton.svelte";
 
   const service = new OrganizationManage();
   const request = $state<PaginateRequest>({ pageNumber: 0, pageSize: 10 });
@@ -58,7 +59,17 @@
   </div>
 
   {#if $query.isLoading}
-    <div class="flex justify-center py-8 text-gray-500">Loading...</div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 container mb-2">
+      {#each Array.from({ length: 4 }, (_, i) => i) as i (i)}
+        <div class="flex flex-col space-y-3">
+          <Skeleton class="h-28 w-52" />
+          <div class="space-y-2">
+            <Skeleton class="h-4 w-52" />
+            <Skeleton class="h-4 w-50" />
+          </div>
+        </div>
+      {/each}
+    </div>
   {:else if !$query.data?.content.length}
     <div class="flex justify-center py-8 text-gray-500">
       Nenhuma empresa em destaque.

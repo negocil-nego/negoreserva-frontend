@@ -19,7 +19,7 @@
 	});
 </script>
 
-<div class="relative">
+<div class="relative flex-1 min-h-0">
 	<div
 		{...rest}
 		bind:this={ref}

@@ -8,6 +8,7 @@
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
   import LinkHome from "$lib/components/navs/link-home.svelte";
   let { children } = $props();
+
 </script>
 
 <Sidebar.Provider>

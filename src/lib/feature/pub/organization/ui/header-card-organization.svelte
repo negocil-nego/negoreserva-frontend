@@ -11,6 +11,8 @@
   import * as Tooltip from "$lib/components/ui/tooltip/index";
   import { buttonVariants } from "$lib/components/ui/button";
   import RatingGenerator from "$lib/components/rating-generator.svelte";
+  import { goto } from "$app/navigation";
+  import { resolve } from "$app/paths";
 
   let { item }: { item: OrganizationResponse } = $props();
 </script>
@@ -53,9 +55,7 @@
       </div>
     </div>
   </aside>
-  <aside
-    class="absolute top-0 right-1 flex gap-2 z-30 bg-black/30 backdrop-blur-md"
-  >
+  <aside class="absolute top-0 right-1 flex gap-2 z-30 backdrop-blur-md">
     <Tooltip.Provider>
       <Tooltip.Root>
         <Tooltip.Trigger
@@ -63,6 +63,7 @@
             variant: "outline",
             class: "cursor-pointer rounded-sm",
           })}
+          onclick={() => goto(resolve(`/organization/${item.slug}/chat`))}
         >
           <HugeiconsIcon
             icon={Chat01Icon}

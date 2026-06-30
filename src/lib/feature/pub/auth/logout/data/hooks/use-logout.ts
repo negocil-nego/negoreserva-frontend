@@ -10,7 +10,6 @@ interface LogoutProps {
     service: ILogoutService;
 }
 
-
 export const useLogout = ({
     service,
 }: LogoutProps) => {

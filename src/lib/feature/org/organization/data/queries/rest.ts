@@ -7,4 +7,5 @@ export class OrgOrganizationRouteNamed {
     public static readonly UPDATE_VIDEO = `${this.PATH}/upload/video`;
     public static readonly UPDATE_LOGO = `${this.PATH}/upload/logo`;
     public static readonly ME = `${this.PATH}/me`;
+    public static readonly SIMPLE = `${this.PATH}/simple`;
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, buttonVariants } from "$lib/components/ui/button/index.js";
+  import { buttonVariants } from "$lib/components/ui/button/index.js";
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import { LogoutService } from "$lib/feature/pub/auth/logout/data/service/logout.service";
   import { useLogout } from "$lib/feature/pub/auth/logout/data/hooks/use-logout";
@@ -47,11 +47,14 @@
     </Dialog.Header>
 
     <Dialog.Footer class="flex flex-col gap-2 mt-2 sm:flex-col">
-      <Button
+      <Dialog.Close
         type="button"
         disabled={isLoading}
         onclick={onSubmit}
-        class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold"
+        class={buttonVariants({
+          variant: "destructive",
+          class: "w-full",
+        })}
       >
         {#if isLoading}
           <HugeiconsIcon
@@ -63,7 +66,7 @@
           <HugeiconsIcon icon={Logout01Icon} class="mr-2 h-4 w-4" />
           Sair
         {/if}
-      </Button>
+      </Dialog.Close>
 
       <Dialog.Close
         type="button"

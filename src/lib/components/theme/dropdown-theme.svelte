@@ -2,6 +2,7 @@
   import SunIcon from "@lucide/svelte/icons/sun";
   import MoonIcon from "@lucide/svelte/icons/moon";
 </script>
+
 <script lang="ts">
   import { resetMode, setMode } from "mode-watcher";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
@@ -13,7 +14,8 @@
     class={buttonVariants({
       variant: "outline",
       size: "icon",
-      class: "cursor-pointer border-gray-400 dark:border-transparent",
+      class:
+        "cursor-pointer border-gray-400 dark:border-transparent text-black dark:text-white",
     })}
   >
     <SunIcon
