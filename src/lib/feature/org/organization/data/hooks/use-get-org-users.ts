@@ -1,6 +1,7 @@
 import { useQuery } from "@sveltestack/svelte-query";
 import { apolloClient } from "$lib/providers/graphql.provider";
 import { PUB_ORG_USERS } from "$lib/feature/pub/chat/data/queries/chat";
+import type { PaginateRequest, PageResponse } from "$lib/feature/pub/chat/data/queries/types";
 
 export interface OrgUserSimpleResponse {
     uuid: string;
@@ -9,13 +10,13 @@ export interface OrgUserSimpleResponse {
     phone: string;
 }
 
-export const useOrgListUsers = (slug: string, options?: { enabled?: boolean }) => {
-    return useQuery<OrgUserSimpleResponse[]>(
-        ["orgListUsers", slug],
+export const useOrgListUsers = (slug: string, paginateRequest?: PaginateRequest, options?: { enabled?: boolean }) => {
+    return useQuery<PageResponse<OrgUserSimpleResponse>>(
+        ["orgListUsers", slug, paginateRequest],
         async () => {
-            const { data } = await apolloClient.query<{ pubOrgUsers: OrgUserSimpleResponse[] }>({
+            const { data } = await apolloClient.query<{ pubOrgUsers: PageResponse<OrgUserSimpleResponse> }>({
                 query: PUB_ORG_USERS,
-                variables: { slug },
+                variables: { slug, paginateRequest: paginateRequest ?? { pageNumber: 0, pageSize: 50 } },
                 fetchPolicy: "cache-first",
             });
             return data!.pubOrgUsers;
@@ -26,4 +27,3 @@ export const useOrgListUsers = (slug: string, options?: { enabled?: boolean }) =
         }
     );
 };
-

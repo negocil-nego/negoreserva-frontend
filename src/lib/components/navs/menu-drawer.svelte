@@ -5,12 +5,17 @@
   import {
     City01Icon,
     Login02Icon,
-    Menu01Icon, UserAdd01Icon,
+    Menu01Icon,
+    UserAdd01Icon,
   } from "@hugeicons/core-free-icons";
-  import {ROUTE_SIGNING, ROUTE_SIGNUP_CLIENT, ROUTE_SIGNUP_ORGANIZATION} from "$lib/data/route";
+  import {
+    ROUTE_SIGNING,
+    ROUTE_SIGNUP_CLIENT,
+    ROUTE_SIGNUP_ORGANIZATION,
+  } from "$lib/data/route";
   import { resolve } from "$app/paths";
   import DropdownTheme from "$lib/components/theme/dropdown-theme.svelte";
-    import { buttonVariants } from "../ui/button/button.svelte";
+  import { buttonVariants } from "../ui/button/button.svelte";
 </script>
 
 <Drawer.Root direction="right">
@@ -18,10 +23,10 @@
     class={buttonVariants({
       variant: "outline",
       size: "icon",
-      class: "cursor-pointer"
+      class: "cursor-pointer",
     })}
   >
-    <HugeiconsIcon icon={Menu01Icon} color="currentColor" />
+    <HugeiconsIcon icon={Menu01Icon} class="text-black dark:text-white" />
   </Drawer.Trigger>
   <Drawer.Content>
     <Drawer.Header>
@@ -48,13 +53,19 @@
       <div class="p-3">Cadastro</div>
       <ul class="p-3 space-y-5">
         <li>
-          <a href={resolve(ROUTE_SIGNUP_CLIENT as any)} class="flex items-center gap-5">
+          <a
+            href={resolve(ROUTE_SIGNUP_CLIENT as any)}
+            class="flex items-center gap-5"
+          >
             <HugeiconsIcon icon={UserAdd01Icon} color="currentColor" />
             <span>Cliente</span>
           </a>
         </li>
         <li>
-          <a href={resolve(ROUTE_SIGNUP_ORGANIZATION as any)} class="flex items-center gap-5">
+          <a
+            href={resolve(ROUTE_SIGNUP_ORGANIZATION as any)}
+            class="flex items-center gap-5"
+          >
             <HugeiconsIcon icon={City01Icon} color="currentColor" />
             <span>Empresa</span>
           </a>
@@ -65,7 +76,7 @@
     <div>
       <div class="p-3">Seleciona o tema</div>
       <div class="flex items-center gap-5 p-3">
-        <DropdownTheme/>
+        <DropdownTheme />
         <div>Tema</div>
       </div>
     </div>

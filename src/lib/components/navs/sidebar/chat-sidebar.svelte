@@ -5,44 +5,25 @@
 <script lang="ts">
   import * as Sidebar from "$lib/components/ui/sidebar/index";
   import * as Avatar from "$lib/components/ui/avatar/index.js";
-  import { useUserConversations } from "$lib/feature/pub/chat/data/hooks/use-get-user-conversations";
-  import type { ChatConversationWithMessages } from "$lib/feature/pub/chat/data/hooks/use-get-user-conversations";
-  import type { OrgUserSimpleResponse } from "$lib/feature/org/organization/data/hooks/use-get-org-users";
   import type { ComponentProps } from "svelte";
+  import type { OrgSimpleResponse } from "$lib/feature/org/organization/data/hooks/use-get-simple-org";
+  import type { OrgUserSimpleResponse } from "$lib/feature/org/organization/data/hooks/use-get-org-users";
 
   let {
     ref = $bindable(null),
-    slug,
     org,
     users = [],
-    onSelectConversation,
     collapsible = "icon",
+    onChangeUser,
     ...restProps
   }: ComponentProps<typeof Sidebar.Root> & {
     slug: string;
-    org: { uuid: string; name: string; logo: string | null } | null;
+    org: OrgSimpleResponse | null;
     users: OrgUserSimpleResponse[];
-    onSelectConversation: (
-      conversation: ChatConversationWithMessages,
-      receptor: OrgUserSimpleResponse | null,
-    ) => void;
+    onChangeUser: (receptor: OrgUserSimpleResponse) => void;
   } = $props();
 
   const user = $derived(userAuthStore.getUserAuthResponse());
-
-  let selectedUser = $state<string | null>(null);
-  let selectedUserObj = $state<OrgUserSimpleResponse | null>(null);
-  let conversations = $state<ChatConversationWithMessages[]>([]);
-
-  async function handleUserClick(userItem: OrgUserSimpleResponse) {
-    selectedUser = userItem.uuid;
-    selectedUserObj = userItem;
-    conversations = await useUserConversations(slug, userItem.uuid);
-  }
-
-  function handleConversationClick(conv: ChatConversationWithMessages) {
-    onSelectConversation(conv, selectedUserObj);
-  }
 </script>
 
 <Sidebar.Root bind:ref {collapsible} {...restProps}>
@@ -76,8 +57,8 @@
           {#each users as userItem (userItem.uuid)}
             <Sidebar.MenuItem>
               <Sidebar.MenuButton
-                class="cursor-pointer {selectedUser === userItem.uuid ? 'bg-sidebar-accent' : ''}"
-                onclick={() => handleUserClick(userItem)}
+                class="cursor-pointer"
+                onclick={() => onChangeUser(userItem!)}
               >
                 <Avatar.Root class="size-6">
                   <Avatar.Image src={undefined} alt={userItem.name} />
@@ -89,23 +70,6 @@
               </Sidebar.MenuButton>
             </Sidebar.MenuItem>
           {/each}
-          {#if conversations.length > 0}
-            <Sidebar.Group>
-              <Sidebar.GroupLabel>Conversas</Sidebar.GroupLabel>
-              <Sidebar.Menu>
-                {#each conversations as conv (conv.uuid)}
-                  <Sidebar.MenuItem>
-                    <Sidebar.MenuButton
-                      class="cursor-pointer"
-                      onclick={() => handleConversationClick(conv)}
-                    >
-                      <span class="text-xs truncate">{conv.messages.length} mensagens</span>
-                    </Sidebar.MenuButton>
-                  </Sidebar.MenuItem>
-                {/each}
-              </Sidebar.Menu>
-            </Sidebar.Group>
-          {/if}
         </Sidebar.Menu>
       </Sidebar.Group>
     {/if}

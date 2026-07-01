@@ -8,8 +8,7 @@
   } from "@hugeicons/core-free-icons";
   import { HugeiconsIcon } from "@hugeicons/svelte";
 
-  import * as Tooltip from "$lib/components/ui/tooltip/index";
-  import { buttonVariants } from "$lib/components/ui/button";
+  import { Button } from "$lib/components/ui/button";
   import RatingGenerator from "$lib/components/rating-generator.svelte";
   import { goto } from "$app/navigation";
   import { resolve } from "$app/paths";
@@ -56,37 +55,16 @@
     </div>
   </aside>
   <aside class="absolute top-0 right-1 flex gap-2 z-30 backdrop-blur-md">
-    <Tooltip.Provider>
-      <Tooltip.Root>
-        <Tooltip.Trigger
-          class={buttonVariants({
-            variant: "outline",
-            class: "cursor-pointer rounded-sm",
-          })}
-          onclick={() => goto(resolve(`/organization/${item.slug}/chat`))}
-        >
-          <HugeiconsIcon icon={Chat01Icon} size={10} strokeWidth={1} />
-        </Tooltip.Trigger>
-        <Tooltip.Content>
-          <p>Mensagem no chat</p>
-        </Tooltip.Content>
-      </Tooltip.Root>
-    </Tooltip.Provider>
+    <Button
+      variant="outline"
+      class="cursor-pointer rounded-sm"
+      onclick={() => goto(resolve(`/organization/${item.slug}/chat`))}
+    >
+      <HugeiconsIcon icon={Chat01Icon} size={10} strokeWidth={1} />
+    </Button>
 
-    <Tooltip.Provider>
-      <Tooltip.Root>
-        <Tooltip.Trigger
-          class={buttonVariants({
-            variant: "outline",
-            class: "cursor-pointer rounded-sm",
-          })}
-        >
-          <HugeiconsIcon icon={TelephoneIcon} size={10} strokeWidth={1} />
-        </Tooltip.Trigger>
-        <Tooltip.Content>
-          <p>Fazer ligação</p>
-        </Tooltip.Content>
-      </Tooltip.Root>
-    </Tooltip.Provider>
+    <Button variant="outline" class="cursor-pointer rounded-sm">
+      <HugeiconsIcon icon={TelephoneIcon} size={10} strokeWidth={1} />
+    </Button>
   </aside>
 </div>

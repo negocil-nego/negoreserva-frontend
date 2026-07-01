@@ -25,86 +25,158 @@
   import { userAuthStore } from "$lib/stores/user-auth.store";
   import type { OrgUserSimpleResponse } from "$lib/feature/org/organization/data/hooks/use-get-org-users";
   import type {
-    ChatConversationWithMessages,
     ChatMessageResponse,
   } from "$lib/feature/pub/chat/data/hooks/use-get-user-conversations";
 
-  const initials = (name: string) =>
-    name
-      .split(" ")
-      .map((n) => n[0])
-      .join("");
+  const TYPING_TIMEOUT_MS = 2000;
 
   let {
-    conversation = null,
+    messages = [],
     slug = "",
     receptor = null,
+    onLoadMore,
+    hasMore = true,
   }: {
-    conversation: ChatConversationWithMessages | null;
+    messages: ChatMessageResponse[];
     slug: string;
     org: { uuid: string; name: string; logo: string | null } | null;
     receptor: OrgUserSimpleResponse | null;
+    onLoadMore?: () => void;
+    hasMore?: boolean;
   } = $props();
 
   const currentUser = $derived(userAuthStore.getUserAuthResponse() as any);
 
   const localMessages = $state<ChatMessageResponse[]>([]);
-  $effect(() => {
-    localMessages.length = 0;
-    if (conversation?.messages) {
-      localMessages.push(...conversation.messages);
-    }
-  });
-
   let message = $state("");
-  let open = $state(false);
-  let typingTimeout: ReturnType<typeof setTimeout> | null = null;
+  let emojiPickerOpen = $state(false);
   let isTyping = $state(false);
+  let typingTimeout: ReturnType<typeof setTimeout> | null = null;
 
-  onMount(() => {
-    connectStomp((msg) => {
-      const data = JSON.parse(msg);
-      if (data.type === "message") {
-        const idx = localMessages.findIndex((m) => m.uuid === data.uuid);
-        if (idx === -1) {
-          localMessages.push({
-            uuid: data.uuid,
-            message: data.message,
-            receptorName:
-              data.senderUuid === currentUser?.uuid
-                ? (currentUser?.name ?? "")
-                : data.senderName,
-            createdAt: data.createdAt,
-          });
-        }
-      } else if (data.type === "typing") {
-        if (data.senderUuid === receptor?.uuid) {
-          isTyping = data.isTyping;
-        }
-      }
+  // --- Helpers ---
+
+  function initials(name: string | null | undefined) {
+    if (!name) return "?";
+    return name
+      .split(" ")
+      .filter(Boolean)
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
+  }
+
+  function formatMessageTime(createdAt: string) {
+    return new Date(createdAt).toLocaleTimeString("pt-PT", {
+      hour: "numeric",
+      minute: "2-digit",
     });
-  });
+  }
 
-  onDestroy(() => {
-    disconnectStomp();
-  });
+  function isOwnMessage(msg: ChatMessageResponse) {
+    return msg.senderName === currentUser?.name;
+  }
 
-  function sendTyping() {
+  function syncMessages() {
+    localMessages.length = 0;
+    if (messages) {
+      localMessages.push(...messages);
+    }
+  }
+
+  // --- STOMP handling ---
+
+  function handleIncomingMessage(data: {
+    uuid: string;
+    message: string;
+    senderUuid: string;
+    senderName: string;
+    createdAt: string;
+  }) {
+    const alreadyExists = localMessages.some((m) => m.uuid === data.uuid);
+    if (alreadyExists) return;
+
+    localMessages.push({
+      uuid: data.uuid,
+      message: data.message,
+      senderName: data.senderName,
+      receptorName:
+        data.senderUuid === currentUser?.uuid
+          ? (currentUser?.name ?? "")
+          : data.senderName,
+      createdAt: data.createdAt,
+    });
+  }
+
+  function handleTypingEvent(data: { senderUuid: string; isTyping: boolean }) {
+    if (data.senderUuid === receptor?.uuid) {
+      isTyping = data.isTyping;
+    }
+  }
+
+  function handleStompMessage(raw: string) {
+    const data = JSON.parse(raw);
+    if (data.type === "message") {
+      handleIncomingMessage(data);
+    } else if (data.type === "typing") {
+      handleTypingEvent(data);
+    }
+  }
+
+  // --- Typing indicator ---
+
+  function notifyTyping(isTypingValue: boolean) {
     if (!receptor?.uuid || !slug) return;
     sendStompMessage("/app/chat/typing", {
       orgSlug: slug,
       receptorUuid: receptor.uuid,
-      isTyping: true,
+      isTyping: isTypingValue,
     });
-    if (typingTimeout) clearTimeout(typingTimeout);
-    typingTimeout = setTimeout(() => {
-      sendStompMessage("/app/chat/typing", {
-        orgSlug: slug,
-        receptorUuid: receptor.uuid,
-        isTyping: false,
-      });
-    }, 2000);
   }
+
+  function handleTypingInput() {
+    if (!receptor?.uuid || !slug) return;
+
+    notifyTyping(true);
+
+    if (typingTimeout) clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(() => notifyTyping(false), TYPING_TIMEOUT_MS);
+  }
+
+  // --- Sending messages ---
+
+  function canSendMessage() {
+    return message.trim() !== "" && !!receptor?.uuid && !!slug;
+  }
+
+  function handleSendMessage(event: SubmitEvent) {
+    event.preventDefault();
+    if (!canSendMessage()) return;
+
+    sendStompMessage("/app/chat/send", {
+      orgSlug: slug,
+      receptorUuid: receptor!.uuid,
+      message: message.trim(),
+    });
+    message = "";
+  }
+
+  function handleEmojiSelect(selected: { emoji: string }) {
+    emojiPickerOpen = false;
+    message += selected.emoji;
+  }
+
+  // --- Lifecycle ---
+
+  $effect(syncMessages);
+
+  onMount(() => {
+    connectStomp(handleStompMessage);
+  });
+
+  onDestroy(() => {
+    if (typingTimeout) clearTimeout(typingTimeout);
+    disconnectStomp();
+  });
 </script>
 
 <div class="border-border w-full border h-screen flex flex-col">
@@ -114,21 +186,19 @@
     <div class="flex place-items-center gap-2">
       <Avatar.Root>
         <Avatar.Image src={undefined} alt={receptor?.name} />
-        <Avatar.Fallback>
-          {initials(receptor?.name || "?")}
-        </Avatar.Fallback>
+        <Avatar.Fallback>{initials(receptor?.name)}</Avatar.Fallback>
       </Avatar.Root>
       <div class="flex flex-col">
-        <span class="text-sm font-medium"
-          >{receptor?.name || "Selecione uma conversa"}</span
-        >
-        <span class="text-xs"
-          >{isTyping
+        <span class="text-sm font-medium">
+          {receptor?.name || "Selecione uma conversa"}
+        </span>
+        <span class="text-xs">
+          {isTyping
             ? "A escrever..."
             : localMessages.length > 0
               ? "Conversa ativa"
-              : ""}</span
-        >
+              : ""}
+        </span>
       </div>
     </div>
     <div class="flex place-items-center">
@@ -136,9 +206,7 @@
         variant="ghost"
         size="icon"
         class="rounded-full"
-        onclick={() => {
-          window.location.href = "/";
-        }}
+        onclick={() => (window.location.href = "/")}
       >
         <HugeiconsIcon icon={Home01Icon} />
       </Button>
@@ -153,16 +221,20 @@
       </Button>
     </div>
   </div>
+
   <Chat.List class="flex-1 overflow-y-auto">
+    {#if hasMore && localMessages.length > 0}
+      <div class="flex justify-center p-2">
+        <Button onclick={onLoadMore} variant="ghost" size="sm">
+          Carregar mais mensagens
+        </Button>
+      </div>
+    {/if}
     {#each localMessages as msg (msg.uuid + msg.message)}
-      <Chat.Bubble
-        variant={msg.receptorName === currentUser?.name ? "sent" : "received"}
-      >
+      <Chat.Bubble variant={isOwnMessage(msg) ? "sent" : "received"}>
         <Chat.BubbleAvatar>
           <Chat.BubbleAvatarImage
-            src={msg.receptorName === currentUser?.name
-              ? currentUser?.logo || undefined
-              : undefined}
+            src={isOwnMessage(msg) ? currentUser?.logo || undefined : undefined}
             alt={msg.receptorName}
           />
           <Chat.BubbleAvatarFallback>
@@ -174,20 +246,18 @@
           <div
             class="w-full text-xs group-data-[variant='sent']/chat-bubble:text-end"
           >
-            {new Date(msg.createdAt).toLocaleTimeString("pt-PT", {
-              hour: "numeric",
-              minute: "2-digit",
-            })}
+            {formatMessageTime(msg.createdAt)}
           </div>
         </Chat.BubbleMessage>
       </Chat.Bubble>
     {/each}
+
     {#if isTyping}
       <Chat.Bubble variant="received">
         <Chat.BubbleAvatar>
-          <Chat.BubbleAvatarFallback>
-            {initials(receptor?.name || "")}
-          </Chat.BubbleAvatarFallback>
+          <Chat.BubbleAvatarFallback
+            >{initials(receptor?.name)}</Chat.BubbleAvatarFallback
+          >
         </Chat.BubbleAvatar>
         <Chat.BubbleMessage>
           <span class="text-muted-foreground italic text-xs">A escrever...</span
@@ -196,37 +266,18 @@
       </Chat.Bubble>
     {/if}
   </Chat.List>
+
   <form
-    onsubmit={(e) => {
-      e.preventDefault();
-      if (
-        message.trim() === "" ||
-        !receptor?.name ||
-        !receptor?.uuid ||
-        !slug
-      ) {
-        console.log(receptor);
-        return;
-      }
-      sendStompMessage("/app/chat/send", {
-        orgSlug: slug,
-        receptorUuid: receptor.uuid,
-        message: message.trim(),
-      });
-      message = "";
-    }}
+    onsubmit={handleSendMessage}
     class="flex place-items-center gap-2 p-2 shrink-0"
   >
     <EmojiPicker.Root
       showRecents
       recentsKey="emoji-picker-recents"
       disableInitialScroll
-      onSelect={(selected) => {
-        open = false;
-        message += selected.emoji;
-      }}
+      onSelect={handleEmojiSelect}
     >
-      <Popover.Root bind:open>
+      <Popover.Root bind:open={emojiPickerOpen}>
         <Popover.Trigger
           class={cn(
             buttonVariants({ variant: "outline", size: "icon" }),
@@ -254,12 +305,14 @@
         </Popover.Content>
       </Popover.Root>
     </EmojiPicker.Root>
+
     <Input
       bind:value={message}
-      oninput={sendTyping}
+      oninput={handleTypingInput}
       class="rounded-full"
       placeholder="Type a message..."
     />
+
     <Button
       type="submit"
       variant="default"
