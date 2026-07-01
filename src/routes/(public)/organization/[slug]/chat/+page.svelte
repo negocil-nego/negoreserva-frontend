@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { page } from "$app/state";
   import AppSidebar from "$lib/components/navs/sidebar/app-sidebar.svelte";
   import ChatPage from "$lib/feature/pub/chat/ui/chat-page.svelte";
@@ -8,23 +7,27 @@
   import { useOrgListUsers } from "$lib/feature/org/organization/data/hooks/use-get-org-users";
   import type { OrgUserSimpleResponse } from "$lib/feature/org/organization/data/hooks/use-get-org-users";
   import type { ChatConversationWithMessages } from "$lib/feature/pub/chat/data/hooks/use-get-user-conversations";
+  import { isAuthenticatedStore } from "$lib/stores/user-auth.store";
 
   const slug = $derived(page.params.slug!);
+  const isAuthenticated = $derived($isAuthenticatedStore);
 
-  let org = $state<{ uuid: string; name: string; logo: string | null } | null>(null);
-  let users = $state<OrgUserSimpleResponse[]>([]);
+  let orgQuery = $derived(useOrgSimpleInfo(slug, { enabled: isAuthenticated }));
+  let usersQuery = $derived(
+    useOrgListUsers(slug, { enabled: isAuthenticated }),
+  );
 
-  onMount(async () => {
-    const [orgData, usersData] = await Promise.all([
-      useOrgSimpleInfo(slug),
-      useOrgListUsers(slug),
-    ]);
-    org = orgData;
-    users = usersData;
-  });
+  let org = $derived($orgQuery.data ?? null);
+  let users = $derived($usersQuery.data ?? []);
 
   let conversation = $state<ChatConversationWithMessages | null>(null);
   let receptor = $state<OrgUserSimpleResponse | null>(null);
+
+  $effect(() => {
+    if (users.length === 1 && receptor === null) {
+      receptor = users[0];
+    }
+  });
 
   function handleSelectConversation(
     conv: ChatConversationWithMessages,
@@ -36,14 +39,13 @@
 </script>
 
 <Sidebar.Provider>
-  <AppSidebar {slug} {org} {users} onSelectConversation={handleSelectConversation} />
+  <AppSidebar
+    {slug}
+    {org}
+    {users}
+    onSelectConversation={handleSelectConversation}
+  />
   <Sidebar.Inset>
-    <ChatPage
-      {conversation}
-      {slug}
-      {org}
-      {receptor}
-    />
+    <ChatPage {conversation} {slug} {org} {receptor} />
   </Sidebar.Inset>
 </Sidebar.Provider>
-

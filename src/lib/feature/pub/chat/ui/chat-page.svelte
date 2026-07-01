@@ -13,6 +13,7 @@
     ArrowRight01Icon,
     SmilePlusIcon,
     Video02Icon,
+    Home01Icon,
   } from "@hugeicons/core-free-icons";
   import { Input } from "$lib/components/ui/input";
   import { cn } from "$lib/utils.js";
@@ -131,6 +132,16 @@
       </div>
     </div>
     <div class="flex place-items-center">
+      <Button
+        variant="ghost"
+        size="icon"
+        class="rounded-full"
+        onclick={() => {
+          window.location.href = "/";
+        }}
+      >
+        <HugeiconsIcon icon={Home01Icon} />
+      </Button>
       <Button variant="ghost" size="icon" class="rounded-full">
         <HugeiconsIcon icon={TelephoneIcon} />
       </Button>
@@ -194,8 +205,7 @@
         !receptor?.uuid ||
         !slug
       ) {
-        console.log(receptor?.name);
-        console.log(receptor?.uuid);
+        console.log(receptor);
         return;
       }
       sendStompMessage("/app/chat/send", {

@@ -65,12 +65,7 @@
           })}
           onclick={() => goto(resolve(`/organization/${item.slug}/chat`))}
         >
-          <HugeiconsIcon
-            icon={Chat01Icon}
-            size={10}
-            color="#ffffff"
-            strokeWidth={1}
-          />
+          <HugeiconsIcon icon={Chat01Icon} size={10} strokeWidth={1} />
         </Tooltip.Trigger>
         <Tooltip.Content>
           <p>Mensagem no chat</p>
@@ -86,12 +81,7 @@
             class: "cursor-pointer rounded-sm",
           })}
         >
-          <HugeiconsIcon
-            icon={TelephoneIcon}
-            size={10}
-            color="#ffffff"
-            strokeWidth={1}
-          />
+          <HugeiconsIcon icon={TelephoneIcon} size={10} strokeWidth={1} />
         </Tooltip.Trigger>
         <Tooltip.Content>
           <p>Fazer ligação</p>

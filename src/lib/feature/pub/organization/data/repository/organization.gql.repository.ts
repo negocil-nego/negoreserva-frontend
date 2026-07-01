@@ -5,9 +5,9 @@ import type {
     OrganizationDetailResponse,
     OrganizationPaginate,
     OrganizationSearchFilterParamInput,
-    PaginateRequest,
 } from "../model/organization.model";
 import type { ProductDetailResponse } from "$lib/feature/pub/product/data/model/product.model";
+import type { PaginateRequest } from "$lib/feature/shared/core/data/model";
 
 export class OrganizationGqlRepo implements IOrganizationRepo {
     async detail(uuidOrSlug: string): Promise<OrganizationDetailResponse> {
