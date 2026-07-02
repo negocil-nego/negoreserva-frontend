@@ -12,8 +12,7 @@ export interface ChatMessageResponse {
     createdAt: string;
 }
 
-async function fetchUserConversations(
-    orgSlug: string,
+export async function fetchUserConversations(
     userUuid: string,
     paginateRequest?: PaginateRequest,
 ): Promise<PageResponse<ChatMessageResponse>> {
@@ -21,21 +20,20 @@ async function fetchUserConversations(
         pubUserConversations: PageResponse<ChatMessageResponse>;
     }>({
         query: PUB_USER_CONVERSATIONS,
-        variables: { orgSlug, userUuid, paginateRequest: paginateRequest ?? { pageNumber: 0, pageSize: 20 } },
+        variables: { userUuid, paginateRequest: paginateRequest ?? { pageNumber: 0, pageSize: 20 } },
         fetchPolicy: "network-only",
     });
     return data!.pubUserConversations;
 }
 
 export function useUserConversations(
-    orgSlug: string,
     userReceptor: OrgUserSimpleResponse | null,
-    paginateRequest?: PaginateRequest,
+    paginateRequest: PaginateRequest,
     options?: { enabled?: boolean },
 ) {
     return useQuery({
-        queryKey: ["pubUserConversations", orgSlug, userReceptor?.uuid, paginateRequest],
-        queryFn: () => fetchUserConversations(orgSlug, userReceptor?.uuid ?? '', paginateRequest),
-        enabled: (options?.enabled ?? true) && !!orgSlug && !!userReceptor,
+        queryKey: ["pubUserConversations", userReceptor, paginateRequest],
+        queryFn: () => fetchUserConversations(userReceptor?.uuid ?? '', paginateRequest),
+        enabled: (options?.enabled ?? true) && !!userReceptor,
     });
 }

@@ -5,10 +5,13 @@ import { browser } from "$app/environment";
 import { USER_AUTH_TOKEN_KEY } from "$lib/data/variables";
 
 let stompClient: Client | null = null;
-let onMessageCallback: ((msg: string) => void) | null = null;
 
-export function connectStomp(onMessage: (msg: string) => void): Client {
-  onMessageCallback = onMessage;
+export interface FunctionConnectStomp {
+  onChatMessage?: (msg: string) => void
+  onChatTyping?: (msg: string) => void
+}
+
+export function connectStomp(props: Readonly<FunctionConnectStomp>): Client {
 
   if (stompClient?.active) {
     return stompClient;
@@ -21,9 +24,16 @@ export function connectStomp(onMessage: (msg: string) => void): Client {
     connectHeaders: {
       Authorization: token ? `Bearer ${token}` : "",
     },
+    reconnectDelay: 5000,
+    heartbeatIncoming: 1000,
+    heartbeatOutgoing: 1000,
     onConnect: () => {
       stompClient!.subscribe("/user/queue/messages", (message) => {
-        onMessageCallback?.(message.body);
+        if (props.onChatMessage) props.onChatMessage(message.body);
+      });
+
+      stompClient!.subscribe("/user/queue/typing", (message) => {
+        if (props.onChatTyping) props.onChatTyping(message.body);
       });
     },
     onWebSocketError: (event) => {
@@ -46,7 +56,6 @@ export function disconnectStomp(): void {
     stompClient.deactivate();
   }
   stompClient = null;
-  onMessageCallback = null;
 }
 
 export function sendStompMessage(destination: string, body: unknown): void {

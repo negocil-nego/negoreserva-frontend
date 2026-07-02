@@ -24,8 +24,8 @@ export const PUB_ORG_USERS = gql`
 `;
 
 export const PUB_USER_CONVERSATIONS = gql`
-    query pubUserConversations($orgSlug: String!, $userUuid: ID!, $paginateRequest: PaginateRequest) {
-        pubUserConversations(orgSlug: $orgSlug, userUuid: $userUuid, paginateRequest: $paginateRequest) {
+    query pubUserConversations($userUuid: ID!, $paginateRequest: PaginateRequest) {
+        pubUserConversations(userUuid: $userUuid, paginateRequest: $paginateRequest) {
             content {
                 uuid
                 message

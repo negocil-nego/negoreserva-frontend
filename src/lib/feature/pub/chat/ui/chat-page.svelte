@@ -24,30 +24,31 @@
   } from "$lib/feature/pub/chat/data/stomp-client";
   import { userAuthStore } from "$lib/stores/user-auth.store";
   import type { OrgUserSimpleResponse } from "$lib/feature/org/organization/data/hooks/use-get-org-users";
-  import type {
-    ChatMessageResponse,
-  } from "$lib/feature/pub/chat/data/hooks/use-get-user-conversations";
+  import type { ChatMessageResponse } from "$lib/feature/pub/chat/data/hooks/use-get-user-conversations";
+  import type { OrgSimpleResponse } from "$lib/feature/org/organization/data/hooks/use-get-simple-org";
+  import Skeleton from "$lib/components/ui/skeleton/skeleton.svelte";
 
   const TYPING_TIMEOUT_MS = 2000;
 
   let {
-    messages = [],
     slug = "",
-    receptor = null,
     onLoadMore,
+    messages = [],
+    receptor = null,
     hasMore = true,
+    isLoading = false,
   }: {
     messages: ChatMessageResponse[];
     slug: string;
-    org: { uuid: string; name: string; logo: string | null } | null;
+    org: OrgSimpleResponse | null;
     receptor: OrgUserSimpleResponse | null;
     onLoadMore?: () => void;
     hasMore?: boolean;
+    isLoading?: boolean;
   } = $props();
 
   const currentUser = $derived(userAuthStore.getUserAuthResponse() as any);
 
-  const localMessages = $state<ChatMessageResponse[]>([]);
   let message = $state("");
   let emojiPickerOpen = $state(false);
   let isTyping = $state(false);
@@ -76,13 +77,6 @@
     return msg.senderName === currentUser?.name;
   }
 
-  function syncMessages() {
-    localMessages.length = 0;
-    if (messages) {
-      localMessages.push(...messages);
-    }
-  }
-
   // --- STOMP handling ---
 
   function handleIncomingMessage(data: {
@@ -92,10 +86,10 @@
     senderName: string;
     createdAt: string;
   }) {
-    const alreadyExists = localMessages.some((m) => m.uuid === data.uuid);
+    const alreadyExists = messages.some((m) => m.uuid === data.uuid);
     if (alreadyExists) return;
 
-    localMessages.push({
+    messages.push({
       uuid: data.uuid,
       message: data.message,
       senderName: data.senderName,
@@ -114,6 +108,7 @@
   }
 
   function handleStompMessage(raw: string) {
+    console.log(raw);
     const data = JSON.parse(raw);
     if (data.type === "message") {
       handleIncomingMessage(data);
@@ -130,14 +125,13 @@
       orgSlug: slug,
       receptorUuid: receptor.uuid,
       isTyping: isTypingValue,
+      message,
     });
   }
 
   function handleTypingInput() {
     if (!receptor?.uuid || !slug) return;
-
     notifyTyping(true);
-
     if (typingTimeout) clearTimeout(typingTimeout);
     typingTimeout = setTimeout(() => notifyTyping(false), TYPING_TIMEOUT_MS);
   }
@@ -151,7 +145,6 @@
   function handleSendMessage(event: SubmitEvent) {
     event.preventDefault();
     if (!canSendMessage()) return;
-
     sendStompMessage("/app/chat/send", {
       orgSlug: slug,
       receptorUuid: receptor!.uuid,
@@ -165,12 +158,11 @@
     message += selected.emoji;
   }
 
-  // --- Lifecycle ---
-
-  $effect(syncMessages);
-
   onMount(() => {
-    connectStomp(handleStompMessage);
+    connectStomp({
+      onChatMessage: handleStompMessage,
+      onChatTyping: handleStompMessage,
+    });
   });
 
   onDestroy(() => {
@@ -195,7 +187,7 @@
         <span class="text-xs">
           {isTyping
             ? "A escrever..."
-            : localMessages.length > 0
+            : messages.length > 0
               ? "Conversa ativa"
               : ""}
         </span>
@@ -223,47 +215,64 @@
   </div>
 
   <Chat.List class="flex-1 overflow-y-auto">
-    {#if hasMore && localMessages.length > 0}
-      <div class="flex justify-center p-2">
-        <Button onclick={onLoadMore} variant="ghost" size="sm">
-          Carregar mais mensagens
-        </Button>
-      </div>
-    {/if}
-    {#each localMessages as msg (msg.uuid + msg.message)}
-      <Chat.Bubble variant={isOwnMessage(msg) ? "sent" : "received"}>
-        <Chat.BubbleAvatar>
-          <Chat.BubbleAvatarImage
-            src={isOwnMessage(msg) ? currentUser?.logo || undefined : undefined}
-            alt={msg.receptorName}
-          />
-          <Chat.BubbleAvatarFallback>
-            {initials(msg.receptorName)}
-          </Chat.BubbleAvatarFallback>
-        </Chat.BubbleAvatar>
-        <Chat.BubbleMessage class="flex flex-col gap-1">
-          <p>{msg.message}</p>
-          <div
-            class="w-full text-xs group-data-[variant='sent']/chat-bubble:text-end"
-          >
-            {formatMessageTime(msg.createdAt)}
+    {#if isLoading}
+      <div>
+        {#each Array.from({ length: 4 }, (_, i) => i) as i (i)}
+          <div class="flex flex-col space-y-3">
+            <Skeleton class="h-28 w-52" />
+            <div class="space-y-2">
+              <Skeleton class="h-4 w-52" />
+              <Skeleton class="h-4 w-50" />
+            </div>
           </div>
-        </Chat.BubbleMessage>
-      </Chat.Bubble>
-    {/each}
+        {/each}
+      </div>
+    {:else}
+      {#if hasMore && messages.length > 0}
+        <div class="flex justify-center p-2">
+          <Button onclick={onLoadMore} variant="ghost" size="sm">
+            Carregar mais mensagens
+          </Button>
+        </div>
+      {/if}
+      {#each messages as msg (msg.uuid + msg.message)}
+        <Chat.Bubble variant={isOwnMessage(msg) ? "sent" : "received"}>
+          <Chat.BubbleAvatar>
+            <Chat.BubbleAvatarImage
+              src={isOwnMessage(msg)
+                ? currentUser?.logo || undefined
+                : undefined}
+              alt={msg.receptorName}
+            />
+            <Chat.BubbleAvatarFallback>
+              {initials(msg.receptorName)}
+            </Chat.BubbleAvatarFallback>
+          </Chat.BubbleAvatar>
+          <Chat.BubbleMessage class="flex flex-col gap-1">
+            <p>{msg.message}</p>
+            <div
+              class="w-full text-xs group-data-[variant='sent']/chat-bubble:text-end"
+            >
+              {formatMessageTime(msg.createdAt)}
+            </div>
+          </Chat.BubbleMessage>
+        </Chat.Bubble>
+      {/each}
 
-    {#if isTyping}
-      <Chat.Bubble variant="received">
-        <Chat.BubbleAvatar>
-          <Chat.BubbleAvatarFallback
-            >{initials(receptor?.name)}</Chat.BubbleAvatarFallback
-          >
-        </Chat.BubbleAvatar>
-        <Chat.BubbleMessage>
-          <span class="text-muted-foreground italic text-xs">A escrever...</span
-          >
-        </Chat.BubbleMessage>
-      </Chat.Bubble>
+      {#if isTyping}
+        <Chat.Bubble variant="received">
+          <Chat.BubbleAvatar>
+            <Chat.BubbleAvatarFallback
+              >{initials(receptor?.name)}</Chat.BubbleAvatarFallback
+            >
+          </Chat.BubbleAvatar>
+          <Chat.BubbleMessage>
+            <span class="text-muted-foreground italic text-xs"
+              >A escrever...</span
+            >
+          </Chat.BubbleMessage>
+        </Chat.Bubble>
+      {/if}
     {/if}
   </Chat.List>
 
@@ -313,14 +322,25 @@
       placeholder="Type a message..."
     />
 
-    <Button
-      type="submit"
-      variant="default"
-      size="icon"
-      class="shrink-0 rounded-full"
-      disabled={message === ""}
-    >
-      <HugeiconsIcon icon={ArrowRight01Icon} />
-    </Button>
+    {#if message.trim().length == 0}
+      <Button
+        type="submit"
+        variant="default"
+        size="icon"
+        class="shrink-0 rounded-full"
+        disabled
+      >
+        <HugeiconsIcon icon={ArrowRight01Icon} />
+      </Button>
+    {:else if receptor}
+      <Button
+        type="submit"
+        variant="default"
+        size="icon"
+        class="shrink-0 rounded-full"
+      >
+        <HugeiconsIcon icon={ArrowRight01Icon} />
+      </Button>
+    {/if}
   </form>
 </div>

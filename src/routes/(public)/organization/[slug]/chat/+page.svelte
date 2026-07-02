@@ -8,7 +8,10 @@
   import type { OrgUserSimpleResponse } from "$lib/feature/org/organization/data/hooks/use-get-org-users";
   import { useUserConversations } from "$lib/feature/pub/chat/data/hooks/use-get-user-conversations";
   import type { ChatMessageResponse } from "$lib/feature/pub/chat/data/hooks/use-get-user-conversations";
-  import type { PaginateRequest } from "$lib/feature/pub/chat/data/queries/types";
+  import type {
+    PaginateRequest,
+    PageResponse,
+  } from "$lib/feature/pub/chat/data/queries/types";
   import { isAuthenticatedStore } from "$lib/stores/user-auth.store";
 
   const slug = $derived(page.params.slug!);
@@ -27,18 +30,21 @@
     pageNumber: 0,
     pageSize: 20,
   });
-  let messagesQuery = $derived(
-    useUserConversations(slug, receptor, messagesPageRequest),
-  );
 
   let messages = $state<ChatMessageResponse[]>([]);
+  let currentPage = $state<PageResponse<ChatMessageResponse> | null>(null);
+
+  let conversationsQuery = $derived(
+    useUserConversations(receptor, messagesPageRequest),
+  );
 
   $effect(() => {
-    const page = $messagesQuery.data;
+    const page = $conversationsQuery.data;
     if (!page) return;
+    currentPage = page;
     if (messagesPageRequest.pageNumber === 0) {
       messages = page.content;
-    } else if (page.number === messagesPageRequest.pageNumber) {
+    } else {
       messages = [...page.content, ...messages];
     }
   });
@@ -46,11 +52,12 @@
   function handleReceptorChange(newReceptor: OrgUserSimpleResponse) {
     receptor = newReceptor;
     messages = [];
+    currentPage = null;
     messagesPageRequest = { pageNumber: 0, pageSize: 20 };
   }
 
   function handleLoadMore() {
-    if ($messagesQuery.data?.last) return;
+    if (currentPage?.last) return;
     messagesPageRequest = {
       ...messagesPageRequest,
       pageNumber: messagesPageRequest.pageNumber + 1,
@@ -62,12 +69,13 @@
   <ChatSidebar {slug} {org} {users} onChangeUser={handleReceptorChange} />
   <Sidebar.Inset>
     <ChatPage
+      isLoading={$conversationsQuery.isLoading}
+      hasMore={!currentPage?.last}
+      onLoadMore={handleLoadMore}
+      {receptor}
       {messages}
       {slug}
       {org}
-      {receptor}
-      onLoadMore={handleLoadMore}
-      hasMore={!$messagesQuery.data?.last}
     />
   </Sidebar.Inset>
 </Sidebar.Provider>
